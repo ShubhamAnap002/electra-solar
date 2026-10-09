@@ -1,0 +1,25 @@
+{
+  "isConnected": false,
+  "connectedEmail": null,
+  "recipientEmail": "sales@electrasolar.in",
+  "senderName": "Electra Solar Notification",
+  "authMethod": "oauth",
+  "oauth": {
+    "clientId": "",
+    "clientSecret": "",
+    "refreshToken": null,
+    "accessToken": null,
+    "tokenExpiry": null,
+    "redirectUri": "http://localhost:3000/api/admin/gmail/callback"
+  },
+  "smtp": {
+    "host": "smtp.gmail.com",
+    "port": 587,
+    "secure": false,
+    "user": "",
+    "pass": ""
+  },
+  "lastTestedAt": null,
+  "lastTestStatus": null,
+  "lastTestMessage": null
+}

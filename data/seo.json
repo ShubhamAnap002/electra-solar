@@ -1,0 +1,90 @@
+{
+  "siteTitle": "Electra Solar — High-Efficiency Hybrid Inverters & Energy Storage",
+  "defaultDescription": "Official turnkey distributor of EnerTech UPS Pvt. Ltd. (Pune, Estd. 1989). Industrial 100% unbalanced phase hybrid inverters, BESS, and online UPS.",
+  "keywords": "solar hybrid inverter, enertech ups, deye india, Bess energy storage, 3 phase solar inverter, pune solar manufacturer",
+  "ogImage": "/images/hero/hero-solar-system.jpg",
+  "googleSiteVerification": "",
+  "pages": [
+    {
+      "path": "/",
+      "name": "Homepage",
+      "title": "Electra Solar — High-Efficiency Hybrid Inverters & Energy Storage",
+      "description": "Discover heavy-duty solar hybrid inverters, BESS, and industrial UPS with zero-break transfer and 100% phase unbalance tolerance.",
+      "keywords": "solar inverters, hybrid pcu, bess, pune",
+      "canonical": "https://electrasolar.in/",
+      "noIndex": false
+    },
+    {
+      "path": "/products",
+      "name": "Product Catalogue",
+      "title": "Solar Inverters & Power Electronics Catalogue | Electra Solar",
+      "description": "Explore our full range of 3kW-50kW hybrid inverters, modular LiFePO4 battery storage systems, and industrial online UPS.",
+      "keywords": "solar products, hybrid inverter specs, lithium battery bank",
+      "canonical": "https://electrasolar.in/products",
+      "noIndex": false
+    },
+    {
+      "path": "/calculator",
+      "name": "Sizing Calculator",
+      "title": "Solar & Battery System Sizing Calculator | Electra Solar",
+      "description": "Estimate solar PV capacity, battery storage size, and annual electricity cost savings for homes and industrial facilities.",
+      "keywords": "solar sizing calculator, solar roi estimator, battery storage calculator",
+      "canonical": "https://electrasolar.in/calculator",
+      "noIndex": false
+    },
+    {
+      "path": "/compare",
+      "name": "Specification Comparison",
+      "title": "Compare Solar Inverters & Storage Specifications | Electra Solar",
+      "description": "Side-by-side technical specification comparison for SunMagic hybrid PCUs, EnerCube BESS, and industrial UPS.",
+      "keywords": "compare inverters, inverter specifications matrix",
+      "canonical": "https://electrasolar.in/compare",
+      "noIndex": false
+    },
+    {
+      "path": "/solutions",
+      "name": "Turnkey Solutions",
+      "title": "Solar Solutions for Residential, Commercial & Industrial | Electra Solar",
+      "description": "Engineered solar architectures for luxury villas, commercial office complexes, industrial factories, and microgrids.",
+      "keywords": "commercial solar, residential solar hybrid, industrial microgrid",
+      "canonical": "https://electrasolar.in/solutions",
+      "noIndex": false
+    },
+    {
+      "path": "/services",
+      "name": "Engineering Services",
+      "title": "Site Survey, Turnkey EPC & 24/7 AMC Services | Electra Solar",
+      "description": "Comprehensive engineering audits, harmonic analysis, DG synchronization commissioning, and AMC SLA support.",
+      "keywords": "solar site survey, solar commissioning, inverter amc pune",
+      "canonical": "https://electrasolar.in/services",
+      "noIndex": false
+    },
+    {
+      "path": "/projects",
+      "name": "Case Studies",
+      "title": "Commissioned Solar Projects & Case Studies | Electra Solar",
+      "description": "Explore real-world industrial installations across Chakan, Hinjawadi, Lonavala, and Baramati.",
+      "keywords": "solar case studies, chakan industrial solar, hospital solar ups",
+      "canonical": "https://electrasolar.in/projects",
+      "noIndex": false
+    },
+    {
+      "path": "/about",
+      "name": "About Us",
+      "title": "About Electra Solar & EnerTech Engineering Heritage",
+      "description": "35+ years of parent engineering excellence. Over 35,000 systems commissioned across India and worldwide.",
+      "keywords": "about electra solar, enertech ups pvt ltd heritage, pune solar company",
+      "canonical": "https://electrasolar.in/about",
+      "noIndex": false
+    },
+    {
+      "path": "/contact",
+      "name": "Contact & Hub Locations",
+      "title": "Contact Electra Solar Sales & Engineering Desk | Pune Hub",
+      "description": "Speak directly with our power engineering team for sizing, quotation, and dealer partnership inquiries.",
+      "keywords": "contact electra solar, pune solar phone, enertech sales desk",
+      "canonical": "https://electrasolar.in/contact",
+      "noIndex": false
+    }
+  ]
+}

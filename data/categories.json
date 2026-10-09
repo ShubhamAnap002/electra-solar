@@ -1,0 +1,47 @@
+[
+  {
+    "id": "solar-hybrid-inverters",
+    "slug": "solar-hybrid-inverters",
+    "name": "Solar Hybrid Inverters",
+    "shortDesc": "DSP-controlled hybrid inverters with batteryless operation, zero-break transfer, and smart DG synchronization.",
+    "description": "Electra Solar supplies EnerTech flagship hybrid inverters built with 32-bit DSP controllers, heavy-duty galvanic isolation, 100% phase unbalance support, and dual-mode grid-export/self-consumption management.",
+    "iconName": "Sun",
+    "productCount": 5
+  },
+  {
+    "id": "solar-online-ups",
+    "slug": "solar-online-ups",
+    "name": "Solar Online UPS",
+    "shortDesc": "Double-conversion zero-transfer UPS systems with integrated solar charging for mission-critical loads.",
+    "description": "Engineered for medical theatres, data servers, banking centers, and industrial automation where power interruption cannot exceed 0ms.",
+    "iconName": "ShieldCheck",
+    "productCount": 3
+  },
+  {
+    "id": "bess",
+    "slug": "bess",
+    "name": "Battery Energy Storage (BESS)",
+    "shortDesc": "Modular commercial & industrial energy storage systems for peak-shaving and time-of-day tariff optimization.",
+    "description": "Turnkey containerized and indoor cabinet energy storage solutions featuring Tier-1 LiFePO4 cells and integrated Power Conversion Systems (PCS).",
+    "iconName": "Layers",
+    "productCount": 2
+  },
+  {
+    "id": "batteries",
+    "slug": "batteries",
+    "name": "Lithium & Industrial Batteries",
+    "shortDesc": "High-cycle LiFePO4 rack-mount packs, heavy-duty VRLA/SMF, and industrial Ni-Cad battery solutions.",
+    "description": "Certified 48V/51.2V LFP energy storage packs with intelligent CAN/RS485 BMS communication protocols for optimal lifecycle and safety.",
+    "iconName": "BatteryCharging",
+    "productCount": 2
+  },
+  {
+    "id": "power-conditioning",
+    "slug": "power-conditioning",
+    "name": "Power Conditioning & Chargers",
+    "shortDesc": "Servo voltage stabilizers, static frequency converters, and industrial SCR/IGBT battery chargers.",
+    "description": "Rugged electrical engineering equipment built to protect delicate equipment against severe line voltage fluctuations and industrial harmonics.",
+    "iconName": "Zap",
+    "productCount": 3
+  }
+]

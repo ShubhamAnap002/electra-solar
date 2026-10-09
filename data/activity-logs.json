@@ -1,0 +1,26 @@
+[
+  {
+    "id": "log_1791546122873_fbj8",
+    "action": "Admin Login",
+    "module": "Auth",
+    "details": "Administrator 'admin' logged in successfully.",
+    "timestamp": "2026-10-09T11:42:02.873Z",
+    "user": "admin"
+  },
+  {
+    "id": "log_1791545933611_xu1v",
+    "action": "Admin Login",
+    "module": "Auth",
+    "details": "Administrator 'admin' logged in successfully.",
+    "timestamp": "2026-10-09T11:38:53.611Z",
+    "user": "admin"
+  },
+  {
+    "id": "log_init",
+    "action": "System Initialized",
+    "module": "Auth",
+    "details": "Electra Solar Admin Data Store established.",
+    "timestamp": "2026-10-09T11:37:58.884Z",
+    "user": "System"
+  }
+]

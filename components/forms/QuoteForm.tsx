@@ -1,16 +1,23 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
-import { PRODUCTS } from "@/lib/data/products";
+import { PRODUCTS, Product } from "@/lib/data/products";
 
 interface QuoteFormProps {
   initialProductSlug?: string;
   onSuccess?: () => void;
   isCompact?: boolean;
+  formTitle?: string;
 }
 
-export function QuoteForm({ initialProductSlug, onSuccess, isCompact = false }: QuoteFormProps) {
+export function QuoteForm({
+  initialProductSlug,
+  onSuccess,
+  isCompact = false,
+  formTitle = "Quote Request",
+}: QuoteFormProps) {
+  const [productList, setProductList] = useState<Product[]>(PRODUCTS);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -20,10 +27,36 @@ export function QuoteForm({ initialProductSlug, onSuccess, isCompact = false }: 
     application: "Commercial / Industrial Facility",
     approxCapacity: "25 kVA – 50 kVA",
     message: "",
+    website_hp: "", // honeypot
   });
 
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
+
+  // Sync initialProductSlug if it changes
+  useEffect(() => {
+    if (initialProductSlug) {
+      setFormData((prev) => ({ ...prev, productModel: initialProductSlug }));
+    }
+  }, [initialProductSlug]);
+
+  // Load dynamically added products if available
+  useEffect(() => {
+    async function loadProducts() {
+      try {
+        const res = await fetch("/api/admin/products");
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success && data.products && data.products.length > 0) {
+            setProductList(data.products);
+          }
+        }
+      } catch (e) {
+        // Fallback to static PRODUCTS
+      }
+    }
+    loadProducts();
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -33,7 +66,7 @@ export function QuoteForm({ initialProductSlug, onSuccess, isCompact = false }: 
     e.preventDefault();
     if (!formData.name.trim() || !formData.phone.trim()) {
       setStatus("error");
-      setErrorMessage("Please provide your name and a valid phone number.");
+      setErrorMessage("Please provide your name and a valid telephone number.");
       return;
     }
 
@@ -41,28 +74,42 @@ export function QuoteForm({ initialProductSlug, onSuccess, isCompact = false }: 
     setErrorMessage("");
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 800));
+      const res = await fetch("/api/forms/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...formData,
+          formType: formTitle,
+          pageUrl: typeof window !== "undefined" ? window.location.href : "",
+        }),
+      });
+
+      const result = await res.json();
+
+      if (!res.ok || !result.success) {
+        throw new Error(result.message || "Failed to deliver enquiry. Please contact sales desk directly.");
+      }
+
       setStatus("success");
       if (onSuccess) onSuccess();
-    } catch (err) {
+    } catch (err: any) {
       setStatus("error");
-      setErrorMessage("Failed to send inquiry. Please call +91 9822407189 directly.");
+      setErrorMessage(err.message || "Failed to send inquiry. Please call +91 98224 12345 directly.");
     }
   };
 
   if (status === "success") {
     return (
-      <div className="bg-[#f0f9ff] border border-[#015cbb]/30 rounded-2xl p-8 text-center space-y-4">
+      <div className="bg-[#f0f9ff] border border-[#015cbb]/30 rounded-2xl p-8 text-center space-y-4 animate-in fade-in duration-300">
         <div className="w-16 h-16 bg-[#e6f0fa] text-[#015cbb] rounded-full flex items-center justify-center mx-auto ring-8 ring-[#015cbb]/10">
           <CheckCircle2 className="w-8 h-8" />
         </div>
-        <h4 className="text-2xl font-black text-[#222222]">Proposal Request Received</h4>
+        <h4 className="text-2xl font-black text-[#222222]">Proposal Request Delivered</h4>
         <p className="text-[#5c5c5c] text-sm max-w-md mx-auto">
-          Thank you, <strong className="text-[#222222]">{formData.name}</strong>. An EnerTech certified application engineer
-          will contact you on <strong className="text-[#015cbb]">{formData.phone}</strong> to review sizing and technical specifications.
+          Thank you, <strong className="text-[#222222]">{formData.name}</strong>. Your requirement has been delivered directly to our Pune sales engineering desk. We will reach you on <strong className="text-[#015cbb]">{formData.phone}</strong> to review sizing.
         </p>
         <div className="pt-2 text-xs text-gray-500">
-          Immediate assistance? Direct Pune sales desk: <strong className="text-[#222222]">+91 9822407189</strong>
+          Immediate engineering requirement? Pune Sales Desk: <strong className="text-[#222222]">+91 98224 12345</strong>
         </div>
       </div>
     );
@@ -70,6 +117,17 @@ export function QuoteForm({ initialProductSlug, onSuccess, isCompact = false }: 
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {/* Anti-spam honeypot */}
+      <input
+        type="text"
+        name="website_hp"
+        value={formData.website_hp}
+        onChange={handleChange}
+        style={{ display: "none" }}
+        tabIndex={-1}
+        autoComplete="off"
+      />
+
       {status === "error" && (
         <div className="p-3.5 bg-rose-50 border border-rose-300 rounded-xl text-rose-700 text-sm flex items-center gap-2">
           <AlertCircle className="w-5 h-5 flex-shrink-0 text-rose-600" />
@@ -150,7 +208,7 @@ export function QuoteForm({ initialProductSlug, onSuccess, isCompact = false }: 
             onChange={handleChange}
             className="w-full bg-[#f8fafd] border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-[#222222] focus:outline-none focus:border-[#015cbb] focus:ring-1 focus:ring-[#015cbb] transition-colors"
           >
-            {PRODUCTS.map((p) => (
+            {productList.map((p) => (
               <option key={p.slug} value={p.slug}>
                 {p.name} ({p.capacityRange})
               </option>
@@ -203,7 +261,7 @@ export function QuoteForm({ initialProductSlug, onSuccess, isCompact = false }: 
           {status === "submitting" ? (
             <>
               <Loader2 className="w-4 h-4 animate-spin" />
-              <span>Submitting Your Requirements...</span>
+              <span>Transmitting Requirements...</span>
             </>
           ) : (
             <>
@@ -215,7 +273,7 @@ export function QuoteForm({ initialProductSlug, onSuccess, isCompact = false }: 
       </div>
 
       <p className="text-[11px] text-center text-gray-500">
-        🔒 Confidential. Your data is protected. Technical sizing provided by certified EnerTech application engineers in Pune.
+        🔒 Confidential. Enquiries delivered directly to our authorized engineering desk. Not persisted in public databases.
       </p>
     </form>
   );
