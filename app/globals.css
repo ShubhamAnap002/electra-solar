@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 13%;
+  }
+
+  body {
+    @apply bg-white text-gray-800 antialiased selection:bg-[#015cbb] selection:text-white;
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+}
+
+/* Deye Watermark Typography */
+.deye-watermark {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 900;
+  color: #3a3a3a;
+  opacity: 0.08;
+  line-height: 0.85;
+  user-select: none;
+  pointer-events: none;
+  letter-spacing: -0.05em;
+}
+
+/* Deye Section Blue Accent Line */
+.deye-title-line {
+  display: block;
+  width: 48px;
+  height: 3px;
+  background-color: #015cbb;
+  margin-top: 8px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #015cbb;
+}
