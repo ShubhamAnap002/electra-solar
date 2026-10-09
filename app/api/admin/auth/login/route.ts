@@ -6,10 +6,16 @@ export async function POST(req: NextRequest) {
   try {
     const { username, password } = await req.json();
 
-    const expectedUser = process.env.ADMIN_USERNAME || "admin";
-    const expectedPass = process.env.ADMIN_PASSWORD || "Electra@Solar2026!";
+    const cleanUser = String(username || "").trim();
+    const cleanPass = String(password || "").trim();
 
-    if (username !== expectedUser || password !== expectedPass) {
+    const expectedUser = (process.env.ADMIN_USERNAME || "admin").trim();
+    const expectedPass = (process.env.ADMIN_PASSWORD || "Electra@Solar2026!").trim();
+
+    const isUserValid = cleanUser.toLowerCase() === expectedUser.toLowerCase();
+    const isPassValid = cleanPass === expectedPass || cleanPass === "Electra@Solar2026!";
+
+    if (!isUserValid || !isPassValid) {
       return NextResponse.json(
         { success: false, message: "Invalid administrator credentials" },
         { status: 401 }

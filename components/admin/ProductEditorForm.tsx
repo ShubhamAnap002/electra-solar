@@ -19,6 +19,7 @@ import {
   Zap,
 } from "lucide-react";
 import { Product, ProductSpec, CATEGORIES } from "@/lib/data/products";
+import { authFetch } from "@/lib/auth/client";
 
 interface ProductEditorFormProps {
   initialProduct?: Product;
@@ -137,7 +138,7 @@ export function ProductEditorForm({ initialProduct, isNew = false }: ProductEdit
         : `/api/admin/products/${initialProduct?.id || formData.slug}`;
       const method = isNew ? "POST" : "PUT";
 
-      const res = await fetch(url, {
+      const res = await authFetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

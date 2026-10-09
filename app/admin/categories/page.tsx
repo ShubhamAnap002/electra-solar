@@ -22,6 +22,7 @@ import {
   HelpCircle,
 } from "lucide-react";
 import { CategoryInfo } from "@/lib/data/products";
+import { authFetch } from "@/lib/auth/client";
 
 export default function AdminCategoriesPage() {
   const [categories, setCategories] = useState<CategoryInfo[]>([]);
@@ -55,7 +56,7 @@ export default function AdminCategoriesPage() {
   async function fetchCategories() {
     try {
       setLoading(true);
-      const res = await fetch("/api/admin/categories");
+      const res = await authFetch("/api/admin/categories");
       const data = await res.json();
       if (data.success) {
         setCategories(data.categories || []);
@@ -110,7 +111,7 @@ export default function AdminCategoriesPage() {
 
     try {
       const isEdit = !!editingCategory;
-      const res = await fetch("/api/admin/categories", {
+      const res = await authFetch("/api/admin/categories", {
         method: isEdit ? "PUT" : "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -138,7 +139,7 @@ export default function AdminCategoriesPage() {
     setSuccessMessage(null);
 
     try {
-      const res = await fetch(`/api/admin/categories?id=${deleteTarget.id}`, {
+      const res = await authFetch(`/api/admin/categories?id=${deleteTarget.id}`, {
         method: "DELETE",
       });
       const data = await res.json();

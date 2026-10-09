@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ChevronRight, ArrowLeft } from "lucide-react";
 import { CATEGORIES } from "@/lib/data/products";
+import { getStoredProducts, getStoredCategories } from "@/lib/store";
 import { ProductsCatalogueView } from "@/components/products/ProductsCatalogueView";
 
 interface CategoryPageProps {
@@ -12,6 +13,8 @@ interface CategoryPageProps {
   };
 }
 
+export const dynamic = "force-dynamic";
+
 export function generateStaticParams() {
   return CATEGORIES.map((cat) => ({
     category: cat.slug,
@@ -19,7 +22,8 @@ export function generateStaticParams() {
 }
 
 export function generateMetadata({ params }: CategoryPageProps): Metadata {
-  const category = CATEGORIES.find((c) => c.slug === params.category);
+  const categories = getStoredCategories();
+  const category = categories.find((c) => c.slug === params.category) || CATEGORIES.find((c) => c.slug === params.category);
   if (!category) {
     return { title: "Category Not Found | Electra Solar" };
   }
@@ -30,10 +34,12 @@ export function generateMetadata({ params }: CategoryPageProps): Metadata {
 }
 
 export default function CategoryPage({ params }: CategoryPageProps) {
-  const category = CATEGORIES.find((c) => c.slug === params.category);
+  const categories = getStoredCategories();
+  const category = categories.find((c) => c.slug === params.category) || CATEGORIES.find((c) => c.slug === params.category);
   if (!category) {
     notFound();
   }
+  const products = getStoredProducts().filter((p) => p.published !== false);
 
   return (
     <div className="py-12 lg:py-16 bg-[#f8fafd] min-h-screen">
@@ -81,7 +87,11 @@ export default function CategoryPage({ params }: CategoryPageProps) {
         </div>
 
         {/* Filtered Catalogue */}
-        <ProductsCatalogueView initialCategory={category.slug} />
+        <ProductsCatalogueView
+          initialCategory={category.slug}
+          initialProducts={products}
+          initialCategories={categories}
+        />
       </div>
     </div>
   );

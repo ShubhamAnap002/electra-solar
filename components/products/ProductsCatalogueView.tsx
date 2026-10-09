@@ -1,21 +1,47 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { Search, Filter, RotateCcw } from "lucide-react";
-import { PRODUCTS, CATEGORIES } from "@/lib/data/products";
+import { PRODUCTS, CATEGORIES, Product, CategoryInfo } from "@/lib/data/products";
 import { ProductCard } from "@/components/products/ProductCard";
 
 interface ProductsCatalogueViewProps {
   initialCategory?: string;
+  initialProducts?: Product[];
+  initialCategories?: CategoryInfo[];
 }
 
-export function ProductsCatalogueView({ initialCategory }: ProductsCatalogueViewProps) {
+export function ProductsCatalogueView({
+  initialCategory,
+  initialProducts,
+  initialCategories,
+}: ProductsCatalogueViewProps) {
+  const [productsList, setProductsList] = useState<Product[]>(initialProducts || PRODUCTS);
+  const categoriesList = initialCategories || CATEGORIES;
+
+  useEffect(() => {
+    async function refreshProducts() {
+      try {
+        const res = await fetch("/api/products");
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success && data.products && data.products.length > 0) {
+            setProductsList(data.products);
+          }
+        }
+      } catch (e) {
+        // Fallback to static
+      }
+    }
+    refreshProducts();
+  }, []);
+
   const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory || "all");
   const [selectedPhase, setSelectedPhase] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   const filteredProducts = useMemo(() => {
-    return PRODUCTS.filter((product) => {
+    return productsList.filter((product) => {
       // Category filter
       if (selectedCategory !== "all" && product.category !== selectedCategory) {
         return false;
@@ -72,7 +98,7 @@ export function ProductsCatalogueView({ initialCategory }: ProductsCatalogueView
             All Products
           </button>
 
-          {CATEGORIES.map((cat) => (
+          {categoriesList.map((cat) => (
             <React.Fragment key={cat.id}>
               <span className="text-gray-600 select-none">|</span>
               <button

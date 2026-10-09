@@ -1,15 +1,31 @@
 "use client";
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import React, { useState, useEffect } from "react";
 import { Sun, Lock, User, ArrowRight, ShieldCheck, AlertCircle, Loader2 } from "lucide-react";
 
 export default function AdminLoginPage() {
-  const router = useRouter();
   const [username, setUsername] = useState("admin");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  // Check if session is already active
+  useEffect(() => {
+    const token = typeof window !== "undefined" ? localStorage.getItem("electra_admin_token") : null;
+    if (token) {
+      fetch("/api/admin/auth/me", {
+        headers: { Authorization: `Bearer ${token}` },
+        credentials: "include",
+      })
+        .then((r) => r.json())
+        .then((data) => {
+          if ((data.success || data.authenticated) && data.user) {
+            window.location.href = "/admin";
+          }
+        })
+        .catch(() => {});
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,7 +36,7 @@ export default function AdminLoginPage() {
       const res = await fetch("/api/admin/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username: username.trim(), password }),
       });
 
       const data = await res.json();
@@ -30,8 +46,13 @@ export default function AdminLoginPage() {
         return;
       }
 
-      router.push("/admin");
-      router.refresh();
+      // Store token in localStorage as persistent client session backup for Vercel
+      if (data.token) {
+        localStorage.setItem("electra_admin_token", data.token);
+      }
+
+      // Hard redirect ensures the browser dispatches fresh cookies to Vercel/Next.js
+      window.location.href = "/admin";
     } catch (err: any) {
       setError("An unexpected network error occurred. Please try again.");
       setLoading(false);

@@ -1,7 +1,9 @@
 import React from "react";
 import type { Metadata } from "next";
 import { ProductsCatalogueView } from "@/components/products/ProductsCatalogueView";
-import { ShieldCheck } from "lucide-react";
+import { getStoredProducts, getStoredCategories } from "@/lib/store";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Products Catalogue | Solar Hybrid Inverters & BESS | Electra Solar",
@@ -10,6 +12,9 @@ export const metadata: Metadata = {
 };
 
 export default function ProductsPage() {
+  const products = getStoredProducts().filter((p) => p.published !== false);
+  const categories = getStoredCategories();
+
   return (
     <div className="py-12 lg:py-16 bg-[#f8fafd] min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-10">
@@ -29,7 +34,7 @@ export default function ProductsPage() {
         </div>
 
         {/* Interactive Catalogue */}
-        <ProductsCatalogueView />
+        <ProductsCatalogueView initialProducts={products} initialCategories={categories} />
       </div>
     </div>
   );

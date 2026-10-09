@@ -4,11 +4,26 @@ import { PRODUCTS, CATEGORIES, Product, CategoryInfo } from "@/lib/data/products
 import { COMPANY, CompanyInfo } from "@/lib/data/company";
 
 const DATA_DIR = path.join(process.cwd(), "data");
+const TMP_DIR = path.join(process.env.TMPDIR || process.env.TEMP || "/tmp", "electra-data");
 
-// Helper to ensure data directory exists
+// In-memory fallback cache for serverless environments (e.g. Vercel)
+const inMemoryStore: Record<string, any> = {};
+
+// Helper to ensure data directory exists safely
 function ensureDataDir() {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+  } catch (err) {
+    // If process.cwd() is read-only (like Vercel lambda), ensure /tmp directory exists
+    try {
+      if (!fs.existsSync(TMP_DIR)) {
+        fs.mkdirSync(TMP_DIR, { recursive: true });
+      }
+    } catch (tmpErr) {
+      // Ignore directory creation failure, inMemoryStore will act as safety net
+    }
   }
 }
 
@@ -261,42 +276,84 @@ const DEFAULT_CONTENT: SiteContent = {
 
 // Generic JSON read with fallback
 function readJsonFile<T>(filename: string, fallback: T): T {
-  ensureDataDir();
-  const filePath = path.join(DATA_DIR, filename);
-  if (!fs.existsSync(filePath)) {
-    fs.writeFileSync(filePath, JSON.stringify(fallback, null, 2), "utf-8");
-    return fallback;
+  // 1. Check inMemoryStore first
+  if (inMemoryStore[filename] !== undefined) {
+    return inMemoryStore[filename] as T;
   }
+
+  // 2. Check /tmp directory (written during serverless execution)
   try {
-    const raw = fs.readFileSync(filePath, "utf-8");
-    return JSON.parse(raw) as T;
+    const tmpFilePath = path.join(TMP_DIR, filename);
+    if (fs.existsSync(tmpFilePath)) {
+      const raw = fs.readFileSync(tmpFilePath, "utf-8");
+      const parsed = JSON.parse(raw) as T;
+      inMemoryStore[filename] = parsed;
+      return parsed;
+    }
+  } catch (e) {
+    // ignore
+  }
+
+  // 3. Check bundled project data directory
+  try {
+    const filePath = path.join(DATA_DIR, filename);
+    if (fs.existsSync(filePath)) {
+      const raw = fs.readFileSync(filePath, "utf-8");
+      const parsed = JSON.parse(raw) as T;
+      inMemoryStore[filename] = parsed;
+      return parsed;
+    }
   } catch (err) {
-    console.error(`Error reading ${filename}, using fallback:`, err);
-    return fallback;
+    // ignore
+  }
+
+  // 4. Fallback if not found on disk, store in memory and return
+  inMemoryStore[filename] = fallback;
+  return fallback;
+}
+
+// Generic JSON write with resilient fallbacks
+function writeJsonFile<T>(filename: string, data: T): void {
+  // Always update memory store immediately
+  inMemoryStore[filename] = data;
+
+  ensureDataDir();
+
+  // Try writing to DATA_DIR first (local disk)
+  try {
+    const filePath = path.join(DATA_DIR, filename);
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2), "utf-8");
+    return;
+  } catch (err) {
+    // Write failed on read-only system (e.g. Vercel /var/task). Fallback to /tmp
+    try {
+      const tmpFilePath = path.join(TMP_DIR, filename);
+      fs.writeFileSync(tmpFilePath, JSON.stringify(data, null, 2), "utf-8");
+      return;
+    } catch (tmpErr) {
+      console.warn(`Write to disk failed for ${filename}; cached in memory:`, tmpErr);
+    }
   }
 }
 
-// Generic JSON write
-function writeJsonFile<T>(filename: string, data: T): void {
-  ensureDataDir();
-  const filePath = path.join(DATA_DIR, filename);
-  fs.writeFileSync(filePath, JSON.stringify(data, null, 2), "utf-8");
-}
-
-// Log admin activity
+// Log admin activity safely
 export function recordActivity(action: string, module: ActivityLog["module"], details: string, user = "Admin") {
-  const logs = getActivityLogs();
-  const newLog: ActivityLog = {
-    id: `log_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
-    action,
-    module,
-    details,
-    timestamp: new Date().toISOString(),
-    user,
-  };
-  logs.unshift(newLog);
-  // Keep last 100 activities
-  writeJsonFile("activity-logs.json", logs.slice(0, 100));
+  try {
+    const logs = getActivityLogs();
+    const newLog: ActivityLog = {
+      id: `log_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+      action,
+      module,
+      details,
+      timestamp: new Date().toISOString(),
+      user,
+    };
+    logs.unshift(newLog);
+    // Keep last 100 activities
+    writeJsonFile("activity-logs.json", logs.slice(0, 100));
+  } catch (err) {
+    console.warn("recordActivity warning (non-fatal):", err);
+  }
 }
 
 export function getActivityLogs(): ActivityLog[] {

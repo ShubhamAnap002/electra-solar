@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { AdminSidebar } from "./AdminSidebar";
 import { AdminHeader } from "./AdminHeader";
@@ -19,22 +19,55 @@ export function AdminShell({ children, user, gmailConnected, connectedEmail }: A
 
   const isLoginPage = pathname === "/admin/login";
 
+  const [currentUser, setCurrentUser] = useState<AdminUser | null>(user);
+  const [checkingAuth, setCheckingAuth] = useState<boolean>(!user && !isLoginPage);
+
   useEffect(() => {
-    if (!user && !isLoginPage) {
-      router.push("/admin/login");
+    if (user) {
+      setCurrentUser(user);
+      setCheckingAuth(false);
+      return;
     }
-  }, [user, isLoginPage, router]);
+
+    if (isLoginPage) {
+      setCheckingAuth(false);
+      return;
+    }
+
+    // Verify session via cookie or localStorage token
+    const token = typeof window !== "undefined" ? localStorage.getItem("electra_admin_token") : null;
+
+    fetch("/api/admin/auth/me", {
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if ((data.success || data.authenticated) && data.user) {
+          setCurrentUser(data.user);
+        } else {
+          localStorage.removeItem("electra_admin_token");
+          window.location.href = "/admin/login";
+        }
+      })
+      .catch(() => {
+        window.location.href = "/admin/login";
+      })
+      .finally(() => {
+        setCheckingAuth(false);
+      });
+  }, [user, isLoginPage]);
 
   if (isLoginPage) {
     return <>{children}</>;
   }
 
-  if (!user) {
+  if (checkingAuth || !currentUser) {
     return (
       <div className="min-h-screen bg-slate-900 flex items-center justify-center text-white">
         <div className="text-center space-y-3">
           <div className="w-8 h-8 border-4 border-[#00d2ff] border-t-transparent rounded-full animate-spin mx-auto" />
-          <p className="text-xs text-gray-400">Authenticating administrator session...</p>
+          <p className="text-xs text-gray-400">Verifying administrator session...</p>
         </div>
       </div>
     );
@@ -42,11 +75,11 @@ export function AdminShell({ children, user, gmailConnected, connectedEmail }: A
 
   const handleLogout = async () => {
     try {
+      localStorage.removeItem("electra_admin_token");
       await fetch("/api/admin/auth/logout", { method: "POST" });
-      router.push("/admin/login");
-      router.refresh();
+      window.location.href = "/admin/login";
     } catch (err) {
-      console.error("Logout failed", err);
+      window.location.href = "/admin/login";
     }
   };
 

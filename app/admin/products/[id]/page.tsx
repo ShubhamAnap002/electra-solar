@@ -6,6 +6,7 @@ import { ProductEditorForm } from "@/components/admin/ProductEditorForm";
 import { Product } from "@/lib/data/products";
 import { Loader2, AlertCircle, ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { authFetch } from "@/lib/auth/client";
 
 export default function EditProductPage() {
   const params = useParams();
@@ -22,7 +23,7 @@ export default function EditProductPage() {
     async function fetchProduct() {
       try {
         setLoading(true);
-        const res = await fetch(`/api/admin/products/${id}`);
+        const res = await authFetch(`/api/admin/products/${id}`);
         const data = await res.json();
         if (data.success && data.product) {
           setProduct(data.product);

@@ -1,15 +1,33 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
-import { PRODUCTS } from "@/lib/data/products";
+import { PRODUCTS, Product } from "@/lib/data/products";
 import { ProductCard } from "@/components/products/ProductCard";
 
 export function FeaturedProductsSection() {
+  const [productsList, setProductsList] = useState<Product[]>(PRODUCTS);
   const [filter, setFilter] = useState<string>("all");
 
-  const filteredProducts = PRODUCTS.filter((p) => {
+  useEffect(() => {
+    async function loadProducts() {
+      try {
+        const res = await fetch("/api/products");
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success && data.products && data.products.length > 0) {
+            setProductsList(data.products);
+          }
+        }
+      } catch (e) {
+        // Fallback to static
+      }
+    }
+    loadProducts();
+  }, []);
+
+  const filteredProducts = productsList.filter((p) => {
     if (filter === "all") return p.isFeatured || p.category === "solar-hybrid-inverters";
     if (filter === "hybrid") return p.category === "solar-hybrid-inverters";
     if (filter === "bess") return p.category === "bess" || p.category === "batteries";

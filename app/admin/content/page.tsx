@@ -15,6 +15,7 @@ import {
   AlertCircle,
 } from "lucide-react";
 import { SiteContent } from "@/lib/store";
+import { authFetch } from "@/lib/auth/client";
 
 export default function AdminContentPage() {
   const [content, setContent] = useState<SiteContent | null>(null);
@@ -31,7 +32,7 @@ export default function AdminContentPage() {
   async function fetchContent() {
     try {
       setLoading(true);
-      const res = await fetch("/api/admin/content");
+      const res = await authFetch("/api/admin/content");
       const data = await res.json();
       if (data.success && data.content) {
         setContent(data.content);
@@ -54,7 +55,7 @@ export default function AdminContentPage() {
     setErrorMessage(null);
 
     try {
-      const res = await fetch("/api/admin/content", {
+      const res = await authFetch("/api/admin/content", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(content),

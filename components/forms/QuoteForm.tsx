@@ -44,7 +44,7 @@ export function QuoteForm({
   useEffect(() => {
     async function loadProducts() {
       try {
-        const res = await fetch("/api/admin/products");
+        const res = await fetch("/api/products");
         if (res.ok) {
           const data = await res.json();
           if (data.success && data.products && data.products.length > 0) {

@@ -423,6 +423,9 @@ export function Footer() {
             <Link href="/sitemap.xml" className="hover:text-gray-300 transition-colors">
               Sitemap
             </Link>
+            <Link href="/admin" className="hover:text-[#00d2ff] transition-colors text-gray-400">
+              Admin Portal
+            </Link>
           </div>
         </div>
       </div>

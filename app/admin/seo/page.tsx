@@ -17,6 +17,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { SeoConfig } from "@/lib/store";
+import { authFetch } from "@/lib/auth/client";
 
 export default function AdminSeoPage() {
   const [seo, setSeo] = useState<SeoConfig | null>(null);
@@ -35,7 +36,7 @@ export default function AdminSeoPage() {
   async function fetchSeo() {
     try {
       setLoading(true);
-      const res = await fetch("/api/admin/seo");
+      const res = await authFetch("/api/admin/seo");
       const data = await res.json();
       if (data.success && data.seo) {
         setSeo(data.seo);
@@ -61,7 +62,7 @@ export default function AdminSeoPage() {
     setErrorMessage(null);
 
     try {
-      const res = await fetch("/api/admin/seo", {
+      const res = await authFetch("/api/admin/seo", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(seo),

@@ -55,9 +55,6 @@ export function FaqSection() {
                 {isOpen && (
                   <div className="px-5 sm:px-6 pb-6 text-xs sm:text-sm text-[#5c5c5c] leading-relaxed border-t border-gray-100 pt-4 animate-in fade-in duration-200">
                     <p>{faq.answer}</p>
-                    <div className="mt-3 text-[11px] text-gray-400 font-semibold uppercase tracking-wider">
-                      Technical Category: <span className="text-[#015cbb]">{faq.category}</span>
-                    </div>
                   </div>
                 )}
               </div>

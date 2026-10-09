@@ -18,6 +18,7 @@ import {
   Filter,
 } from "lucide-react";
 import { MediaFile } from "@/app/api/admin/media/route";
+import { authFetch } from "@/lib/auth/client";
 
 export default function AdminMediaPage() {
   const [files, setFiles] = useState<MediaFile[]>([]);
@@ -40,7 +41,7 @@ export default function AdminMediaPage() {
   async function fetchMedia() {
     try {
       setLoading(true);
-      const res = await fetch("/api/admin/media");
+      const res = await authFetch("/api/admin/media");
       const data = await res.json();
       if (data.success) {
         setFiles(data.files || []);
@@ -67,7 +68,7 @@ export default function AdminMediaPage() {
     setSuccessMessage(null);
 
     try {
-      const res = await fetch("/api/admin/media/upload", {
+      const res = await authFetch("/api/admin/media/upload", {
         method: "POST",
         body: formData,
       });
@@ -101,7 +102,7 @@ export default function AdminMediaPage() {
     setSuccessMessage(null);
 
     try {
-      const res = await fetch(`/api/admin/media?url=${encodeURIComponent(selectedFile.url)}`, {
+      const res = await authFetch(`/api/admin/media?url=${encodeURIComponent(selectedFile.url)}`, {
         method: "DELETE",
       });
 

@@ -17,6 +17,7 @@ import {
   Layers,
 } from "lucide-react";
 import { Product } from "@/lib/data/products";
+import { authFetch } from "@/lib/auth/client";
 
 export default function AdminProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -33,7 +34,7 @@ export default function AdminProductsPage() {
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      const res = await fetch("/api/admin/products");
+      const res = await authFetch("/api/admin/products");
       const data = await res.json();
       if (data.success) {
         setProducts(data.products);
@@ -47,7 +48,7 @@ export default function AdminProductsPage() {
 
   const handleDelete = async (id: string) => {
     try {
-      const res = await fetch(`/api/admin/products/${id}`, { method: "DELETE" });
+      const res = await authFetch(`/api/admin/products/${id}`, { method: "DELETE" });
       const data = await res.json();
       if (data.success) {
         setProducts(products.filter((p) => p.id !== id));

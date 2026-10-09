@@ -99,20 +99,22 @@ export function HeroSection() {
               </button>
             </div>
 
-            {/* Trust Certification Row */}
-            <div className="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs text-gray-300">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#00d2ff]" />
-                <span>Tier-1 Component Architecture</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#00d2ff]" />
-                <span>35+ Years Engineering Heritage</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#00d2ff]" />
-                <span>35,000+ Industrial Systems Commissioned</span>
-              </div>
+            {/* Trust Assurance Strip */}
+            <div className="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4 text-xs text-gray-300/90 font-medium">
+              <span className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#00d2ff]" />
+                Tier-1 Components
+              </span>
+              <span className="text-gray-600 hidden sm:inline">•</span>
+              <span className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#00d2ff]" />
+                35+ Years Heritage
+              </span>
+              <span className="text-gray-600 hidden sm:inline">•</span>
+              <span className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#00d2ff]" />
+                35,000+ Commissioned
+              </span>
             </div>
           </div>
 

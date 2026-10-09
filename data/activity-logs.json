@@ -1,5 +1,37 @@
 [
   {
+    "id": "log_1791548325578_x5co",
+    "action": "Admin Login",
+    "module": "Auth",
+    "details": "Administrator 'admin' logged in successfully.",
+    "timestamp": "2026-10-09T12:18:45.578Z",
+    "user": "admin"
+  },
+  {
+    "id": "log_1791546374345_457m",
+    "action": "Updated Email Settings",
+    "module": "Email",
+    "details": "Updated recipient to 'sales@electrasolar.in'",
+    "timestamp": "2026-10-09T11:46:14.346Z",
+    "user": "admin"
+  },
+  {
+    "id": "log_1791546242724_867f",
+    "action": "Admin Login",
+    "module": "Auth",
+    "details": "Administrator 'admin' logged in successfully.",
+    "timestamp": "2026-10-09T11:44:02.724Z",
+    "user": "admin"
+  },
+  {
+    "id": "log_1791546232740_3x0f",
+    "action": "Admin Login",
+    "module": "Auth",
+    "details": "Administrator 'admin' logged in successfully.",
+    "timestamp": "2026-10-09T11:43:52.740Z",
+    "user": "admin"
+  },
+  {
     "id": "log_1791546122873_fbj8",
     "action": "Admin Login",
     "module": "Auth",

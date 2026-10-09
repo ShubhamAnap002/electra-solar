@@ -34,6 +34,7 @@ export interface Product {
   datasheetUrl: string;
   isFeatured: boolean;
   idealFor: string;
+  published?: boolean;
 }
 
 export interface CategoryInfo {

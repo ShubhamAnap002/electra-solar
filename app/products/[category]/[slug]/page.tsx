@@ -2,6 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PRODUCTS } from "@/lib/data/products";
+import { getStoredProducts } from "@/lib/store";
 import { ProductDetailView } from "@/components/products/ProductDetailView";
 
 interface ProductPageProps {
@@ -11,6 +12,8 @@ interface ProductPageProps {
   };
 }
 
+export const dynamic = "force-dynamic";
+
 export function generateStaticParams() {
   return PRODUCTS.map((product) => ({
     category: product.category,
@@ -19,7 +22,8 @@ export function generateStaticParams() {
 }
 
 export function generateMetadata({ params }: ProductPageProps): Metadata {
-  const product = PRODUCTS.find((p) => p.slug === params.slug);
+  const products = getStoredProducts();
+  const product = products.find((p) => p.slug === params.slug) || PRODUCTS.find((p) => p.slug === params.slug);
   if (!product) {
     return { title: "Product Not Found | Electra Solar" };
   }
@@ -35,7 +39,8 @@ export function generateMetadata({ params }: ProductPageProps): Metadata {
 }
 
 export default function ProductPage({ params }: ProductPageProps) {
-  const product = PRODUCTS.find((p) => p.slug === params.slug);
+  const products = getStoredProducts();
+  const product = products.find((p) => p.slug === params.slug) || PRODUCTS.find((p) => p.slug === params.slug);
   if (!product) {
     notFound();
   }

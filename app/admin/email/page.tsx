@@ -19,6 +19,7 @@ import {
   Settings,
   AlertTriangle,
 } from "lucide-react";
+import { authFetch } from "@/lib/auth/client";
 
 interface GmailStatusData {
   isConnected: boolean;
@@ -70,7 +71,7 @@ export default function AdminEmailIntegrationPage() {
   async function fetchStatus() {
     try {
       setLoading(true);
-      const res = await fetch("/api/admin/gmail/status");
+      const res = await authFetch("/api/admin/gmail/status");
       const result = await res.json();
       if (result.success && result.config) {
         setData(result.config);
@@ -105,7 +106,7 @@ export default function AdminEmailIntegrationPage() {
         payload.clientSecret = clientSecret;
       }
 
-      const res = await fetch("/api/admin/gmail/config", {
+      const res = await authFetch("/api/admin/gmail/config", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -145,7 +146,7 @@ export default function AdminEmailIntegrationPage() {
     setSuccessMessage(null);
 
     try {
-      const res = await fetch("/api/admin/gmail/disconnect", { method: "POST" });
+      const res = await authFetch("/api/admin/gmail/disconnect", { method: "POST" });
       const resData = await res.json();
       if (!res.ok || !resData.success) {
         throw new Error(resData.message || "Failed to disconnect");
@@ -166,7 +167,7 @@ export default function AdminEmailIntegrationPage() {
     setSuccessMessage(null);
 
     try {
-      const res = await fetch("/api/admin/gmail/test-email", { method: "POST" });
+      const res = await authFetch("/api/admin/gmail/test-email", { method: "POST" });
       const resData = await res.json();
 
       if (!res.ok || !resData.success) {
