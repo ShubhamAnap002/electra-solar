@@ -7,6 +7,7 @@ import { EnquiryModalProvider } from "@/components/forms/EnquiryModalContext";
 import { CompareProvider } from "@/components/compare/CompareContext";
 import { FloatingCompareTray } from "@/components/compare/FloatingCompareTray";
 import { DeyeHelpWidget } from "@/components/ui/DeyeHelpWidget";
+import { MobileActionDock } from "@/components/layout/MobileActionDock";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -91,6 +92,7 @@ export default function RootLayout({
             <Footer />
             <FloatingCompareTray />
             <DeyeHelpWidget />
+            <MobileActionDock />
           </EnquiryModalProvider>
         </CompareProvider>
       </body>

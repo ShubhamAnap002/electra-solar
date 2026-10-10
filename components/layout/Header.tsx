@@ -505,14 +505,25 @@ export function Header() {
             </div>
 
             <Link
-              href="/projects"
+              href="/installations"
               className={`relative px-2.5 xl:px-3.5 py-2 text-[13px] xl:text-[14px] uppercase font-semibold tracking-wider transition-colors whitespace-nowrap ${
-                pathname.startsWith("/projects")
+                pathname.startsWith("/installations") || pathname.startsWith("/projects")
                   ? "text-[#00d2ff] font-bold after:absolute after:bottom-0 after:left-2.5 xl:after:left-3.5 after:right-2.5 xl:after:right-3.5 after:h-[2.5px] after:bg-[#00d2ff] after:rounded-full"
                   : "text-gray-200 hover:text-[#00d2ff]"
               }`}
             >
-              Projects
+              Installations
+            </Link>
+
+            <Link
+              href="/blog"
+              className={`relative px-2.5 xl:px-3.5 py-2 text-[13px] xl:text-[14px] uppercase font-semibold tracking-wider transition-colors whitespace-nowrap ${
+                pathname.startsWith("/blog")
+                  ? "text-[#00d2ff] font-bold after:absolute after:bottom-0 after:left-2.5 xl:after:left-3.5 after:right-2.5 xl:after:right-3.5 after:h-[2.5px] after:bg-[#00d2ff] after:rounded-full"
+                  : "text-gray-200 hover:text-[#00d2ff]"
+              }`}
+            >
+              Insights
             </Link>
 
             <Link
@@ -675,20 +686,40 @@ export function Header() {
                   </span>
                 </Link>
                 <Link
-                  href="/projects"
+                  href="/installations"
                   className="block px-3 py-2 rounded-lg text-sm font-semibold text-gray-800 hover:bg-gray-50"
+                  onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  Case Studies & Installations
+                  Real Installations & Projects
+                </Link>
+                <Link
+                  href="/blog"
+                  className="block px-3 py-2 rounded-lg text-sm font-semibold text-gray-800 hover:bg-gray-50"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Solar Knowledge Hub & Blog
+                </Link>
+                <Link
+                  href="/careers"
+                  className="flex items-center justify-between px-3 py-2 rounded-lg text-sm font-semibold text-gray-800 hover:bg-gray-50"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <span>Careers & Engineering Hiring</span>
+                  <span className="text-[10px] bg-emerald-50 text-emerald-600 font-bold px-2 py-0.5 rounded-full">
+                    Hiring
+                  </span>
                 </Link>
                 <Link
                   href="/about"
                   className="block px-3 py-2 rounded-lg text-sm font-semibold text-gray-800 hover:bg-gray-50"
+                  onClick={() => setIsMobileMenuOpen(false)}
                 >
                   About EnerTech & Electra Solar
                 </Link>
                 <Link
                   href="/contact"
                   className="block px-3 py-2 rounded-lg text-sm font-semibold text-gray-800 hover:bg-gray-50"
+                  onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Contact & Hub Locations
                 </Link>

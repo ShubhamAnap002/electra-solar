@@ -1,5 +1,13 @@
 [
   {
+    "id": "log_1791605717792_05j6",
+    "action": "Admin Login",
+    "module": "Auth",
+    "details": "Administrator 'admin' logged in successfully.",
+    "timestamp": "2026-10-10T04:15:17.792Z",
+    "user": "admin"
+  },
+  {
     "id": "log_1791548325578_x5co",
     "action": "Admin Login",
     "module": "Auth",

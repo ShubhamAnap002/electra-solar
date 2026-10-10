@@ -1,0 +1,247 @@
+import React from "react";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
+import {
+  Clock,
+  User,
+  Calendar,
+  ChevronRight,
+  ArrowLeft,
+  ArrowRight,
+  CheckCircle2,
+  Share2,
+  ShieldCheck,
+  Zap,
+  Bookmark,
+} from "lucide-react";
+import { BLOG_POSTS } from "@/lib/data/blog";
+
+interface BlogPostPageProps {
+  params: {
+    slug: string;
+  };
+}
+
+export function generateStaticParams() {
+  return BLOG_POSTS.map((post) => ({
+    slug: post.slug,
+  }));
+}
+
+export function generateMetadata({ params }: BlogPostPageProps): Metadata {
+  const post = BLOG_POSTS.find((p) => p.slug === params.slug);
+  if (!post) {
+    return { title: "Article Not Found | Electra Solar" };
+  }
+
+  return {
+    title: `${post.title} | Electra Solar Knowledge Hub`,
+    description: post.summary,
+    openGraph: {
+      title: post.title,
+      description: post.summary,
+      images: [post.coverImage],
+      type: "article",
+    },
+  };
+}
+
+export default function BlogPostPage({ params }: BlogPostPageProps) {
+  const post = BLOG_POSTS.find((p) => p.slug === params.slug);
+  if (!post) {
+    notFound();
+  }
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.summary,
+    image: `https://electrasolar.in${post.coverImage}`,
+    author: {
+      "@type": "Person",
+      name: post.author,
+      jobTitle: post.authorRole,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Electra Solar",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://electrasolar.in/images/brand/enertech-partner.png",
+      },
+    },
+    datePublished: "2026-03-01",
+    dateModified: "2026-04-01",
+  };
+
+  return (
+    <article className="bg-[#f8fafd] min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
+      {/* 1. ARTICLE HERO HEADER */}
+      <section className="bg-gradient-to-b from-[#091e3a] via-[#0b2144] to-[#07172c] text-white py-16 lg:py-20 relative">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10 space-y-5">
+          {/* Breadcrumb */}
+          <div className="flex items-center gap-2 text-xs text-gray-300 font-medium">
+            <Link href="/" className="hover:text-[#00d2ff] transition-colors">
+              Home
+            </Link>
+            <ChevronRight className="w-3.5 h-3.5 text-gray-500" />
+            <Link href="/blog" className="hover:text-[#00d2ff] transition-colors">
+              Knowledge Hub
+            </Link>
+            <ChevronRight className="w-3.5 h-3.5 text-gray-500" />
+            <span className="text-gray-400 truncate max-w-[200px]">{post.category}</span>
+          </div>
+
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-[#00d2ff] text-xs font-bold border border-white/15">
+            <span>{post.category}</span>
+            <span>•</span>
+            <span className="text-gray-300 font-medium">{post.readTime}</span>
+          </div>
+
+          <h1 className="text-2xl sm:text-4xl lg:text-[42px] font-black text-white tracking-tight leading-tight">
+            {post.title}
+          </h1>
+
+          <div className="flex flex-wrap items-center gap-4 text-xs text-gray-300 pt-2 border-t border-white/10">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-full bg-[#00d2ff]/20 text-[#00d2ff] font-bold flex items-center justify-center text-xs">
+                {post.author.charAt(0)}
+              </div>
+              <div>
+                <div className="font-bold text-white">{post.author}</div>
+                <div className="text-[10px] text-gray-400">{post.authorRole}</div>
+              </div>
+            </div>
+
+            <span className="text-gray-600 hidden sm:inline">•</span>
+
+            <div className="flex items-center gap-1.5 text-gray-400">
+              <Calendar className="w-3.5 h-3.5" />
+              <span>{post.publishedAt}</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2. ARTICLE BODY CONTAINER */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12 lg:py-16">
+        {/* Cover Image */}
+        <div className="relative aspect-[16/9] w-full rounded-3xl overflow-hidden shadow-xl mb-12 border border-gray-200">
+          <Image
+            src={post.coverImage}
+            alt={post.title}
+            fill
+            priority
+            className="object-cover object-center"
+            sizes="(max-width: 1024px) 100vw, 896px"
+          />
+        </div>
+
+        {/* Lead Introduction Box */}
+        <div className="p-6 sm:p-8 bg-white rounded-2xl border-l-4 border-[#015cbb] border-t border-r border-b border-gray-200 shadow-sm mb-10 text-sm sm:text-base text-gray-700 leading-relaxed font-medium">
+          {post.content.intro}
+        </div>
+
+        {/* Article Body Content */}
+        <div className="space-y-10 text-gray-700 leading-relaxed text-sm sm:text-base">
+          {post.content.sections.map((section, idx) => (
+            <div key={idx} className="space-y-4">
+              <h2 className="text-xl sm:text-2xl font-black text-[#222222] tracking-tight">
+                {section.heading}
+              </h2>
+
+              <div className="space-y-3 text-gray-700">
+                {section.body.map((p, pIdx) => (
+                  <p key={pIdx} className="leading-relaxed">
+                    {p}
+                  </p>
+                ))}
+              </div>
+
+              {section.highlightBox && (
+                <div className="my-6 p-5 rounded-2xl bg-[#f0f7ff] border border-[#015cbb]/30 flex items-start gap-3 text-xs sm:text-sm text-[#015cbb] font-semibold">
+                  <Zap className="w-5 h-5 flex-shrink-0 mt-0.5 text-[#015cbb]" />
+                  <span>{section.highlightBox}</span>
+                </div>
+              )}
+            </div>
+          ))}
+
+          {/* Conclusion */}
+          <div className="pt-8 border-t border-gray-200 space-y-3">
+            <h3 className="text-lg sm:text-xl font-black text-[#222222]">
+              Summary & Engineering Verdict
+            </h3>
+            <p className="text-gray-700 font-medium leading-relaxed">
+              {post.content.conclusion}
+            </p>
+          </div>
+        </div>
+
+        {/* Related Product Promotion Card */}
+        {post.relatedProductSlug && (
+          <div className="mt-14 bg-gradient-to-r from-[#091e3a] to-[#0b2144] text-white rounded-3xl p-6 sm:p-8 border border-white/10 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div className="space-y-1.5 text-center sm:text-left">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#00d2ff]">
+                Featured Hardware Mentioned in Article
+              </span>
+              <h4 className="text-lg sm:text-xl font-black">{post.relatedProductName}</h4>
+              <p className="text-xs text-gray-300">
+                Verified specifications, heavy surge tolerance & direct Pune factory warranty.
+              </p>
+            </div>
+
+            <Link
+              href={`/products`}
+              className="bg-[#00d2ff] hover:bg-[#00b4d8] text-[#091e3a] px-6 py-3 rounded-xl font-black text-xs uppercase tracking-wider shadow-md hover:shadow-lg transition-all flex items-center gap-1.5 flex-shrink-0"
+            >
+              <span>Explore Portfolio</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        )}
+
+        {/* Share & Back Controls */}
+        <div className="mt-12 pt-6 border-t border-gray-200 flex flex-wrap items-center justify-between gap-4">
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#015cbb] hover:underline"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>Back to All Publications</span>
+          </Link>
+
+          <div className="flex items-center gap-3 text-xs text-gray-600">
+            <span className="font-semibold">Share Guide:</span>
+            <a
+              href={`https://wa.me/?text=${encodeURIComponent(post.title + " - Read more at https://electrasolar.in/blog/" + post.slug)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-lg bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition-colors"
+              title="Share on WhatsApp"
+            >
+              WhatsApp
+            </a>
+            <a
+              href={`https://www.linkedin.com/sharing/share-offsite/?url=https://electrasolar.in/blog/${post.slug}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-lg bg-blue-50 text-[#015cbb] hover:bg-blue-100 transition-colors"
+              title="Share on LinkedIn"
+            >
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+    </article>
+  );
+}

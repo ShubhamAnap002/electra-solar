@@ -3,6 +3,7 @@ import { PRODUCTS, CATEGORIES } from "@/lib/data/products";
 import { SOLUTIONS } from "@/lib/data/solutions";
 import { SERVICES } from "@/lib/data/services";
 import { PROJECTS } from "@/lib/data/projects";
+import { BLOG_POSTS } from "@/lib/data/blog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://electrasolar.in";
@@ -13,8 +14,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/solutions",
     "/services",
     "/projects",
+    "/installations",
     "/calculator",
     "/compare",
+    "/blog",
+    "/careers",
     "/about",
     "/contact",
     "/privacy-policy",
@@ -38,6 +42,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
     priority: 0.9,
+  }));
+
+  const blogPages = BLOG_POSTS.map((post) => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
   }));
 
   const solutionPages = SOLUTIONS.map((s) => ({
@@ -65,6 +76,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...staticPages,
     ...categoryPages,
     ...productPages,
+    ...blogPages,
     ...solutionPages,
     ...servicePages,
     ...projectPages,
