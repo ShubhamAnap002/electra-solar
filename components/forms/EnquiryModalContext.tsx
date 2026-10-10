@@ -43,11 +43,11 @@ export function EnquiryModalProvider({ children }: { children: React.ReactNode }
       <Modal
         isOpen={isOpen}
         onClose={closeEnquiryModal}
-        title="Request System Sizing & Official Quote"
-        maxWidth="xl"
+        title="Quick Inquiry & Quote Request"
+        maxWidth="3xl"
       >
         <p className="text-xs text-gray-500 mb-4 -mt-2">
-          Direct factory pricing and engineering consultation for EnerTech systems.
+          Direct engineering review and factory pricing for EnerTech power systems.
         </p>
         <QuoteForm
           initialProductSlug={selectedProduct}

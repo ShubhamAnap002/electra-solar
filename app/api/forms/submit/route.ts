@@ -34,6 +34,7 @@ export async function POST(req: NextRequest) {
     const email = typeof body.email === "string" ? body.email.trim() : "";
     const city = typeof body.city === "string" ? body.city.trim() : "";
     const company = typeof body.company === "string" ? body.company.trim() : "";
+    const companyAddress = typeof body.companyAddress === "string" ? body.companyAddress.trim() : typeof body.address === "string" ? body.address.trim() : "";
     const formType = typeof body.formType === "string" ? body.formType.trim() : "Quote Request";
     const productModel = typeof body.productModel === "string" ? body.productModel.trim() : "";
     const application = typeof body.application === "string" ? body.application.trim() : "";
@@ -144,6 +145,11 @@ export async function POST(req: NextRequest) {
                   <td class="label">Company / Facility</td>
                   <td class="val">${company}</td>
                 </tr>` : ""}
+                ${companyAddress ? `
+                <tr>
+                  <td class="label">Company Address</td>
+                  <td class="val">${companyAddress}</td>
+                </tr>` : ""}
                 ${city ? `
                 <tr>
                   <td class="label">City / Location</td>
@@ -206,7 +212,7 @@ Form Type: ${formType}
 CUSTOMER DETAILS:
 - Name: ${name}
 - Phone: ${phone}
-${validEmail ? `- Email: ${validEmail}\n` : ""}${company ? `- Company: ${company}\n` : ""}${city ? `- City: ${city}\n` : ""}${productName ? `- Product: ${productName}\n` : ""}${application ? `- Application: ${application}\n` : ""}${approxCapacity ? `- Estimated Capacity: ${approxCapacity}\n` : ""}${pageUrl ? `- Page URL: ${pageUrl}\n` : ""}
+${validEmail ? `- Email: ${validEmail}\n` : ""}${company ? `- Company: ${company}\n` : ""}${companyAddress ? `- Company Address: ${companyAddress}\n` : ""}${city ? `- City: ${city}\n` : ""}${productName ? `- Product: ${productName}\n` : ""}${application ? `- Application: ${application}\n` : ""}${approxCapacity ? `- Estimated Capacity: ${approxCapacity}\n` : ""}${pageUrl ? `- Page URL: ${pageUrl}\n` : ""}
 ${message ? `\nCUSTOMER MESSAGE:\n${message}\n` : ""}
 ------------------------------------------------------
 Delivered via Electra Solar Google OAuth 2.0 Integration

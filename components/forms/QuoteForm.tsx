@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
+import { Send, CheckCircle2, AlertCircle, Loader2, Tag } from "lucide-react";
 import { PRODUCTS, Product } from "@/lib/data/products";
 
 interface QuoteFormProps {
@@ -15,25 +15,25 @@ export function QuoteForm({
   initialProductSlug,
   onSuccess,
   isCompact = false,
-  formTitle = "Quote Request",
+  formTitle = "Inquiry Request",
 }: QuoteFormProps) {
   const [productList, setProductList] = useState<Product[]>(PRODUCTS);
   const [formData, setFormData] = useState({
     name: "",
+    company: "",
     phone: "",
-    email: "",
     city: "",
-    productModel: initialProductSlug || "sunmagic-three-phase-solar-hybrid-inverter",
-    application: "Commercial / Industrial Facility",
-    approxCapacity: "25 kVA – 50 kVA",
+    email: "",
+    companyAddress: "",
     message: "",
-    website_hp: "", // honeypot
+    productModel: initialProductSlug || "",
+    website_hp: "", // anti-spam honeypot
   });
 
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
-  // Sync initialProductSlug if it changes
+  // Sync initialProductSlug if changed
   useEffect(() => {
     if (initialProductSlug) {
       setFormData((prev) => ({ ...prev, productModel: initialProductSlug }));
@@ -58,7 +58,11 @@ export function QuoteForm({
     loadProducts();
   }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const selectedProduct = productList.find(
+    (p) => p.slug === formData.productModel || p.id === formData.productModel || p.name === formData.productModel
+  );
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -66,7 +70,7 @@ export function QuoteForm({
     e.preventDefault();
     if (!formData.name.trim() || !formData.phone.trim()) {
       setStatus("error");
-      setErrorMessage("Please provide your name and a valid telephone number.");
+      setErrorMessage("Please enter your name and contact mobile number.");
       return;
     }
 
@@ -100,16 +104,16 @@ export function QuoteForm({
 
   if (status === "success") {
     return (
-      <div className="bg-orange-50/60 border border-orange-200 rounded-2xl p-8 text-center space-y-4 animate-in fade-in duration-300">
-        <div className="w-16 h-16 bg-orange-100 text-[#ea580c] rounded-full flex items-center justify-center mx-auto ring-8 ring-orange-100/50">
+      <div className="bg-emerald-50/70 border border-emerald-200 rounded-lg p-8 text-center space-y-4 animate-in fade-in duration-300">
+        <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto ring-8 ring-emerald-100/50">
           <CheckCircle2 className="w-8 h-8" />
         </div>
-        <h4 className="text-2xl font-black text-[#091e3a]">Proposal Request Delivered</h4>
+        <h4 className="text-2xl font-black text-[#091e3a]">Request Submitted Successfully</h4>
         <p className="text-gray-600 text-sm max-w-md mx-auto">
-          Thank you, <strong className="text-gray-900">{formData.name}</strong>. Your requirement has been delivered directly to our Pune sales engineering desk. We will reach you on <strong className="text-[#ea580c]">{formData.phone}</strong> to review sizing.
+          Thank you, <strong className="text-gray-900">{formData.name}</strong>. Your inquiry has been delivered directly to our sales engineering desk. We will contact you at <strong className="text-[#091e3a]">{formData.phone}</strong>.
         </p>
         <div className="pt-2 text-xs text-gray-500">
-          Immediate engineering requirement? Pune Sales Desk: <strong className="text-gray-900">+91 98224 12345</strong>
+          Direct Sales Desk: <strong className="text-gray-900">+91 98224 12345</strong>
         </div>
       </div>
     );
@@ -129,152 +133,129 @@ export function QuoteForm({
       />
 
       {status === "error" && (
-        <div className="p-3.5 bg-rose-50 border border-rose-300 rounded-xl text-rose-700 text-sm flex items-center gap-2">
+        <div className="p-3.5 bg-rose-50 border border-rose-300 rounded-md text-rose-700 text-sm flex items-center gap-2">
           <AlertCircle className="w-5 h-5 flex-shrink-0 text-rose-600" />
           <span>{errorMessage}</span>
         </div>
       )}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-1.5">
-            Full Name <span className="text-[#ea580c]">*</span>
-          </label>
-          <input
-            type="text"
-            name="name"
-            required
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Full Name"
-            className="w-full bg-[#f8fafc] border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#ea580c] focus:ring-1 focus:ring-[#ea580c] transition-colors"
-          />
-        </div>
-
-        <div>
-          <label className="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-1.5">
-            Telephone / Mobile <span className="text-[#ea580c]">*</span>
-          </label>
-          <input
-            type="tel"
-            name="phone"
-            required
-            value={formData.phone}
-            onChange={handleChange}
-            placeholder="Contact Number"
-            className="w-full bg-[#f8fafc] border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#ea580c] focus:ring-1 focus:ring-[#ea580c] transition-colors"
-          />
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-1.5">
-            Email Address
-          </label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Email Address"
-            className="w-full bg-[#f8fafc] border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#ea580c] focus:ring-1 focus:ring-[#ea580c] transition-colors"
-          />
-        </div>
-
-        <div>
-          <label className="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-1.5">
-            City / Project Location
-          </label>
-          <input
-            type="text"
-            name="city"
-            value={formData.city}
-            onChange={handleChange}
-            placeholder="City or Location"
-            className="w-full bg-[#f8fafc] border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#ea580c] focus:ring-1 focus:ring-[#ea580c] transition-colors"
-          />
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-1.5">
-            Product of Interest
-          </label>
-          <select
-            name="productModel"
-            value={formData.productModel}
-            onChange={handleChange}
-            className="w-full bg-[#f8fafc] border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-800 focus:outline-none focus:border-[#ea580c] focus:ring-1 focus:ring-[#ea580c] transition-colors"
-          >
-            {productList.map((p) => (
-              <option key={p.slug} value={p.slug}>
-                {p.name} ({p.capacityRange})
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div>
-          <label className="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-1.5">
-            Application Scenario
-          </label>
-          <select
-            name="application"
-            value={formData.application}
-            onChange={handleChange}
-            className="w-full bg-[#f8fafc] border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-800 focus:outline-none focus:border-[#ea580c] focus:ring-1 focus:ring-[#ea580c] transition-colors"
-          >
-            <option value="Residential Bungalow / Villa">Residential Bungalow / Villa</option>
-            <option value="Commercial / Industrial Facility">Commercial / Industrial Facility</option>
-            <option value="Hospital / Medical Critical Power">Hospital / Medical Critical Power</option>
-            <option value="Cold Storage & Food Processing">Cold Storage & Food Processing</option>
-            <option value="Substation / Power Utility">Substation / Power Utility</option>
-            <option value="Off-Grid Remote Microgrid">Off-Grid Remote Microgrid</option>
-          </select>
-        </div>
-      </div>
-
-      {!isCompact && (
-        <div>
-          <label className="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-1.5">
-            Project Scope or Specific Requirements (Optional)
-          </label>
-          <textarea
-            name="message"
-            rows={3}
-            value={formData.message}
-            onChange={handleChange}
-            placeholder="Power requirements or project details (optional)"
-            className="w-full bg-[#f8fafc] border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#ea580c] focus:ring-1 focus:ring-[#ea580c] transition-colors resize-none"
-          />
+      {/* Selected Product Context Badge (if triggered from product page) */}
+      {selectedProduct && (
+        <div className="flex items-center justify-between px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-md text-xs text-slate-700">
+          <div className="flex items-center gap-2">
+            <Tag className="w-3.5 h-3.5 text-[#ea580c]" />
+            <span>
+              Inquiry for: <strong className="font-bold text-[#091e3a]">{selectedProduct.name}</strong>
+            </span>
+          </div>
+          <span className="text-[11px] font-semibold text-slate-500">{selectedProduct.capacityRange}</span>
         </div>
       )}
 
-      <div className="pt-2">
-        <button
-          type="submit"
-          disabled={status === "submitting"}
-          className="w-full bg-[#091e3a] hover:bg-[#ea580c] text-white py-3.5 rounded-full font-bold text-sm shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-2"
-        >
-          {status === "submitting" ? (
-            <>
-              <Loader2 className="w-4 h-4 animate-spin" />
-              <span>Transmitting Requirements...</span>
-            </>
-          ) : (
-            <>
-              <Send className="w-4 h-4 text-[#ea580c]" />
-              <span>SEND PROPOSAL REQUEST</span>
-            </>
-          )}
-        </button>
-      </div>
+      {/* Clean 2-Column Grid Matching Reference Screenshot */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Left Column: 5 Inputs */}
+        <div className="space-y-3.5">
+          <div>
+            <input
+              type="text"
+              name="name"
+              required
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Your Name"
+              className="w-full bg-white border border-[#d1d5db] focus:border-[#111827] focus:ring-1 focus:ring-[#111827] rounded-sm px-4 py-3 text-sm text-gray-900 placeholder-[#9ca3af] outline-none transition-colors"
+            />
+          </div>
 
-      <p className="text-[11px] text-center text-gray-500">
-        Direct engineering review. We respect your privacy.
-      </p>
+          <div>
+            <input
+              type="text"
+              name="company"
+              value={formData.company}
+              onChange={handleChange}
+              placeholder="Company Name"
+              className="w-full bg-white border border-[#d1d5db] focus:border-[#111827] focus:ring-1 focus:ring-[#111827] rounded-sm px-4 py-3 text-sm text-gray-900 placeholder-[#9ca3af] outline-none transition-colors"
+            />
+          </div>
+
+          <div>
+            <input
+              type="tel"
+              name="phone"
+              required
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="Mobile Number"
+              className="w-full bg-white border border-[#d1d5db] focus:border-[#111827] focus:ring-1 focus:ring-[#111827] rounded-sm px-4 py-3 text-sm text-gray-900 placeholder-[#9ca3af] outline-none transition-colors"
+            />
+          </div>
+
+          <div>
+            <input
+              type="text"
+              name="city"
+              value={formData.city}
+              onChange={handleChange}
+              placeholder="Enter your city"
+              className="w-full bg-white border border-[#d1d5db] focus:border-[#111827] focus:ring-1 focus:ring-[#111827] rounded-sm px-4 py-3 text-sm text-gray-900 placeholder-[#9ca3af] outline-none transition-colors"
+            />
+          </div>
+
+          <div>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Email Address"
+              className="w-full bg-white border border-[#d1d5db] focus:border-[#111827] focus:ring-1 focus:ring-[#111827] rounded-sm px-4 py-3 text-sm text-gray-900 placeholder-[#9ca3af] outline-none transition-colors"
+            />
+          </div>
+        </div>
+
+        {/* Right Column: Company Address, Message & Submit Request */}
+        <div className="flex flex-col gap-3.5 h-full">
+          <div>
+            <input
+              type="text"
+              name="companyAddress"
+              value={formData.companyAddress}
+              onChange={handleChange}
+              placeholder="Company Address"
+              className="w-full bg-white border border-[#d1d5db] focus:border-[#111827] focus:ring-1 focus:ring-[#111827] rounded-sm px-4 py-3 text-sm text-gray-900 placeholder-[#9ca3af] outline-none transition-colors"
+            />
+          </div>
+
+          <div className="flex-1 flex flex-col min-h-[140px]">
+            <textarea
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              placeholder="Your Message"
+              rows={4}
+              className="w-full flex-1 min-h-[130px] bg-white border border-[#d1d5db] focus:border-[#111827] focus:ring-1 focus:ring-[#111827] rounded-sm p-4 text-sm text-gray-900 placeholder-[#9ca3af] outline-none transition-colors resize-none"
+            />
+          </div>
+
+          <div>
+            <button
+              type="submit"
+              disabled={status === "submitting"}
+              className="w-full bg-black hover:bg-[#ea580c] text-white py-3.5 font-bold text-sm uppercase tracking-wider rounded-sm transition-colors cursor-pointer flex items-center justify-center gap-2 shadow-sm"
+            >
+              {status === "submitting" ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin text-white" />
+                  <span>Submitting...</span>
+                </>
+              ) : (
+                <span>SUBMIT REQUEST</span>
+              )}
+            </button>
+          </div>
+        </div>
+      </div>
     </form>
   );
 }

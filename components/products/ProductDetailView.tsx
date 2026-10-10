@@ -218,6 +218,13 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
                 <Download className="w-4 h-4 mr-2 text-[#ea580c]" />
                 <span>Datasheet</span>
               </button>
+
+              <a
+                href="#specifications"
+                className="inline-flex items-center justify-center font-bold rounded-full px-5 py-3 text-sm border border-gray-300 text-gray-700 hover:bg-gray-50 hover:text-[#091e3a] hover:border-[#091e3a] transition-colors"
+              >
+                <span>Full Specs</span>
+              </a>
             </div>
 
             {/* Direct Hotline & Factory Trust */}
@@ -308,7 +315,7 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
       </div>
 
       {/* 4. Complete Technical Specifications Table */}
-      <div className="bg-white border border-gray-200 rounded-2xl p-6 sm:p-8 lg:p-10 shadow-2xs space-y-6">
+      <section id="specifications" className="scroll-mt-28 bg-white border border-gray-200/90 rounded-2xl p-6 sm:p-8 lg:p-10 shadow-sm space-y-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-200 pb-5">
           <div>
             <span className="text-xs font-bold uppercase tracking-widest text-[#ea580c] block mb-1">
@@ -339,22 +346,26 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
             const catSpecs = product.specs.filter((s) => (s.category || "General Specifications") === catName);
             return (
               <div key={catName} className="space-y-3">
-                <h3 className="text-xs font-bold text-[#091e3a] uppercase tracking-wider flex items-center gap-2">
-                  <span className="w-2 h-2 bg-[#ea580c] rounded-full" />
-                  <span>{catName}</span>
-                </h3>
-                <div className="bg-white border border-gray-200 rounded-xl overflow-hidden divide-y divide-gray-100 text-xs sm:text-sm">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-2 h-4 bg-[#ea580c] rounded-xs" />
+                  <h3 className="text-xs sm:text-sm font-bold text-[#091e3a] uppercase tracking-wider">
+                    {catName}
+                  </h3>
+                  <div className="h-px bg-slate-200 flex-1 ml-2" />
+                </div>
+
+                <div className="bg-white border border-slate-200 rounded-xl overflow-hidden divide-y divide-slate-100 shadow-2xs">
                   {catSpecs.map((spec, sIdx) => (
                     <div
                       key={sIdx}
-                      className={`grid grid-cols-1 sm:grid-cols-12 p-3 sm:px-5 sm:py-3.5 transition-colors gap-1 sm:gap-4 ${
-                        sIdx % 2 === 0 ? "bg-[#f8fafc]" : "bg-white"
-                      }`}
+                      className={`grid grid-cols-1 sm:grid-cols-12 px-4 py-3 sm:px-6 sm:py-3.5 transition-colors gap-1 sm:gap-6 items-center ${
+                        sIdx % 2 === 0 ? "bg-[#f8fafc]/70" : "bg-white"
+                      } hover:bg-orange-50/25`}
                     >
-                      <div className="sm:col-span-5 text-gray-600 font-medium">
+                      <div className="sm:col-span-4 lg:col-span-3 text-slate-600 font-semibold text-xs sm:text-sm">
                         {spec.label}
                       </div>
-                      <div className="sm:col-span-7 text-gray-900 font-semibold font-mono">
+                      <div className="sm:col-span-8 lg:col-span-9 text-slate-900 font-medium font-sans text-xs sm:text-sm leading-relaxed">
                         {spec.value}
                       </div>
                     </div>
@@ -364,7 +375,7 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
             );
           })}
         </div>
-      </div>
+      </section>
 
       {/* 5. Provenance & Commissioning Case Study Cross-Link (Topic Cluster Linkage) */}
       <div className="bg-gradient-to-r from-[#091e3a] to-[#0d2a52] text-white rounded-2xl p-6 sm:p-8 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border border-slate-800">
