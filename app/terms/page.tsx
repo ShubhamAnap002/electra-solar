@@ -6,6 +6,9 @@ import { ArrowLeft } from "lucide-react";
 export const metadata: Metadata = {
   title: "Terms & Conditions | Electra Solar",
   description: "Terms and conditions of quotations, technical sizing estimates, and product orders.",
+  alternates: {
+    canonical: "https://electrasolar.in/terms",
+  },
 };
 
 export default function TermsPage() {

@@ -26,6 +26,32 @@ export const metadata: Metadata = {
     "DG Synchronization Solar Inverter",
     "Solar EPC Insights Pune",
   ],
+  alternates: {
+    canonical: "https://electrasolar.in/blog",
+  },
+  openGraph: {
+    title: "Solar Knowledge Hub & Engineering Insights | Electra Solar",
+    description:
+      "Expert technical guides, C&I solar sizing analyses, PM Surya Ghar subsidy rules, and commercial BESS battery storage insights from Electra Solar engineers in Pune.",
+    url: "https://electrasolar.in/blog",
+    siteName: "Electra Solar",
+    type: "website",
+    images: [
+      {
+        url: "/images/hero/hero-bg.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Electra Solar Knowledge Hub",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Solar Knowledge Hub & Engineering Insights | Electra Solar",
+    description:
+      "Expert technical guides, C&I solar sizing analyses, and battery storage insights from Electra Solar engineers.",
+    images: ["/images/hero/hero-bg.jpg"],
+  },
 };
 
 export default function BlogIndexPage() {
@@ -33,8 +59,53 @@ export default function BlogIndexPage() {
   const featuredPost = blogs.find((p) => p.featured) || blogs[0];
   const regularPosts = blogs.filter((p) => p.id !== featuredPost?.id);
 
+  const collectionJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Solar Knowledge Hub & Engineering Insights | Electra Solar",
+    description:
+      "Expert technical guides, C&I solar sizing analyses, PM Surya Ghar subsidy rules, and commercial BESS battery storage insights from Electra Solar engineers in Pune.",
+    url: "https://electrasolar.in/blog",
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: blogs.map((post, idx) => ({
+        "@type": "ListItem",
+        position: idx + 1,
+        url: `https://electrasolar.in/blog/${post.slug}`,
+        name: post.title,
+      })),
+    },
+  };
+
+  const breadcrumbsJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://electrasolar.in",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Knowledge Hub",
+        item: "https://electrasolar.in/blog",
+      },
+    ],
+  };
+
   return (
     <div className="bg-[#f8fafd] min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbsJsonLd) }}
+      />
       {/* 1. HERO HEADER */}
       <section className="bg-[#091e3a] text-white py-16 lg:py-20 relative overflow-hidden border-b border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">

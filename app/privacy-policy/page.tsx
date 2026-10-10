@@ -7,6 +7,9 @@ import { COMPANY } from "@/lib/data/company";
 export const metadata: Metadata = {
   title: "Privacy Policy | Electra Solar",
   description: "Privacy policy and data governance practices of Electra Solar Solutions.",
+  alternates: {
+    canonical: "https://electrasolar.in/privacy-policy",
+  },
 };
 
 export default function PrivacyPolicyPage() {

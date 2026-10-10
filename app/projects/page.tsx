@@ -1,20 +1,103 @@
 import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, MapPin, CheckCircle, TrendingUp, Sparkles } from "lucide-react";
+import { ArrowRight, MapPin, CheckCircle, ChevronRight } from "lucide-react";
 import { getStoredProjects } from "@/lib/store";
 
 export const metadata: Metadata = {
   title: "Installation Projects & Case Studies | Electra Solar",
   description:
     "Explore verified solar hybrid inverter and BESS installations across automotive plants, hospitals, luxury villas, and agro cold chains in India.",
+  alternates: {
+    canonical: "https://electrasolar.in/projects",
+  },
+  openGraph: {
+    title: "Commissioned Solar Projects & Case Studies | Electra Solar",
+    description:
+      "Explore real-world industrial installations across Chakan MIDC, Hinjawadi, Lonavala, and Baramati.",
+    url: "https://electrasolar.in/projects",
+    siteName: "Electra Solar",
+    type: "website",
+    images: [
+      {
+        url: "/images/hero/hero-bg.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Electra Solar Commissioned Projects",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Solar Projects & Case Studies | Electra Solar",
+    description:
+      "Explore real-world industrial installations across Chakan, Hinjawadi, Lonavala, and Baramati.",
+    images: ["/images/hero/hero-bg.jpg"],
+  },
 };
 
 export default function ProjectsPage() {
   const projects = getStoredProjects();
+
+  const collectionJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Commissioned Solar Projects & Case Studies | Electra Solar",
+    description:
+      "Explore verified solar hybrid inverter and BESS installations across automotive plants, hospitals, luxury villas, and agro cold chains.",
+    url: "https://electrasolar.in/projects",
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: projects.map((p, idx) => ({
+        "@type": "ListItem",
+        position: idx + 1,
+        url: `https://electrasolar.in/projects/${p.slug}`,
+        name: p.title,
+      })),
+    },
+  };
+
+  const breadcrumbsJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://electrasolar.in",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Projects",
+        item: "https://electrasolar.in/projects",
+      },
+    ],
+  };
+
   return (
     <div className="py-12 lg:py-16 bg-[#f8fafd] min-h-screen">
+      {/* Schema.org Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbsJsonLd) }}
+      />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-12">
+        {/* Breadcrumb */}
+        <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-gray-500">
+          <Link href="/" className="hover:text-[#ea580c] transition-colors">
+            Home
+          </Link>
+          <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
+          <span className="text-[#ea580c] font-semibold">Projects</span>
+        </nav>
+
         <div className="space-y-4 max-w-3xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 border border-orange-200 text-[#ea580c] text-xs font-semibold">
             <CheckCircle className="w-3.5 h-3.5" />

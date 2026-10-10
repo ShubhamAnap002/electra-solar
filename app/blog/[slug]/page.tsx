@@ -16,7 +16,8 @@ import {
   Zap,
   Bookmark,
 } from "lucide-react";
-import { getStoredBlogPosts, getStoredBlogPostBySlug } from "@/lib/store";
+import { getStoredBlogPosts, getStoredBlogPostBySlug, getStoredProducts } from "@/lib/store";
+import { PRODUCTS } from "@/lib/data/products";
 
 export const dynamic = "force-dynamic";
 
@@ -42,11 +43,29 @@ export function generateMetadata({ params }: BlogPostPageProps): Metadata {
   return {
     title: `${post.title} | Electra Solar Knowledge Hub`,
     description: post.summary,
+    alternates: {
+      canonical: `https://electrasolar.in/blog/${post.slug}`,
+    },
     openGraph: {
+      title: `${post.title} | Electra Solar`,
+      description: post.summary,
+      url: `https://electrasolar.in/blog/${post.slug}`,
+      siteName: "Electra Solar",
+      images: [
+        {
+          url: post.coverImage,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
       title: post.title,
       description: post.summary,
       images: [post.coverImage],
-      type: "article",
     },
   };
 }
@@ -63,6 +82,10 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
     headline: post.title,
     description: post.summary,
     image: `https://electrasolar.in${post.coverImage}`,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://electrasolar.in/blog/${post.slug}`,
+    },
     author: {
       "@type": "Person",
       name: post.author,
@@ -76,8 +99,33 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
         url: "https://electrasolar.in/images/brand/enertech-partner.png",
       },
     },
-    datePublished: "2026-03-01",
-    dateModified: "2026-04-01",
+    datePublished: "2026-03-01T08:00:00Z",
+    dateModified: "2026-04-01T08:00:00Z",
+  };
+
+  const breadcrumbsJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://electrasolar.in",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Knowledge Hub",
+        item: "https://electrasolar.in/blog",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: post.title,
+        item: `https://electrasolar.in/blog/${post.slug}`,
+      },
+    ],
   };
 
   return (
@@ -85,6 +133,10 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbsJsonLd) }}
       />
 
       {/* 1. ARTICLE HERO HEADER */}
@@ -190,27 +242,36 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
         </div>
 
         {/* Related Product Promotion Card */}
-        {post.relatedProductSlug && (
-          <div className="mt-14 bg-[#091e3a] text-white rounded-3xl p-6 sm:p-8 border border-gray-800 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6">
-            <div className="space-y-1.5 text-center sm:text-left">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#ea580c]">
-                Featured Hardware Mentioned in Article
-              </span>
-              <h4 className="text-lg sm:text-xl font-black">{post.relatedProductName}</h4>
-              <p className="text-xs text-gray-300">
-                Verified specifications, heavy surge tolerance & direct Pune factory warranty.
-              </p>
-            </div>
+        {post.relatedProductSlug && (() => {
+          const storedProducts = getStoredProducts();
+          const allProducts = storedProducts && storedProducts.length > 0 ? storedProducts : PRODUCTS;
+          const relatedProduct = allProducts.find((p) => p.slug === post.relatedProductSlug);
+          const targetHref = relatedProduct
+            ? `/products/${relatedProduct.category}/${relatedProduct.slug}`
+            : "/products";
 
-            <Link
-              href={`/products`}
-              className="bg-[#ea580c] hover:bg-[#c2410c] text-white px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider shadow-md hover:shadow-lg transition-all flex items-center gap-1.5 flex-shrink-0"
-            >
-              <span>Explore Portfolio</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-        )}
+          return (
+            <div className="mt-14 bg-[#091e3a] text-white rounded-3xl p-6 sm:p-8 border border-gray-800 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6">
+              <div className="space-y-1.5 text-center sm:text-left">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#ea580c]">
+                  Featured Hardware Mentioned in Article
+                </span>
+                <h4 className="text-lg sm:text-xl font-black">{post.relatedProductName}</h4>
+                <p className="text-xs text-gray-300">
+                  Verified specifications, heavy surge tolerance &amp; direct Pune factory warranty.
+                </p>
+              </div>
+
+              <Link
+                href={targetHref}
+                className="bg-[#ea580c] hover:bg-[#c2410c] text-white px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider shadow-md hover:shadow-lg transition-all flex items-center gap-1.5 flex-shrink-0"
+              >
+                <span>{relatedProduct ? "View Specifications" : "Explore Portfolio"}</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          );
+        })()}
 
         {/* Share & Back Controls */}
         <div className="mt-12 pt-6 border-t border-gray-200 flex flex-wrap items-center justify-between gap-4">

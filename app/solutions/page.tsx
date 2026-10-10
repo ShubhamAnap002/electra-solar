@@ -1,13 +1,39 @@
 import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Home, Factory, HeartPulse, Wheat, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Home, Factory, HeartPulse, Wheat, CheckCircle2, ChevronRight } from "lucide-react";
 import { SOLUTIONS } from "@/lib/data/solutions";
 
 export const metadata: Metadata = {
-  title: "Solar Solutions & Applications | Electra Solar",
+  title: "Solar Solutions & Sector Architectures | Electra Solar",
   description:
-    "Tailored solar hybrid and energy storage solutions for residential villas, industrial factories, healthcare institutions, and agricultural microgrids.",
+    "Tailored solar hybrid and energy storage solutions for residential villas, industrial factories, healthcare institutions, and agricultural microgrids in India.",
+  alternates: {
+    canonical: "https://electrasolar.in/solutions",
+  },
+  openGraph: {
+    title: "Turnkey Solar Solutions for C&I, Healthcare & Residential | Electra Solar",
+    description:
+      "Engineered solar architectures for luxury villas, commercial office complexes, industrial factories, and microgrids.",
+    url: "https://electrasolar.in/solutions",
+    siteName: "Electra Solar",
+    type: "website",
+    images: [
+      {
+        url: "/images/hero/hero-bg.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Electra Solar Energy Architectures",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Solar Solutions & Applications | Electra Solar",
+    description:
+      "Tailored solar hybrid and energy storage architectures for Indian industrial facilities and villas.",
+    images: ["/images/hero/hero-bg.jpg"],
+  },
 };
 
 export default function SolutionsPage() {
@@ -24,9 +50,65 @@ export default function SolutionsPage() {
     }
   };
 
+  const collectionJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Solar Energy Architectures & Sector Solutions | Electra Solar",
+    description:
+      "Tailored solar hybrid and energy storage solutions for residential villas, industrial factories, healthcare institutions, and microgrids.",
+    url: "https://electrasolar.in/solutions",
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: SOLUTIONS.map((s, idx) => ({
+        "@type": "ListItem",
+        position: idx + 1,
+        url: `https://electrasolar.in/solutions/${s.slug}`,
+        name: s.title,
+      })),
+    },
+  };
+
+  const breadcrumbsJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://electrasolar.in",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Solutions",
+        item: "https://electrasolar.in/solutions",
+      },
+    ],
+  };
+
   return (
     <div className="py-12 lg:py-16 bg-[#f8fafd] min-h-screen">
+      {/* Schema.org Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbsJsonLd) }}
+      />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-12">
+        {/* Breadcrumb */}
+        <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-gray-500">
+          <Link href="/" className="hover:text-[#ea580c] transition-colors">
+            Home
+          </Link>
+          <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
+          <span className="text-[#ea580c] font-semibold">Solutions</span>
+        </nav>
+
         {/* Header */}
         <div className="space-y-3 max-w-2xl">
           <span className="text-xs font-bold uppercase tracking-widest text-[#ea580c] block">
@@ -59,9 +141,9 @@ export default function SolutionsPage() {
                 </div>
 
                 <div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-[#091e3a] group-hover:text-[#ea580c] transition-colors mb-1.5">
+                  <h2 className="text-xl sm:text-2xl font-bold text-[#091e3a] group-hover:text-[#ea580c] transition-colors mb-1.5">
                     {sol.title}
-                  </h3>
+                  </h2>
                   <p className="text-xs sm:text-sm text-gray-500 leading-relaxed">
                     {sol.subtitle}
                   </p>

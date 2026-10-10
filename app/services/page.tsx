@@ -1,19 +1,101 @@
 import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Wrench, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, ChevronRight } from "lucide-react";
 import { SERVICES } from "@/lib/data/services";
 
 export const metadata: Metadata = {
-  title: "Engineering Services & Installation | Electra Solar",
+  title: "Engineering Services & Commissioning | Electra Solar",
   description:
-    "Comprehensive solar engineering services: site surveys, single-line diagram design, turnkey installation, commissioning, and AMC maintenance.",
+    "Comprehensive solar engineering services: site surveys, single-line diagram design, turnkey installation, commissioning, and AMC maintenance in India.",
+  alternates: {
+    canonical: "https://electrasolar.in/services",
+  },
+  openGraph: {
+    title: "Site Survey, Turnkey EPC & 24/7 AMC Services | Electra Solar",
+    description:
+      "Comprehensive engineering audits, harmonic analysis, DG synchronization commissioning, and AMC SLA support across India.",
+    url: "https://electrasolar.in/services",
+    siteName: "Electra Solar",
+    type: "website",
+    images: [
+      {
+        url: "/images/hero/hero-bg.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Electra Solar Engineering Services",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Engineering Services & Commissioning | Electra Solar",
+    description:
+      "Site surveys, electrical single-line diagram design, turnkey commissioning, and 24/7 AMC support.",
+    images: ["/images/hero/hero-bg.jpg"],
+  },
 };
 
 export default function ServicesPage() {
+  const collectionJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Engineering Services & Turnkey Commissioning | Electra Solar",
+    description:
+      "Comprehensive engineering audits, harmonic analysis, DG synchronization commissioning, and AMC SLA support.",
+    url: "https://electrasolar.in/services",
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: SERVICES.map((srv, idx) => ({
+        "@type": "ListItem",
+        position: idx + 1,
+        url: `https://electrasolar.in/services/${srv.slug}`,
+        name: srv.title,
+      })),
+    },
+  };
+
+  const breadcrumbsJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://electrasolar.in",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Services",
+        item: "https://electrasolar.in/services",
+      },
+    ],
+  };
+
   return (
     <div className="py-12 lg:py-16 bg-[#f8fafd] min-h-screen">
+      {/* Schema.org Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbsJsonLd) }}
+      />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-12">
+        {/* Breadcrumb */}
+        <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-gray-500">
+          <Link href="/" className="hover:text-[#ea580c] transition-colors">
+            Home
+          </Link>
+          <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
+          <span className="text-[#ea580c] font-semibold">Services</span>
+        </nav>
+
         <div className="space-y-3 max-w-2xl">
           <span className="text-xs font-bold uppercase tracking-widest text-[#ea580c] block">
             Turnkey Engineering

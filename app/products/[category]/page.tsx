@@ -28,8 +28,18 @@ export function generateMetadata({ params }: CategoryPageProps): Metadata {
     return { title: "Category Not Found | Electra Solar" };
   }
   return {
-    title: `${category.name} | Electra Solar & EnerTech Authorized Systems`,
+    title: `${category.name} | EnerTech Authorized Systems | Electra Solar`,
     description: category.description,
+    alternates: {
+      canonical: `https://electrasolar.in/products/${category.slug}`,
+    },
+    openGraph: {
+      title: `${category.name} | Electra Solar & EnerTech Authorized Systems`,
+      description: category.description,
+      url: `https://electrasolar.in/products/${category.slug}`,
+      siteName: "Electra Solar",
+      type: "website",
+    },
   };
 }
 
@@ -40,12 +50,66 @@ export default function CategoryPage({ params }: CategoryPageProps) {
     notFound();
   }
   const products = getStoredProducts().filter((p) => p.published !== false);
+  const categoryProducts = products.filter((p) => p.category === category.slug);
+
+  // Schema.org CollectionPage & BreadcrumbList
+  const collectionJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `${category.name} | Electra Solar`,
+    description: category.description,
+    url: `https://electrasolar.in/products/${category.slug}`,
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: categoryProducts.map((p, idx) => ({
+        "@type": "ListItem",
+        position: idx + 1,
+        url: `https://electrasolar.in/products/${p.category}/${p.slug}`,
+        name: p.name,
+      })),
+    },
+  };
+
+  const breadcrumbsJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://electrasolar.in",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Products",
+        item: "https://electrasolar.in/products",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: category.name,
+        item: `https://electrasolar.in/products/${category.slug}`,
+      },
+    ],
+  };
 
   return (
     <div className="py-12 lg:py-16 bg-[#f8fafd] min-h-screen">
+      {/* Schema.org JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbsJsonLd) }}
+      />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-10">
-        {/* Breadcrumbs - Deye Style */}
-        <div className="flex items-center gap-2 text-xs text-[#5c5c5c]">
+        {/* Breadcrumbs */}
+        <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-[#5c5c5c] flex-wrap">
           <Link href="/" className="hover:text-[#ea580c] transition-colors">
             Home
           </Link>
@@ -55,7 +119,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
           </Link>
           <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
           <span className="text-[#ea580c] font-bold">{category.name}</span>
-        </div>
+        </nav>
 
         {/* Category Header */}
         <div className="bg-white border border-gray-200 rounded-2xl p-6 sm:p-10 relative overflow-hidden shadow-sm">

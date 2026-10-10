@@ -8,11 +8,87 @@ export const metadata: Metadata = {
   title: "Contact Electra Solar | Commercial Enquiries & Engineering Support",
   description:
     "Get in touch with Electra Solar for factory-direct quotes, technical load audits, dealer inquiries, and after-sales support in Pune, Maharashtra.",
+  alternates: {
+    canonical: "https://electrasolar.in/contact",
+  },
+  openGraph: {
+    title: "Contact Electra Solar | Commercial Enquiries & Engineering Support",
+    description:
+      "Get in touch with Electra Solar for factory-direct quotes, technical load audits, and after-sales support in Pune, Maharashtra.",
+    url: "https://electrasolar.in/contact",
+    siteName: "Electra Solar",
+    type: "website",
+    images: [
+      {
+        url: "/images/hero/hero-bg.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Contact Electra Solar",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact Electra Solar | Commercial Enquiries & Engineering Support",
+    description:
+      "Direct technical consultation and quotes for industrial solar inverters and BESS systems.",
+    images: ["/images/hero/hero-bg.jpg"],
+  },
 };
 
 export default function ContactPage() {
+  const contactJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: "Contact Electra Solar",
+    description:
+      "Connect with certified solar application engineers for factory-direct quotations, technical load audits, and turnkey solar solutions.",
+    url: "https://electrasolar.in/contact",
+    mainEntity: {
+      "@type": "LocalBusiness",
+      name: COMPANY.name,
+      telephone: COMPANY.contact.salesPhone1,
+      email: COMPANY.contact.salesEmail,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Hinjawadi Commercial Corridor, Near IT Park Phase 2",
+        addressLocality: "Pune",
+        addressRegion: "Maharashtra",
+        postalCode: "412115",
+        addressCountry: "IN",
+      },
+    },
+  };
+
+  const breadcrumbsJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://electrasolar.in",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Contact Us",
+        item: "https://electrasolar.in/contact",
+      },
+    ],
+  };
+
   return (
     <div className="py-12 lg:py-16 bg-[#f8fafc] min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbsJsonLd) }}
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-12">
         {/* Header */}
         <div className="space-y-4 max-w-3xl">

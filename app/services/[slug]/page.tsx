@@ -2,7 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ChevronRight, ArrowLeft, CheckCircle2, ShieldCheck, Sparkles } from "lucide-react";
+import { ChevronRight, ArrowLeft, CheckCircle2 } from "lucide-react";
 import { SERVICES } from "@/lib/data/services";
 import { QuoteForm } from "@/components/forms/QuoteForm";
 
@@ -24,6 +24,30 @@ export function generateMetadata({ params }: ServicePageProps): Metadata {
   return {
     title: `${service.title} | Electra Solar Engineering`,
     description: service.shortDesc,
+    alternates: {
+      canonical: `https://electrasolar.in/services/${service.slug}`,
+    },
+    openGraph: {
+      title: `${service.title} | Electra Solar Engineering Services`,
+      description: service.shortDesc,
+      url: `https://electrasolar.in/services/${service.slug}`,
+      siteName: "Electra Solar",
+      type: "website",
+      images: [
+        {
+          url: "/images/hero/hero-bg.jpg",
+          width: 1200,
+          height: 630,
+          alt: service.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: service.title,
+      description: service.shortDesc,
+      images: ["/images/hero/hero-bg.jpg"],
+    },
   };
 }
 
@@ -33,21 +57,75 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
     notFound();
   }
 
+  // Schema.org Service & BreadcrumbList
+  const serviceJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: service.title,
+    serviceType: "Solar Engineering & Power Systems Commissioning",
+    description: service.description,
+    url: `https://electrasolar.in/services/${service.slug}`,
+    provider: {
+      "@type": "Organization",
+      name: "Electra Solar",
+      url: "https://electrasolar.in",
+    },
+    areaServed: {
+      "@type": "Country",
+      name: "India",
+    },
+  };
+
+  const breadcrumbsJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://electrasolar.in",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Services",
+        item: "https://electrasolar.in/services",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: service.title,
+        item: `https://electrasolar.in/services/${service.slug}`,
+      },
+    ],
+  };
+
   return (
     <div className="py-12 lg:py-16 bg-[#f8fafd] min-h-screen">
+      {/* Schema.org Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbsJsonLd) }}
+      />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-12">
         {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-xs text-gray-500">
+        <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-gray-500 flex-wrap">
           <Link href="/" className="hover:text-[#ea580c] transition-colors">
             Home
           </Link>
-          <ChevronRight className="w-3.5 h-3.5" />
+          <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
           <Link href="/services" className="hover:text-[#ea580c] transition-colors">
             Services
           </Link>
-          <ChevronRight className="w-3.5 h-3.5" />
+          <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
           <span className="text-[#ea580c] font-semibold">{service.title}</span>
-        </div>
+        </nav>
 
         {/* Hero Banner */}
         <div className="bg-white border border-gray-200 rounded-3xl p-6 sm:p-10 lg:p-12 shadow-deye-card">
@@ -70,7 +148,7 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
           <div className="lg:col-span-7 space-y-8">
             <div className="space-y-4">
               <h2 className="text-2xl font-bold text-[#091e3a] tracking-tight">
-                Service Scope & Execution Philosophy
+                Service Scope &amp; Execution Philosophy
               </h2>
               <p className="text-sm text-gray-600 leading-relaxed">
                 {service.description}

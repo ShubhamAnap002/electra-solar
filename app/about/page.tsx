@@ -10,13 +10,83 @@ export const metadata: Metadata = {
   title: "About Electra Solar | Official Distributor of EnerTech",
   description:
     "Learn about Electra Solar's authorized partnership with EnerTech UPS Pvt. Ltd., 35+ years of power electronics pedigree, and our engineering capabilities in Pune, India.",
+  alternates: {
+    canonical: "https://electrasolar.in/about",
+  },
+  openGraph: {
+    title: "About Electra Solar | Official Distributor of EnerTech",
+    description:
+      "Authorized distributor and engineering partner for EnerTech UPS Pvt. Ltd. (Pune, Estd. 1989). Delivering factory-backed solar hybrid inverters and BESS.",
+    url: "https://electrasolar.in/about",
+    siteName: "Electra Solar",
+    type: "website",
+    images: [
+      {
+        url: "/images/hero/hero-bg.jpg",
+        width: 1200,
+        height: 630,
+        alt: "About Electra Solar",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Electra Solar | Official Distributor of EnerTech",
+    description:
+      "Learn about Electra Solar's authorized partnership with EnerTech UPS Pvt. Ltd. and 35+ years of power electronics pedigree.",
+    images: ["/images/hero/hero-bg.jpg"],
+  },
 };
 
 export default function AboutPage() {
   const rel = COMPANY.distributorRelationship;
 
+  const aboutJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    name: "About Electra Solar",
+    description:
+      "Electra Solar is the authorized distributor and systems engineering partner for EnerTech UPS Pvt. Ltd., delivering high-efficiency solar hybrid inverters, BESS, and power conditioning systems in India.",
+    url: "https://electrasolar.in/about",
+    mainEntity: {
+      "@type": "Organization",
+      name: COMPANY.name,
+      legalName: "Electra Solar Solutions",
+      url: "https://electrasolar.in",
+      foundingDate: "1989",
+      description: COMPANY.legalEntityNotice,
+    },
+  };
+
+  const breadcrumbsJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://electrasolar.in",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "About Us",
+        item: "https://electrasolar.in/about",
+      },
+    ],
+  };
+
   return (
     <div className="py-12 lg:py-16 bg-[#f8fafc] min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbsJsonLd) }}
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-16">
         {/* Header */}
         <div className="space-y-4 max-w-3xl">

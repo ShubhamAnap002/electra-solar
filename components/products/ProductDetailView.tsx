@@ -45,6 +45,21 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
     ? "0ms (True Online)"
     : "< 5ms Zero Break";
 
+  // Topic Cluster Internal Link Mapping
+  let relatedCaseStudyHref = "/projects/chakan-automotive-manufacturing-plant";
+  let relatedSolutionHref = "/solutions/commercial-industrial-power-solutions";
+  let caseStudyName = "Precision Automotive Facility, Chakan MIDC";
+
+  if (product.category === "solar-online-ups") {
+    relatedCaseStudyHref = "/projects/hinjawadi-multispeciality-hospital";
+    relatedSolutionHref = "/solutions/critical-infrastructure-and-healthcare";
+    caseStudyName = "Multi-Speciality Hospital, Hinjawadi";
+  } else if (product.category === "batteries" || product.slug.includes("single-phase")) {
+    relatedCaseStudyHref = "/projects/lonavala-luxury-eco-villa";
+    relatedSolutionHref = "/solutions/residential-solar-hybrid";
+    caseStudyName = "Luxury Eco-Villa, Lonavala";
+  }
+
   return (
     <div className="space-y-12 sm:space-y-16">
       {/* 1. Breadcrumbs */}
@@ -351,7 +366,37 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
         </div>
       </div>
 
-      {/* 5. Related Products Section */}
+      {/* 5. Provenance & Commissioning Case Study Cross-Link (Topic Cluster Linkage) */}
+      <div className="bg-gradient-to-r from-[#091e3a] to-[#0d2a52] text-white rounded-2xl p-6 sm:p-8 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border border-slate-800">
+        <div className="space-y-1.5 max-w-2xl">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-[#ea580c] block">
+            Field Provenance &amp; Commissioning Proof
+          </span>
+          <h3 className="text-lg sm:text-xl font-bold tracking-tight">
+            See This Hardware Class Commissioned at {caseStudyName}
+          </h3>
+          <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
+            Review real-world industrial data, diesel generator reduction metrics, and voltage stabilization results from operational facilities.
+          </p>
+        </div>
+        <div className="flex flex-wrap items-center gap-3 flex-shrink-0">
+          <Link
+            href={relatedCaseStudyHref}
+            className="bg-[#ea580c] hover:bg-[#c2410c] text-white px-5 py-2.5 rounded-full font-bold text-xs shadow-xs hover:shadow-md transition-all flex items-center gap-1.5"
+          >
+            <span>Read Case Study</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+          <Link
+            href={relatedSolutionHref}
+            className="border border-white/25 hover:border-white/60 text-white px-4 py-2.5 rounded-full font-semibold text-xs transition-colors"
+          >
+            <span>Target Solution Architecture</span>
+          </Link>
+        </div>
+      </div>
+
+      {/* 6. Related Products Section */}
       {relatedProducts.length > 0 && (
         <div className="space-y-6 pt-6 border-t border-gray-200">
           <div className="flex items-center justify-between">
