@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Phone, Mail, MapPin, Clock, ShieldCheck, MessageSquare, Sparkles, CheckCircle2 } from "lucide-react";
 import { COMPANY } from "@/lib/data/company";
 import { QuoteForm } from "@/components/forms/QuoteForm";
+import { RegionalMapLocations } from "@/components/contact/RegionalMapLocations";
 
 export const metadata: Metadata = {
   title: "Contact Electra Solar | Commercial Enquiries & Engineering Support",
@@ -51,12 +52,58 @@ export default function ContactPage() {
       email: COMPANY.contact.salesEmail,
       address: {
         "@type": "PostalAddress",
-        streetAddress: "Hinjawadi Commercial Corridor, Near IT Park Phase 2",
+        streetAddress: "SR. No. 399/1-2, Plot No. 5, Bhare P.O. Ghotawade, Near Hinjawadi IT Park Phase 2",
         addressLocality: "Pune",
         addressRegion: "Maharashtra",
         postalCode: "412115",
         addressCountry: "IN",
       },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: 18.5913,
+        longitude: 73.7389,
+      },
+      department: [
+        {
+          "@type": "LocalBusiness",
+          name: "Electra Solar - Pune Headquarters & Systems Plant",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "SR. No. 399/1-2, Plot No. 5, Bhare P.O. Ghotawade, Near Hinjawadi IT Park Phase 2",
+            addressLocality: "Pune",
+            addressRegion: "Maharashtra",
+            postalCode: "412115",
+            addressCountry: "IN",
+          },
+          telephone: "+91 9822407189",
+        },
+        {
+          "@type": "LocalBusiness",
+          name: "Electra Solar - Mumbai Regional Commercial Hub",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "Level 5, Solitaire Corporate Park, Chakala, Andheri East",
+            addressLocality: "Mumbai",
+            addressRegion: "Maharashtra",
+            postalCode: "400069",
+            addressCountry: "IN",
+          },
+          telephone: "+91 9373336340",
+        },
+        {
+          "@type": "LocalBusiness",
+          name: "Electra Solar - Jaipur North-West Regional Center",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "Plot No. G-12, Sitapura Industrial Area, Phase III, Near RIICO",
+            addressLocality: "Jaipur",
+            addressRegion: "Rajasthan",
+            postalCode: "302022",
+            addressCountry: "IN",
+          },
+          telephone: "+91 9373679255",
+        },
+      ],
     },
   };
 
@@ -227,6 +274,9 @@ export default function ContactPage() {
             <QuoteForm isCompact={false} />
           </div>
         </div>
+
+        {/* Regional Engineering Service Centers & Interactive Map */}
+        <RegionalMapLocations />
       </div>
     </div>
   );

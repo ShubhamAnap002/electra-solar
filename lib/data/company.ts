@@ -1,3 +1,20 @@
+export interface RegionalOffice {
+  id: string;
+  city: string;
+  state: string;
+  title: string;
+  address: string;
+  coordinates: {
+    lat: number;
+    lng: number;
+  };
+  phone: string;
+  email: string;
+  badge: string;
+  description: string;
+  mapUrl: string;
+}
+
 export interface CompanyInfo {
   name: string;
   tagline: string;
@@ -20,6 +37,7 @@ export interface CompanyInfo {
     serviceHubs: string[];
     workingHours: string;
   };
+  regionalOffices: RegionalOffice[];
   faqs: { question: string; answer: string; category: string }[];
 }
 
@@ -42,9 +60,50 @@ export const COMPANY: CompanyInfo = {
     salesEmail: 'sales@electrasolar.in',
     supportEmail: 'support@electrasolar.in',
     headquartersAddress: 'Electra Solar Solutions, Hinjawadi Commercial Corridor, Near IT Park Phase 2, Pune-412115, Maharashtra, India',
-    serviceHubs: ['Pune & PCMC', 'Mumbai & MMR', 'Nashik & Ahmednagar', 'Aurangabad (Chhatrapati Sambhajinagar)', 'Kolhapur & Western Maharashtra'],
+    serviceHubs: ['Pune & PCMC', 'Mumbai & MMR', 'Jaipur & North-West', 'Nashik & Ahmednagar', 'Aurangabad (Chhatrapati Sambhajinagar)', 'Kolhapur & Western Maharashtra'],
     workingHours: 'Monday – Saturday: 9:00 AM to 6:30 PM IST',
   },
+  regionalOffices: [
+    {
+      id: 'pune',
+      city: 'Pune',
+      state: 'Maharashtra',
+      title: 'Corporate Headquarters & Experience Center',
+      address: 'SR. No. 399/1-2, Plot No. 5, Bhare P.O. Ghotawade, Near Hinjawadi IT Park Phase 2, Pune-412115, Maharashtra, India',
+      coordinates: { lat: 18.5913, lng: 73.7389 },
+      phone: '+91 9822407189',
+      email: 'sales@electrasolar.in',
+      badge: 'HQ & Systems Plant',
+      description: 'Factory engineering linkage, master testing center, 1kVA–300kVA hybrid inverter inventory, and turnkey proposal desk.',
+      mapUrl: 'https://maps.google.com/?q=18.5913,73.7389',
+    },
+    {
+      id: 'mumbai',
+      city: 'Mumbai',
+      state: 'Maharashtra',
+      title: 'Mumbai Regional Commercial Hub (MMR)',
+      address: 'Level 5, Solitaire Corporate Park, Andheri-Ghatkopar Link Road, Chakala, Andheri East, Mumbai-400069, Maharashtra, India',
+      coordinates: { lat: 19.1136, lng: 72.8697 },
+      phone: '+91 9373336340',
+      email: 'mumbai@electrasolar.in',
+      badge: 'Commercial & EPC Desk',
+      description: 'Serving C&I clients, hospitals, luxury residential villas, and port logistics across Mumbai, Thane, Navi Mumbai, and JNPT.',
+      mapUrl: 'https://maps.google.com/?q=19.1136,72.8697',
+    },
+    {
+      id: 'jaipur',
+      city: 'Jaipur',
+      state: 'Rajasthan',
+      title: 'North-West Regional Solar & Project Center',
+      address: 'Plot No. G-12, Sitapura Industrial Area, Phase III, Near RIICO Commercial Complex, Tonk Road, Jaipur-302022, Rajasthan, India',
+      coordinates: { lat: 26.7825, lng: 75.8272 },
+      phone: '+91 9373679255',
+      email: 'jaipur@electrasolar.in',
+      badge: 'North-West Regional Hub',
+      description: 'Dedicated regional engineering office serving Rajasthan’s high-irradiance solar belt, C&I manufacturing, and agro cold storage.',
+      mapUrl: 'https://maps.google.com/?q=26.7825,75.8272',
+    },
+  ],
   faqs: [
     {
       category: 'Solar Hybrid Technology',

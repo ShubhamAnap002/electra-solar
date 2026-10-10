@@ -258,7 +258,7 @@ export function Footer() {
                   href="/contact"
                   className="hover:text-[#f97316] transition-colors text-gray-300"
                 >
-                  Contact Pune Headquarters
+                  Regional Hubs: Pune • Mumbai • Jaipur
                 </Link>
               </li>
               <li>

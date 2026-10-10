@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ChevronRight, ArrowLeft } from "lucide-react";
-import { CATEGORIES } from "@/lib/data/products";
+import { PRODUCTS, CATEGORIES } from "@/lib/data/products";
 import { getStoredProducts, getStoredCategories } from "@/lib/store";
 import { ProductsCatalogueView } from "@/components/products/ProductsCatalogueView";
 
@@ -27,6 +27,11 @@ export function generateMetadata({ params }: CategoryPageProps): Metadata {
   if (!category) {
     return { title: "Category Not Found | Electra Solar" };
   }
+  const sampleProduct = PRODUCTS.find((p) => p.category === category.slug);
+  const ogImage = sampleProduct
+    ? `https://electrasolar.in${sampleProduct.image.startsWith("/") ? sampleProduct.image : "/" + sampleProduct.image}`
+    : "https://electrasolar.in/images/hero/hero-bg.jpg";
+
   return {
     title: `${category.name} | EnerTech Authorized Systems | Electra Solar`,
     description: category.description,
@@ -38,7 +43,21 @@ export function generateMetadata({ params }: CategoryPageProps): Metadata {
       description: category.description,
       url: `https://electrasolar.in/products/${category.slug}`,
       siteName: "Electra Solar",
+      images: [
+        {
+          url: ogImage,
+          width: 800,
+          height: 800,
+          alt: category.name,
+        },
+      ],
       type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${category.name} | Electra Solar`,
+      description: category.description,
+      images: [ogImage],
     },
   };
 }

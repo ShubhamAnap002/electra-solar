@@ -27,6 +27,10 @@ export function generateMetadata({ params }: ProductPageProps): Metadata {
   if (!product) {
     return { title: "Product Not Found | Electra Solar" };
   }
+  const imageUrl = product.image.startsWith("http")
+    ? product.image
+    : `https://electrasolar.in${product.image.startsWith("/") ? product.image : "/" + product.image}`;
+
   return {
     title: `${product.name} (${product.capacityRange}) | Electra Solar`,
     description: `${product.tagline} Industrial-grade specifications and direct factory quotes for ${product.name} manufactured in partnership with EnerTech.`,
@@ -40,13 +44,19 @@ export function generateMetadata({ params }: ProductPageProps): Metadata {
       siteName: "Electra Solar",
       images: [
         {
-          url: product.image,
+          url: imageUrl,
           width: 800,
           height: 800,
-          alt: product.name,
+          alt: `${product.name} - ${product.capacityRange}`,
         },
       ],
       type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${product.name} (${product.capacityRange}) | Electra Solar`,
+      description: product.tagline,
+      images: [imageUrl],
     },
   };
 }
