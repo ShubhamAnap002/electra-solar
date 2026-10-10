@@ -134,16 +134,31 @@ export function Header() {
 
           {/* Right: Technical Support Hotline + Free Sizing Tool + Region */}
           <div className="flex items-center gap-2.5 sm:gap-3.5 ml-auto text-xs flex-shrink-0">
+            {/* Commercial Sales Desk */}
             <a
-              href={`tel:${COMPANY.contact.salesPhone1}`}
+              href="tel:+919822407189"
               className="flex items-center gap-1.5 text-gray-700 hover:text-[#ea580c] transition-colors"
-              title="Speak directly with our power engineering team"
+              title="Speak directly with Pune Commercial Sales Desk"
             >
               <Phone className="w-3.5 h-3.5 text-[#ea580c]" />
-              <span className="font-bold">{COMPANY.contact.salesPhone1}</span>
+              <span className="font-medium text-gray-500 hidden xl:inline">Sales:</span>
+              <span className="font-bold">+91 98224 07189</span>
             </a>
 
             <span className="text-gray-300 hidden sm:inline">|</span>
+
+            {/* 24/7 Technical Support Line (from EnerTech Image 2) */}
+            <a
+              href="tel:+919373679255"
+              className="hidden md:flex items-center gap-1.5 text-gray-700 hover:text-[#ea580c] transition-colors"
+              title="24/7 Technical Care & Support Desk"
+            >
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+              <span className="font-medium text-gray-500 hidden xl:inline">Support:</span>
+              <span className="font-bold">+91 93736 79255</span>
+            </a>
+
+            <span className="text-gray-300 hidden md:inline">|</span>
 
             <Link
               href="/calculator"
@@ -232,108 +247,254 @@ export function Header() {
                 />
               </Link>
 
-              {/* WORLD-CLASS PRODUCTS MEGA-MENU DROPDOWN */}
+              {/* WORLD-CLASS PRODUCTS MEGA-MENU DROPDOWN (ENERTECH 3-PILLAR INDUSTRIAL ARCHITECTURE) */}
               {activeMegaMenu === "products" && (
                 <div
                   onMouseEnter={() => handleMouseEnterMenu("products")}
                   onMouseLeave={handleMouseLeaveMenu}
-                  className="absolute top-full -left-20 w-[880px] bg-white border border-gray-100 shadow-[0_20px_60px_rgba(0,0,0,0.15)] border-t-4 border-t-[#091e3a] rounded-b-2xl p-6 z-50 animate-in fade-in slide-in-from-top-2 duration-200 before:absolute before:-top-3 before:left-0 before:right-0 before:h-4 before:content-['']"
+                  className="absolute top-full -left-28 w-[980px] xl:w-[1060px] bg-white border border-gray-200 shadow-[0_25px_60px_rgba(9,30,58,0.18)] border-t-4 border-t-[#091e3a] rounded-b-2xl p-6 z-50 animate-in fade-in slide-in-from-top-2 duration-200 before:absolute before:-top-3 before:left-0 before:right-0 before:h-4 before:content-['']"
                 >
-                  <div className="grid grid-cols-12 gap-6">
-                    {/* Column 1: Categories (5 cols) */}
-                    <div className="col-span-5 border-r border-gray-100 pr-4 space-y-2">
-                      <div className="text-[11px] font-bold text-gray-400 uppercase tracking-widest px-2 pb-1">
-                        Power Electronics Categories
+                  <div className="grid grid-cols-12 gap-5">
+                    {/* PILLAR 1: SOLAR PRODUCTS & HYBRID (3 cols) */}
+                    <div className="col-span-3 space-y-3 border-r border-gray-100 pr-3">
+                      <div className="flex items-center gap-1.5 pb-1 border-b border-orange-100">
+                        <span className="w-2 h-2 rounded-full bg-[#ea580c]" />
+                        <h4 className="text-xs font-black uppercase tracking-wider text-[#ea580c]">
+                          Solar Products
+                        </h4>
                       </div>
+
                       <div className="space-y-1">
-                        {CATEGORIES.map((cat) => (
-                          <Link
-                            key={cat.id}
-                            href={`/products/${cat.slug}`}
-                            className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-orange-50/50 transition-all group"
-                          >
-                            <div className="w-8 h-8 rounded-lg bg-orange-50 text-[#ea580c] flex items-center justify-center flex-shrink-0 group-hover:bg-[#ea580c] group-hover:text-white transition-colors">
-                              {getCategoryIcon(cat.iconName)}
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <div className="text-xs font-bold text-[#091e3a] group-hover:text-[#ea580c] transition-colors truncate">
-                                {cat.name}
-                              </div>
-                              <div className="text-[11px] text-gray-500 truncate">{cat.shortDesc}</div>
-                            </div>
-                          </Link>
-                        ))}
+                        <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider pt-1">
+                          Solar Hybrid Inverters
+                        </div>
+                        <Link
+                          href="/products/solar-hybrid-inverters/sunmagic-three-phase-solar-hybrid-inverter"
+                          className="block p-1.5 rounded-lg hover:bg-orange-50/70 transition-colors group"
+                        >
+                          <div className="text-xs font-bold text-[#091e3a] group-hover:text-[#ea580c] leading-tight">
+                            SunMagic 3-Phase Hybrid
+                          </div>
+                          <div className="text-[10px] text-gray-500 font-medium">10 - 300 kVA • 100% Unbalance</div>
+                        </Link>
+
+                        <Link
+                          href="/products/solar-hybrid-inverters/sunmagic-single-phase-solar-hybrid-inverter"
+                          className="block p-1.5 rounded-lg hover:bg-orange-50/70 transition-colors group"
+                        >
+                          <div className="text-xs font-bold text-[#091e3a] group-hover:text-[#ea580c] leading-tight">
+                            SunMagic 1-Phase Hybrid
+                          </div>
+                          <div className="text-[10px] text-gray-500 font-medium">3 - 15 kVA • Heavy Surge</div>
+                        </Link>
+
+                        <Link
+                          href="/products/solar-hybrid-inverters/wall-mounted-hf-solar-hybrid-inverter"
+                          className="block p-1.5 rounded-lg hover:bg-orange-50/70 transition-colors group"
+                        >
+                          <div className="text-xs font-bold text-[#091e3a] group-hover:text-[#ea580c] leading-tight">
+                            Wall-Mount HF Inverter
+                          </div>
+                          <div className="text-[10px] text-gray-500 font-medium">3 - 6 kW • Transformerless</div>
+                        </Link>
+
+                        <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider pt-2 border-t border-gray-100">
+                          Balance of System
+                        </div>
+                        <Link
+                          href="/products/solar-hybrid-inverters"
+                          className="block p-1.5 rounded-lg hover:bg-orange-50/70 transition-colors group"
+                        >
+                          <div className="text-xs font-semibold text-gray-700 group-hover:text-[#ea580c]">
+                            Solar On-Grid Inverters
+                          </div>
+                          <div className="text-[10px] text-gray-400">Export &amp; DG Synchronization</div>
+                        </Link>
+                        <Link
+                          href="/products/solar-hybrid-inverters"
+                          className="block p-1.5 rounded-lg hover:bg-orange-50/70 transition-colors group"
+                        >
+                          <div className="text-xs font-semibold text-gray-700 group-hover:text-[#ea580c]">
+                            Remote Monitoring (RMS)
+                          </div>
+                          <div className="text-[10px] text-gray-400">Modbus &amp; Mobile App</div>
+                        </Link>
                       </div>
                     </div>
 
-                    {/* Column 2: Flagship Product Showcase (4 cols) */}
-                    <div className="col-span-4 bg-[#f8fafd] rounded-xl p-4 border border-gray-200/80 flex flex-col justify-between">
-                      <div>
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-[10px] font-black uppercase tracking-wider bg-[#ea580c] text-white px-2 py-0.5 rounded">
-                            Flagship
-                          </span>
-                          <span className="text-[10px] font-mono text-gray-500 font-bold">10 - 300 kVA</span>
-                        </div>
-                        <h4 className="text-xs font-bold text-[#091e3a] leading-tight mb-2">
-                          SunMagic 3-Phase REeFI Industrial PCU
+                    {/* PILLAR 2: CRITICAL POWER & PROTECTION (3 cols) */}
+                    <div className="col-span-3 space-y-3 border-r border-gray-100 pr-3">
+                      <div className="flex items-center gap-1.5 pb-1 border-b border-blue-100">
+                        <span className="w-2 h-2 rounded-full bg-blue-600" />
+                        <h4 className="text-xs font-black uppercase tracking-wider text-blue-700">
+                          Critical Power
                         </h4>
-                        <div className="relative w-full h-28 my-1 flex items-center justify-center">
+                      </div>
+
+                      <div className="space-y-1">
+                        <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider pt-1">
+                          Online UPS Systems
+                        </div>
+                        <Link
+                          href="/products/solar-online-ups/solar-online-ups-system"
+                          className="block p-1.5 rounded-lg hover:bg-blue-50/70 transition-colors group"
+                        >
+                          <div className="text-xs font-bold text-[#091e3a] group-hover:text-blue-600 leading-tight">
+                            True Online Solar UPS
+                          </div>
+                          <div className="text-[10px] text-gray-500 font-medium">1-1 Ph, 3-1 Ph, 3-3 Ph • 0ms</div>
+                        </Link>
+
+                        <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider pt-2 border-t border-gray-100">
+                          Power Conditioning
+                        </div>
+                        <Link
+                          href="/products/power-conditioning/industrial-servo-voltage-stabilizer"
+                          className="block p-1.5 rounded-lg hover:bg-blue-50/70 transition-colors group"
+                        >
+                          <div className="text-xs font-bold text-[#091e3a] group-hover:text-blue-600 leading-tight">
+                            Industrial Servo Stabilizers
+                          </div>
+                          <div className="text-[10px] text-gray-500 font-medium">1 kVA – 1000 kVA Balanced</div>
+                        </Link>
+
+                        <Link
+                          href="/products/power-conditioning/industrial-igbt-scr-battery-charger"
+                          className="block p-1.5 rounded-lg hover:bg-blue-50/70 transition-colors group"
+                        >
+                          <div className="text-xs font-bold text-[#091e3a] group-hover:text-blue-600 leading-tight">
+                            IGBT / SCR Battery Chargers
+                          </div>
+                          <div className="text-[10px] text-gray-500 font-medium">Float Cum Boost Rectifiers</div>
+                        </Link>
+
+                        <Link
+                          href="/products/power-conditioning"
+                          className="block p-1.5 rounded-lg hover:bg-blue-50/70 transition-colors group"
+                        >
+                          <div className="text-xs font-semibold text-gray-700 group-hover:text-blue-600">
+                            Static Frequency Converters
+                          </div>
+                          <div className="text-[10px] text-gray-400">50 Hz ⇄ 60 Hz / 400 Hz</div>
+                        </Link>
+                      </div>
+                    </div>
+
+                    {/* PILLAR 3: SOLAR BESS & ENERGY STORAGE (3 cols) */}
+                    <div className="col-span-3 space-y-3 border-r border-gray-100 pr-3">
+                      <div className="flex items-center gap-1.5 pb-1 border-b border-emerald-100">
+                        <span className="w-2 h-2 rounded-full bg-emerald-600" />
+                        <h4 className="text-xs font-black uppercase tracking-wider text-emerald-700">
+                          Solar BESS &amp; Storage
+                        </h4>
+                      </div>
+
+                      <div className="space-y-1">
+                        <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider pt-1">
+                          Commercial Energy Storage
+                        </div>
+                        <Link
+                          href="/products/bess/enercube-commercial-battery-energy-storage-system"
+                          className="block p-1.5 rounded-lg hover:bg-emerald-50/70 transition-colors group"
+                        >
+                          <div className="text-xs font-bold text-[#091e3a] group-hover:text-emerald-600 leading-tight">
+                            EnerCube Commercial BESS
+                          </div>
+                          <div className="text-[10px] text-gray-500 font-medium">50kW / 100kWh – 1MWh Modular</div>
+                        </Link>
+
+                        <Link
+                          href="/products/bess"
+                          className="block p-1.5 rounded-lg hover:bg-emerald-50/70 transition-colors group"
+                        >
+                          <div className="text-xs font-bold text-[#091e3a] group-hover:text-emerald-600 leading-tight">
+                            Hybrid Eco Series BESS
+                          </div>
+                          <div className="text-[10px] text-gray-500 font-medium">Turnkey Peak Shaving</div>
+                        </Link>
+
+                        <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider pt-2 border-t border-gray-100">
+                          Batteries Offered
+                        </div>
+                        <Link
+                          href="/products/batteries/lfp-lithium-iron-phosphate-battery-module"
+                          className="block p-1.5 rounded-lg hover:bg-emerald-50/70 transition-colors group"
+                        >
+                          <div className="text-xs font-bold text-[#091e3a] group-hover:text-emerald-600 leading-tight">
+                            LFP Lithium Battery Modules
+                          </div>
+                          <div className="text-[10px] text-gray-500 font-medium">51.2V 100Ah/200Ah • 6000+ Cycles</div>
+                        </Link>
+
+                        <Link
+                          href="/products/batteries"
+                          className="block p-1.5 rounded-lg hover:bg-emerald-50/70 transition-colors group"
+                        >
+                          <div className="text-xs font-semibold text-gray-700 group-hover:text-emerald-600">
+                            Industrial VRLA / SMF Banks
+                          </div>
+                          <div className="text-[10px] text-gray-400">High-rate industrial discharge</div>
+                        </Link>
+                      </div>
+                    </div>
+
+                    {/* PILLAR 4: HARDWARE SPOTLIGHT & SIZING (3 cols) */}
+                    <div className="col-span-3 bg-gradient-to-b from-[#f8fafd] to-slate-100/70 rounded-xl p-3.5 border border-gray-200 flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center justify-between mb-1.5">
+                          <span className="text-[9px] font-black uppercase tracking-wider bg-[#091e3a] text-white px-2 py-0.5 rounded">
+                            Pune Built
+                          </span>
+                          <span className="text-[10px] font-bold text-[#ea580c]">10 - 300 kVA</span>
+                        </div>
+                        <h5 className="text-xs font-black text-[#091e3a] leading-tight mb-1">
+                          SunMagic 3-Phase Industrial PCU
+                        </h5>
+                        <p className="text-[10px] text-gray-500 leading-snug mb-2">
+                          Heavy-duty 100% phase unbalance tolerance with sub-5ms UPS changeover.
+                        </p>
+                        <div className="relative w-full h-24 my-1 flex items-center justify-center bg-white rounded-lg border border-slate-200/80 p-1">
                           <Image
                             src="/images/products/sunmagic-3ph.webp"
                             alt="SunMagic 3-Phase Solar Hybrid Inverter"
                             fill
                             className="object-contain filter drop-shadow-md hover:scale-105 transition-transform"
-                            sizes="200px"
+                            sizes="180px"
                           />
                         </div>
-                        <div className="text-[11px] text-gray-600 space-y-1 pt-1">
-                          <div className="flex items-center gap-1.5 text-xs text-[#ea580c] font-semibold">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-[#ea580c]" />
-                            <span>100% Phase Unbalance Support</span>
-                          </div>
-                          <div className="flex items-center gap-1.5 text-xs text-gray-600">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-[#ea580c]" />
-                            <span>&lt; 5ms Zero Break Transfer</span>
-                          </div>
-                        </div>
                       </div>
 
-                      <Link
-                        href="/products/solar-hybrid-inverters/sunmagic-three-phase-solar-hybrid-inverter"
-                        className="mt-3 w-full bg-[#091e3a] hover:bg-[#ea580c] text-white py-2 px-3 rounded-lg text-xs font-bold text-center block transition-colors"
-                      >
-                        View Specifications →
-                      </Link>
-                    </div>
-
-                    {/* Column 3: Engineering Tools & Quick Resources (3 cols) */}
-                    <div className="col-span-3 space-y-3">
-                      <div className="text-[11px] font-bold text-gray-400 uppercase tracking-widest pb-1">
-                        Engineering Suite
-                      </div>
-
-                      <Link
-                        href="/calculator"
-                        className="flex items-start gap-2.5 p-2 rounded-lg hover:bg-gray-50 transition-colors"
-                      >
-                        <Calculator className="w-4 h-4 text-[#ea580c] mt-0.5 flex-shrink-0" />
-                        <div>
-                          <div className="text-xs font-bold text-[#091e3a]">Sizing Calculator</div>
-                          <div className="text-[10px] text-gray-500">Accurate kVA & battery sizing</div>
-                        </div>
-                      </Link>
-
-                      <div className="pt-2 border-t border-gray-100">
+                      <div className="space-y-1.5 pt-2">
+                        <Link
+                          href="/calculator"
+                          className="w-full bg-[#ea580c] hover:bg-[#c2410c] text-white py-2 px-2.5 rounded-lg text-[11px] font-bold text-center flex items-center justify-center gap-1.5 shadow-xs transition-colors"
+                        >
+                          <Calculator className="w-3.5 h-3.5" />
+                          <span>Solar Sizing Calculator →</span>
+                        </Link>
                         <Link
                           href="/products"
-                          className="text-xs font-bold text-[#091e3a] hover:text-[#ea580c] hover:underline flex items-center gap-1"
+                          className="w-full bg-white hover:bg-gray-50 text-[#091e3a] border border-gray-200 py-1.5 px-2.5 rounded-lg text-[10px] font-bold text-center block transition-colors"
                         >
-                          <span>Explore All 8 Verified Models</span>
-                          <ArrowRight className="w-3.5 h-3.5" />
+                          Explore Full Catalog (8 Models)
                         </Link>
                       </div>
                     </div>
+                  </div>
+
+                  {/* BOTTOM MEGA-MENU SUB-BAR */}
+                  <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-[11px]">
+                    <div className="flex items-center gap-2 text-gray-600 font-medium">
+                      <ShieldCheck className="w-3.5 h-3.5 text-[#ea580c]" />
+                      <span>Direct EnerTech Pune Plant Warranty &amp; Turnkey Pan-India Engineering SLA</span>
+                    </div>
+                    <a
+                      href="tel:+919822407189"
+                      className="text-[#ea580c] font-bold hover:underline flex items-center gap-1"
+                    >
+                      <Phone className="w-3 h-3" />
+                      <span>Sales &amp; Sizing Desk: +91 98224 07189</span>
+                    </a>
                   </div>
                 </div>
               )}
@@ -602,29 +763,104 @@ export function Header() {
                 Home
               </Link>
 
-              {/* Mobile Products Accordion */}
+              {/* Mobile Products Accordion (3 EnerTech Engineering Pillars) */}
               <div className="border-t border-gray-100 pt-2">
                 <div className="px-3 py-1.5 text-xs font-bold text-gray-400 uppercase tracking-wider">
-                  Product Categories
+                  Power Electronics Catalog
                 </div>
-                <div className="space-y-1 pl-2">
-                  {CATEGORIES.map((cat) => (
-                    <Link
-                      key={cat.id}
-                      href={`/products/${cat.slug}`}
-                      className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-gray-700 hover:text-[#ea580c] hover:bg-orange-50/50"
-                    >
-                      <div className="w-6 h-6 rounded bg-orange-50 text-[#ea580c] flex items-center justify-center">
-                        {getCategoryIcon(cat.iconName)}
-                      </div>
-                      <span>{cat.name}</span>
-                    </Link>
-                  ))}
+                <div className="space-y-2 pl-2">
+                  {/* Pillar 1: Solar Products */}
+                  <div className="bg-orange-50/40 rounded-xl p-2.5 border border-orange-100">
+                    <div className="text-xs font-bold text-[#ea580c] uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-[#ea580c]" />
+                      <span>Solar Products &amp; Inverters</span>
+                    </div>
+                    <div className="space-y-1 pl-3 text-xs">
+                      <Link
+                        href="/products/solar-hybrid-inverters/sunmagic-three-phase-solar-hybrid-inverter"
+                        className="block py-1 text-gray-700 hover:text-[#ea580c] font-medium"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        SunMagic 3-Phase Hybrid (10 - 300 kVA)
+                      </Link>
+                      <Link
+                        href="/products/solar-hybrid-inverters/sunmagic-single-phase-solar-hybrid-inverter"
+                        className="block py-1 text-gray-700 hover:text-[#ea580c] font-medium"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        SunMagic 1-Phase Hybrid (3 - 15 kVA)
+                      </Link>
+                      <Link
+                        href="/products/solar-hybrid-inverters/wall-mounted-hf-solar-hybrid-inverter"
+                        className="block py-1 text-gray-700 hover:text-[#ea580c] font-medium"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        Wall-Mount HF Inverter (3 - 6 kW)
+                      </Link>
+                    </div>
+                  </div>
+
+                  {/* Pillar 2: Critical Power */}
+                  <div className="bg-blue-50/40 rounded-xl p-2.5 border border-blue-100">
+                    <div className="text-xs font-bold text-blue-700 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-blue-600" />
+                      <span>Critical Power &amp; Quality</span>
+                    </div>
+                    <div className="space-y-1 pl-3 text-xs">
+                      <Link
+                        href="/products/solar-online-ups/solar-online-ups-system"
+                        className="block py-1 text-gray-700 hover:text-blue-700 font-medium"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        True Online Solar UPS (0ms Seamless)
+                      </Link>
+                      <Link
+                        href="/products/power-conditioning/industrial-servo-voltage-stabilizer"
+                        className="block py-1 text-gray-700 hover:text-blue-700 font-medium"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        Industrial Servo Stabilizers (1 - 1000 kVA)
+                      </Link>
+                      <Link
+                        href="/products/power-conditioning/industrial-igbt-scr-battery-charger"
+                        className="block py-1 text-gray-700 hover:text-blue-700 font-medium"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        IGBT / SCR Industrial Battery Chargers
+                      </Link>
+                    </div>
+                  </div>
+
+                  {/* Pillar 3: BESS & Storage */}
+                  <div className="bg-emerald-50/40 rounded-xl p-2.5 border border-emerald-100">
+                    <div className="text-xs font-bold text-emerald-700 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-emerald-600" />
+                      <span>Solar BESS &amp; Storage</span>
+                    </div>
+                    <div className="space-y-1 pl-3 text-xs">
+                      <Link
+                        href="/products/bess/enercube-commercial-battery-energy-storage-system"
+                        className="block py-1 text-gray-700 hover:text-emerald-700 font-medium"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        EnerCube BESS (50kW / 100kWh – 1MWh)
+                      </Link>
+                      <Link
+                        href="/products/batteries/lfp-lithium-iron-phosphate-battery-module"
+                        className="block py-1 text-gray-700 hover:text-emerald-700 font-medium"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        LFP LiFePO4 Battery Modules (51.2V)
+                      </Link>
+                    </div>
+                  </div>
+
                   <Link
                     href="/products"
-                    className="block px-3 py-2 text-xs font-bold text-[#ea580c]"
+                    className="block px-3 py-2 text-xs font-bold text-[#ea580c] hover:underline"
+                    onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    View All Products & Models →
+                    View All Power Electronics Models →
                   </Link>
                 </div>
               </div>
