@@ -30,27 +30,26 @@ export function Footer() {
   };
 
   return (
-    <footer className="bg-[#07172c] text-gray-400 text-sm border-t border-white/10">
+    <footer className="bg-[#091e3a] text-gray-300 text-sm border-t border-white/10">
       {/* MAIN FOOTER NAVIGATION (Desktop 4-Col Grid / Mobile Clean Accordions) */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 lg:py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10">
+          
           {/* Column 1: Brand, Authorization & Hotline (4 cols on lg) */}
           <div className="lg:col-span-4 space-y-4">
             <Link href="/" className="inline-flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#015cbb] via-[#00d2ff] to-[#51b2e3] p-0.5 shadow-sm flex-shrink-0">
-                <div className="w-full h-full bg-[#091e3a] rounded-[10px] flex items-center justify-center">
-                  <Sun className="w-5 h-5 text-[#00d2ff]" />
-                </div>
+              <div className="w-9 h-9 rounded-xl bg-orange-500/10 border border-orange-500/30 p-1 shadow-sm flex-shrink-0 flex items-center justify-center">
+                <Sun className="w-5 h-5 text-[#f97316]" />
               </div>
               <span className="text-xl font-black tracking-tight text-white">
-                ELECTRA <span className="text-[#00d2ff]">SOLAR</span>
+                ELECTRA <span className="text-[#f97316]">SOLAR</span>
               </span>
             </Link>
 
             <p className="text-xs text-gray-300 leading-relaxed max-w-sm">
               Official turnkey distributor and engineering partner of{" "}
               <strong className="text-white font-semibold">EnerTech UPS Pvt. Ltd. (Pune Plant • Estd. 1989)</strong>.
-              Delivering heavy-duty bi-directional hybrid inverters, C&I BESS, and 0ms online UPS systems across India.
+              Delivering heavy-duty bi-directional hybrid inverters, C&amp;I BESS, and sub-5ms zero-break online UPS systems across India.
             </p>
 
             {/* Compact Direct Connect Box */}
@@ -59,7 +58,7 @@ export function Footer() {
                 href={`tel:${COMPANY.contact.salesPhone1}`}
                 className="inline-flex items-center justify-center gap-2 px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-semibold transition-colors"
               >
-                <Phone className="w-3.5 h-3.5 text-[#00d2ff]" />
+                <Phone className="w-3.5 h-3.5 text-[#f97316]" />
                 <span>{COMPANY.contact.salesPhone1}</span>
               </a>
 
@@ -75,7 +74,7 @@ export function Footer() {
             </div>
 
             <div className="text-[11px] text-gray-400 flex items-center gap-1.5 pt-1">
-              <MapPin className="w-3.5 h-3.5 text-gray-500 flex-shrink-0" />
+              <MapPin className="w-3.5 h-3.5 text-gray-400 flex-shrink-0" />
               <span>Head Office: Pune, Maharashtra • Pan-India Turnkey Commissioning</span>
             </div>
           </div>
@@ -103,47 +102,47 @@ export function Footer() {
               <li>
                 <Link
                   href="/products/solar-hybrid-inverters/sunmagic-three-phase-solar-hybrid-inverter"
-                  className="hover:text-[#00d2ff] transition-colors font-medium text-gray-300"
+                  className="hover:text-[#f97316] transition-colors font-medium text-gray-300"
                 >
-                  SunMagic 3-Phase Hybrid (10-300kVA)
+                  SunMagic 3-Phase Hybrid (10-50kW)
                 </Link>
               </li>
               <li>
                 <Link
                   href="/products/bess/enercube-commercial-battery-energy-storage-system"
-                  className="hover:text-[#00d2ff] transition-colors font-medium text-gray-300"
+                  className="hover:text-[#f97316] transition-colors font-medium text-gray-300"
                 >
-                  EnerCube C&I BESS (50-500kWh)
+                  EnerCube C&amp;I BESS (5-200kWh+)
                 </Link>
               </li>
               <li>
                 <Link
                   href="/products/solar-hybrid-inverters/sunmagic-single-phase-solar-hybrid-inverter"
-                  className="hover:text-[#00d2ff] transition-colors"
+                  className="hover:text-[#f97316] transition-colors text-gray-300"
                 >
-                  SunMagic 1-Phase Hybrid (1-15kVA)
+                  SunMagic 1-Phase Hybrid (3-10kW)
                 </Link>
               </li>
               <li>
                 <Link
                   href="/products/batteries/lfp-lithium-iron-phosphate-battery-module"
-                  className="hover:text-[#00d2ff] transition-colors"
+                  className="hover:text-[#f97316] transition-colors text-gray-300"
                 >
-                  51.2V LiFePO4 Rack Packs (100-314Ah)
+                  51.2V LiFePO4 Battery Banks
                 </Link>
               </li>
               <li>
                 <Link
                   href="/products/solar-online-ups/solar-online-ups-system"
-                  className="hover:text-[#00d2ff] transition-colors"
+                  className="hover:text-[#f97316] transition-colors text-gray-300"
                 >
-                  Solar Online UPS 0ms (1-60kVA)
+                  Industrial Online UPS (10-300kVA)
                 </Link>
               </li>
               <li className="pt-1">
                 <Link
                   href="/products"
-                  className="text-[#00d2ff] hover:text-white font-semibold flex items-center gap-1 text-[11px]"
+                  className="text-[#f97316] hover:text-white font-semibold flex items-center gap-1 text-[11px]"
                 >
                   <span>Explore Full Portfolio</span>
                   <ArrowUpRight className="w-3 h-3" />
@@ -159,7 +158,7 @@ export function Footer() {
               onClick={() => toggleSection("solutions")}
               className="w-full flex items-center justify-between text-white font-bold text-xs uppercase tracking-wider mb-3 lg:mb-4 lg:cursor-default"
             >
-              <span className="text-white font-bold tracking-wide">Solutions & Tools</span>
+              <span className="text-white font-bold tracking-wide">Solutions &amp; Tools</span>
               <ChevronDown
                 className={`w-4 h-4 text-gray-400 lg:hidden transition-transform duration-200 ${
                   openSections.solutions ? "rotate-180" : ""
@@ -175,15 +174,15 @@ export function Footer() {
               <li>
                 <Link
                   href="/solutions/commercial-industrial-power-solutions"
-                  className="hover:text-[#00d2ff] transition-colors"
+                  className="hover:text-[#f97316] transition-colors text-gray-300"
                 >
-                  Commercial & Industrial (C&I)
+                  Commercial &amp; Industrial (C&amp;I)
                 </Link>
               </li>
               <li>
                 <Link
                   href="/solutions/residential-solar-hybrid"
-                  className="hover:text-[#00d2ff] transition-colors"
+                  className="hover:text-[#f97316] transition-colors text-gray-300"
                 >
                   Residential Luxury Villas
                 </Link>
@@ -191,7 +190,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/installations"
-                  className="hover:text-[#00d2ff] transition-colors font-medium text-gray-300"
+                  className="hover:text-[#f97316] transition-colors font-medium text-gray-300"
                 >
                   Real Project Installations
                 </Link>
@@ -199,17 +198,9 @@ export function Footer() {
               <li>
                 <Link
                   href="/calculator"
-                  className="hover:text-[#00d2ff] transition-colors font-medium text-gray-300"
+                  className="hover:text-[#f97316] transition-colors font-medium text-gray-300"
                 >
-                  Solar & BESS Calculator
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/compare"
-                  className="hover:text-[#00d2ff] transition-colors"
-                >
-                  Technical Compare Matrix
+                  Solar &amp; BESS Calculator
                 </Link>
               </li>
             </ul>
@@ -222,7 +213,7 @@ export function Footer() {
               onClick={() => toggleSection("company")}
               className="w-full flex items-center justify-between text-white font-bold text-xs uppercase tracking-wider mb-3 lg:mb-4 lg:cursor-default"
             >
-              <span className="text-white font-bold tracking-wide">Company & Insights</span>
+              <span className="text-white font-bold tracking-wide">Company &amp; Insights</span>
               <ChevronDown
                 className={`w-4 h-4 text-gray-400 lg:hidden transition-transform duration-200 ${
                   openSections.company ? "rotate-180" : ""
@@ -238,7 +229,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/about"
-                  className="hover:text-[#00d2ff] transition-colors"
+                  className="hover:text-[#f97316] transition-colors text-gray-300"
                 >
                   About Electra Solar
                 </Link>
@@ -246,10 +237,10 @@ export function Footer() {
               <li>
                 <Link
                   href="/careers"
-                  className="hover:text-[#00d2ff] transition-colors font-semibold text-white flex items-center gap-1.5"
+                  className="hover:text-[#f97316] transition-colors font-semibold text-white flex items-center gap-1.5"
                 >
                   <span>Careers</span>
-                  <span className="px-1.5 py-0.2 bg-[#00d2ff]/20 text-[#00d2ff] text-[10px] rounded font-bold">
+                  <span className="px-1.5 py-0.2 bg-emerald-500/20 text-emerald-400 text-[10px] rounded font-bold">
                     Hiring
                   </span>
                 </Link>
@@ -257,15 +248,15 @@ export function Footer() {
               <li>
                 <Link
                   href="/blog"
-                  className="hover:text-[#00d2ff] transition-colors font-semibold text-gray-200"
+                  className="hover:text-[#f97316] transition-colors font-semibold text-gray-200"
                 >
-                  Solar Knowledge Hub & Insights
+                  Solar Knowledge Hub &amp; Blog
                 </Link>
               </li>
               <li>
                 <Link
                   href="/contact"
-                  className="hover:text-[#00d2ff] transition-colors"
+                  className="hover:text-[#f97316] transition-colors text-gray-300"
                 >
                   Contact Pune Headquarters
                 </Link>
@@ -273,35 +264,36 @@ export function Footer() {
               <li>
                 <a
                   href={`mailto:${COMPANY.contact.salesEmail}`}
-                  className="text-gray-400 hover:text-[#00d2ff] transition-colors font-mono"
+                  className="text-gray-300 hover:text-[#f97316] transition-colors font-mono"
                 >
                   {COMPANY.contact.salesEmail}
                 </a>
               </li>
             </ul>
           </div>
+
         </div>
       </div>
 
       {/* STREAMLINED TRUST & QUALITY HALLMARK STRIP */}
-      <div className="border-t border-white/10 py-4 px-4 sm:px-6 bg-[#051121]">
+      <div className="border-t border-white/10 py-4 px-4 sm:px-6 lg:px-8 bg-[#061528]">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs text-gray-400">
           <div className="flex flex-wrap items-center gap-4 text-[11px] font-medium text-gray-300">
             <span className="flex items-center gap-1.5">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#00d2ff]" />
+              <ShieldCheck className="w-3.5 h-3.5 text-[#f97316]" />
               Official EnerTech Turnkey Partner
             </span>
-            <span className="text-gray-700 hidden sm:inline">•</span>
+            <span className="text-gray-600 hidden sm:inline">•</span>
             <span className="flex items-center gap-1.5">
-              <Award className="w-3.5 h-3.5 text-[#00d2ff]" />
+              <Award className="w-3.5 h-3.5 text-[#f97316]" />
               ISO 9001:2015 Certified
             </span>
-            <span className="text-gray-700 hidden sm:inline">•</span>
+            <span className="text-gray-600 hidden sm:inline">•</span>
             <span className="flex items-center gap-1.5">
-              <CheckCircle className="w-3.5 h-3.5 text-[#00d2ff]" />
+              <CheckCircle className="w-3.5 h-3.5 text-[#f97316]" />
               Make in India (Pune Plant)
             </span>
-            <span className="text-gray-700 hidden sm:inline">•</span>
+            <span className="text-gray-600 hidden sm:inline">•</span>
             <span>MNRE Approved Hardware</span>
           </div>
 
@@ -312,23 +304,23 @@ export function Footer() {
       </div>
 
       {/* MINIMALIST BOTTOM LEGAL BAR */}
-      <div className="border-t border-white/5 py-4 px-4 sm:px-6 text-xs text-gray-500 bg-[#030b17]">
+      <div className="border-t border-white/5 py-4 px-4 sm:px-6 lg:px-8 text-xs text-gray-400 bg-[#040e1b]">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
           <div className="text-[11px]">
             © {new Date().getFullYear()} Electra Solar Solutions. Authorized EnerTech Partner. All rights reserved.
           </div>
 
           <div className="flex items-center gap-5 text-[11px]">
-            <Link href="/privacy-policy" className="hover:text-gray-300 transition-colors">
+            <Link href="/privacy-policy" className="hover:text-white transition-colors">
               Privacy Policy
             </Link>
-            <Link href="/terms" className="hover:text-gray-300 transition-colors">
-              Terms & Conditions
+            <Link href="/terms" className="hover:text-white transition-colors">
+              Terms &amp; Conditions
             </Link>
-            <Link href="/sitemap.xml" className="hover:text-gray-300 transition-colors">
+            <Link href="/sitemap.xml" className="hover:text-white transition-colors">
               Sitemap
             </Link>
-            <Link href="/admin" className="hover:text-[#00d2ff] transition-colors text-gray-400 font-medium">
+            <Link href="/admin" className="hover:text-[#f97316] transition-colors text-gray-400 font-medium">
               Admin Portal
             </Link>
           </div>

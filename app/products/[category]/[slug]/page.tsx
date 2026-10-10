@@ -29,11 +29,24 @@ export function generateMetadata({ params }: ProductPageProps): Metadata {
   }
   return {
     title: `${product.name} (${product.capacityRange}) | Electra Solar`,
-    description: `${product.tagline} Verified specifications, features, and direct distributor quote for ${product.name}.`,
+    description: `${product.tagline} Industrial-grade specifications and direct factory quotes for ${product.name} manufactured in partnership with EnerTech.`,
+    alternates: {
+      canonical: `https://electrasolar.in/products/${product.category}/${product.slug}`,
+    },
     openGraph: {
-      title: `${product.name} | Electra Solar & EnerTech`,
+      title: `${product.name} (${product.capacityRange}) | Electra Solar`,
       description: product.tagline,
-      images: [product.image],
+      url: `https://electrasolar.in/products/${product.category}/${product.slug}`,
+      siteName: "Electra Solar",
+      images: [
+        {
+          url: product.image,
+          width: 800,
+          height: 800,
+          alt: product.name,
+        },
+      ],
+      type: "website",
     },
   };
 }
@@ -45,8 +58,80 @@ export default function ProductPage({ params }: ProductPageProps) {
     notFound();
   }
 
+  // Google JSON-LD Structured Data (Product + BreadcrumbList)
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    image: [`https://electrasolar.in${product.image}`],
+    description: product.description || product.tagline,
+    sku: product.modelCode,
+    mpn: product.modelCode,
+    brand: {
+      "@type": "Brand",
+      name: "EnerTech",
+    },
+    manufacturer: {
+      "@type": "Organization",
+      name: "EnerTech UPS Pvt. Ltd.",
+    },
+    category: product.categoryName,
+    offers: {
+      "@type": "Offer",
+      url: `https://electrasolar.in/products/${product.category}/${product.slug}`,
+      priceCurrency: "INR",
+      price: "0",
+      availability: "https://schema.org/InStock",
+      seller: {
+        "@type": "Organization",
+        name: "Electra Solar",
+      },
+    },
+  };
+
+  const breadcrumbsJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://electrasolar.in",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Products",
+        item: "https://electrasolar.in/products",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: product.categoryName,
+        item: `https://electrasolar.in/products/${product.category}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 4,
+        name: product.name,
+        item: `https://electrasolar.in/products/${product.category}/${product.slug}`,
+      },
+    ],
+  };
+
   return (
-    <div className="py-12 lg:py-16 bg-[#f8fafd] min-h-screen">
+    <div className="py-10 lg:py-14 bg-[#f8fafd] min-h-screen">
+      {/* Schema.org Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbsJsonLd) }}
+      />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <ProductDetailView product={product} />
       </div>

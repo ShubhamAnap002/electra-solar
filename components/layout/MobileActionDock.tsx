@@ -24,7 +24,7 @@ export function MobileActionDock() {
           href={`tel:${COMPANY.contact.salesPhone1}`}
           className="flex flex-col items-center justify-center py-1.5 px-1 rounded-xl text-white hover:bg-white/10 active:scale-95 transition-all"
         >
-          <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-[#00d2ff] mb-1">
+          <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-[#f97316] mb-1">
             <Phone className="w-4 h-4" />
           </div>
           <span className="text-[10px] font-bold tracking-tight text-gray-200">Call Desk</span>
@@ -48,7 +48,7 @@ export function MobileActionDock() {
           href="/calculator"
           className="flex flex-col items-center justify-center py-1.5 px-1 rounded-xl text-white hover:bg-white/10 active:scale-95 transition-all"
         >
-          <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-[#51b2e3] mb-1">
+          <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-gray-200 mb-1">
             <Calculator className="w-4 h-4" />
           </div>
           <span className="text-[10px] font-bold tracking-tight text-gray-200">Calculator</span>
@@ -58,12 +58,12 @@ export function MobileActionDock() {
         <button
           type="button"
           onClick={() => openEnquiryModal({ source: "Mobile Action Dock" })}
-          className="flex flex-col items-center justify-center py-1.5 px-1 rounded-xl bg-gradient-to-r from-[#015cbb] to-[#00d2ff] text-[#091e3a] active:scale-95 transition-all shadow-md font-black"
+          className="flex flex-col items-center justify-center py-1.5 px-1 rounded-xl bg-[#ea580c] hover:bg-[#c2410c] text-white active:scale-95 transition-all shadow-md font-black"
         >
-          <div className="w-8 h-8 rounded-full bg-[#091e3a]/15 flex items-center justify-center text-[#091e3a] mb-1">
+          <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white mb-1">
             <Zap className="w-4 h-4 fill-current" />
           </div>
-          <span className="text-[10px] font-black uppercase tracking-tight text-[#091e3a]">Get Quote</span>
+          <span className="text-[10px] font-black uppercase tracking-tight text-white">Get Quote</span>
         </button>
       </div>
     </div>

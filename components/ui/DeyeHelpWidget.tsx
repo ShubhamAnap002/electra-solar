@@ -13,17 +13,17 @@ export function DeyeHelpWidget() {
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
       {/* Expanded Quick Contact Popover */}
       {isOpen && (
-        <div className="mb-3 w-80 bg-white rounded-2xl shadow-2xl border border-gray-100 p-4 text-[#222222] animate-in fade-in slide-in-from-bottom-3 duration-200">
+        <div className="mb-3 w-80 bg-white rounded-2xl shadow-2xl border border-gray-100 p-4 text-[#1e293b] animate-in fade-in slide-in-from-bottom-3 duration-200">
           <div className="flex items-center justify-between pb-3 border-b border-gray-100">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#015cbb] via-[#1e8ec6] to-[#51b2e3] flex items-center justify-center text-white text-xs font-bold shadow-sm">
+              <div className="w-8 h-8 rounded-full bg-[#091e3a] flex items-center justify-center text-[#ea580c] font-black text-xs shadow-xs">
                 ES
               </div>
               <div>
-                <div className="text-xs font-bold text-[#222222]">Electra Solar Expert</div>
+                <div className="text-xs font-bold text-[#091e3a]">Electra Solar Expert</div>
                 <div className="text-[10px] text-emerald-600 font-semibold flex items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                  Online • EnerTech Technical Support
+                  Online • Technical Support
                 </div>
               </div>
             </div>
@@ -37,7 +37,7 @@ export function DeyeHelpWidget() {
 
           <div className="py-3 space-y-2 text-xs">
             <p className="text-gray-600 leading-relaxed text-[11px]">
-              Hi! Need guidance selecting the right solar hybrid inverter, battery storage, or industrial PCU?
+              Need help selecting the right solar hybrid inverter, battery storage, or industrial PCU?
             </p>
 
             <div className="space-y-1.5 pt-1">
@@ -46,17 +46,17 @@ export function DeyeHelpWidget() {
                   setIsOpen(false);
                   openEnquiryModal({ source: "Floating Need Help Widget" });
                 }}
-                className="w-full bg-[#015cbb] hover:bg-[#004896] text-white py-2 px-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition-all"
+                className="w-full bg-[#091e3a] hover:bg-[#ea580c] text-white py-2 px-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-xs transition-all"
               >
-                <Send className="w-3.5 h-3.5" />
-                <span>Request Custom Sizing & Quote</span>
+                <Send className="w-3.5 h-3.5 text-[#ea580c]" />
+                <span>Request Sizing &amp; Quote</span>
               </button>
 
               <a
                 href={`tel:${COMPANY.contact.salesPhone1}`}
-                className="w-full bg-gray-50 hover:bg-gray-100 text-[#222222] py-2 px-3 rounded-xl font-semibold text-xs flex items-center justify-center gap-2 border border-gray-200 transition-colors"
+                className="w-full bg-gray-50 hover:bg-gray-100 text-gray-800 py-2 px-3 rounded-xl font-semibold text-xs flex items-center justify-center gap-2 border border-gray-200 transition-colors hover:text-[#ea580c]"
               >
-                <Phone className="w-3.5 h-3.5 text-[#015cbb]" />
+                <Phone className="w-3.5 h-3.5 text-[#ea580c]" />
                 <span>Call {COMPANY.contact.salesPhone1}</span>
               </a>
 
@@ -78,40 +78,28 @@ export function DeyeHelpWidget() {
         </div>
       )}
 
-      {/* Main Avatar + Speech Bubble (Matches Deye Screenshot 1:1) */}
+      {/* Main Avatar + Speech Bubble */}
       <div className="flex items-center gap-2">
         {/* White Speech Bubble "Need help?" */}
         {!isOpen && (
           <div
             onClick={() => setIsOpen(true)}
-            className="cursor-pointer bg-white text-[#222222] text-xs font-semibold py-2 px-3.5 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.12)] border border-gray-100 hover:border-[#015cbb]/30 transition-all hover:scale-105 flex items-center gap-1.5 select-none relative"
+            className="cursor-pointer bg-white text-gray-800 text-xs font-semibold py-2 px-3.5 rounded-2xl shadow-md border border-gray-100 hover:border-orange-300 transition-all hover:scale-105 flex items-center gap-1.5 select-none relative"
           >
             <span>Need help?</span>
-            {/* Bubble Tail pointing right toward avatar */}
             <div className="absolute -right-1.5 top-1/2 -translate-y-1/2 w-3 h-3 bg-white border-r border-t border-gray-100 rotate-45 transform pointer-events-none" />
           </div>
         )}
 
-        {/* Glowing Spherical Mascot Avatar */}
+        {/* Clean Professional Avatar Button */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="relative w-12 h-12 rounded-full p-0.5 bg-gradient-to-tr from-[#015cbb] via-[#51b2e3] to-[#80e5ff] shadow-[0_4px_20px_rgba(1,92,187,0.35)] hover:scale-110 active:scale-95 transition-transform flex items-center justify-center group"
+          className="relative w-12 h-12 rounded-full bg-[#091e3a] hover:bg-[#ea580c] shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center justify-center text-white group"
           aria-label="Need Help Assistance"
         >
-          {/* Inner Glowing Orb with smiling mascot face / spark */}
-          <div className="w-full h-full rounded-full bg-gradient-to-br from-[#80d8ff] via-[#29b6f6] to-[#015cbb] flex items-center justify-center text-white overflow-hidden shadow-inner relative">
-            {/* Animated Face/Spark from Screenshot */}
-            <div className="relative flex flex-col items-center justify-center">
-              <div className="flex items-center gap-2 mb-0.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-white shadow-sm" />
-                <span className="w-1.5 h-1.5 rounded-full bg-white shadow-sm" />
-              </div>
-              <div className="w-3 h-1.5 border-b-2 border-white rounded-full" />
-            </div>
-          </div>
-
-          {/* Pulse notification dot */}
-          <span className="absolute top-0 right-0 w-3.5 h-3.5 rounded-full bg-emerald-500 border-2 border-white" />
+          <MessageSquare className="w-5 h-5 text-white" />
+          {/* Notification indicator */}
+          <span className="absolute top-0 right-0 w-3.5 h-3.5 rounded-full bg-[#ea580c] border-2 border-white" />
         </button>
       </div>
     </div>

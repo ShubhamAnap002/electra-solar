@@ -87,7 +87,7 @@ export default function AdminProductsPage() {
 
         <Link
           href="/admin/products/new"
-          className="bg-[#00d2ff] hover:bg-[#00b4d8] text-[#091e3a] font-black px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider shadow-md hover:shadow-lg transition-all flex items-center gap-1.5 self-start sm:self-auto"
+          className="bg-[#ea580c] hover:bg-[#c2410c] text-white font-bold px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider shadow-sm transition-all flex items-center gap-1.5 self-start sm:self-auto cursor-pointer"
         >
           <Plus className="w-4 h-4" />
           <span>Add New Product</span>
@@ -110,7 +110,7 @@ export default function AdminProductsPage() {
             placeholder="Search by product name, model code or series..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-slate-50 border border-gray-200 rounded-xl pl-10 pr-4 py-2 text-xs text-gray-900 focus:outline-none focus:border-[#015cbb]"
+            className="w-full bg-slate-50 border border-gray-200 rounded-xl pl-10 pr-4 py-2 text-xs text-gray-900 focus:outline-none focus:border-[#ea580c] focus:bg-white transition-colors"
           />
         </div>
 
@@ -119,7 +119,7 @@ export default function AdminProductsPage() {
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="bg-slate-50 border border-gray-200 rounded-xl px-3 py-2 text-xs text-gray-700 focus:outline-none focus:border-[#015cbb] w-full sm:w-auto"
+            className="bg-slate-50 border border-gray-200 rounded-xl px-3 py-2 text-xs text-gray-700 focus:outline-none focus:border-[#ea580c] focus:bg-white w-full sm:w-auto transition-colors"
           >
             <option value="all">All Categories ({products.length})</option>
             {categories.map((c) => (
@@ -135,7 +135,7 @@ export default function AdminProductsPage() {
       <div className="bg-white border border-gray-200 rounded-2xl shadow-xs overflow-hidden">
         {loading ? (
           <div className="p-16 text-center text-gray-400 space-y-3">
-            <Loader2 className="w-8 h-8 animate-spin mx-auto text-[#015cbb]" />
+            <Loader2 className="w-8 h-8 animate-spin mx-auto text-[#ea580c]" />
             <p className="text-xs">Loading commercial product catalogue...</p>
           </div>
         ) : filteredProducts.length === 0 ? (
@@ -187,7 +187,7 @@ export default function AdminProductsPage() {
                     </td>
 
                     <td className="py-3.5 px-4">
-                      <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold bg-blue-50 text-[#015cbb] border border-blue-200">
+                      <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold bg-orange-50 text-[#ea580c] border border-orange-200">
                         {p.categoryName || p.category}
                       </span>
                     </td>
@@ -209,7 +209,7 @@ export default function AdminProductsPage() {
                         <Link
                           href={`/products/${p.category}/${p.slug}`}
                           target="_blank"
-                          className="p-1.5 rounded-lg text-gray-400 hover:text-[#015cbb] hover:bg-blue-50 transition-colors"
+                          className="p-1.5 rounded-lg text-gray-400 hover:text-[#ea580c] hover:bg-orange-50 transition-colors"
                           title="View Live Page"
                         >
                           <ExternalLink className="w-4 h-4" />
@@ -217,7 +217,7 @@ export default function AdminProductsPage() {
 
                         <Link
                           href={`/admin/products/${p.id}`}
-                          className="p-1.5 rounded-lg text-gray-400 hover:text-cyan-600 hover:bg-cyan-50 transition-colors"
+                          className="p-1.5 rounded-lg text-gray-400 hover:text-[#091e3a] hover:bg-slate-100 transition-colors"
                           title="Edit Technical Specs"
                         >
                           <Edit2 className="w-4 h-4" />

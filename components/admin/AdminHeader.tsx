@@ -53,7 +53,7 @@ export function AdminHeader({ gmailConnected, connectedEmail, onLogout, title }:
         <Link
           href="/"
           target="_blank"
-          className="hidden md:flex items-center gap-1.5 text-xs font-bold text-[#015cbb] bg-blue-50 hover:bg-blue-100 border border-blue-200 px-3.5 py-1.5 rounded-full transition-colors"
+          className="hidden md:flex items-center gap-1.5 text-xs font-bold text-[#091e3a] bg-slate-100 hover:bg-slate-200 hover:text-[#ea580c] border border-gray-200 px-3.5 py-1.5 rounded-full transition-colors"
         >
           <span>View Site</span>
           <ExternalLink className="w-3.5 h-3.5" />

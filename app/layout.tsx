@@ -1,13 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
 import { EnquiryModalProvider } from "@/components/forms/EnquiryModalContext";
-import { CompareProvider } from "@/components/compare/CompareContext";
-import { FloatingCompareTray } from "@/components/compare/FloatingCompareTray";
-import { DeyeHelpWidget } from "@/components/ui/DeyeHelpWidget";
-import { MobileActionDock } from "@/components/layout/MobileActionDock";
+import { PublicLayoutWrapper } from "@/components/layout/PublicLayoutWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -85,16 +80,9 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} min-h-screen flex flex-col bg-white text-gray-800`}>
-        <CompareProvider>
-          <EnquiryModalProvider>
-            <Header />
-            <main className="flex-grow">{children}</main>
-            <Footer />
-            <FloatingCompareTray />
-            <DeyeHelpWidget />
-            <MobileActionDock />
-          </EnquiryModalProvider>
-        </CompareProvider>
+        <EnquiryModalProvider>
+          <PublicLayoutWrapper>{children}</PublicLayoutWrapper>
+        </EnquiryModalProvider>
       </body>
     </html>
   );

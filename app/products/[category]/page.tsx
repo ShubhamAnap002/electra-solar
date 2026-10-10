@@ -46,29 +46,29 @@ export default function CategoryPage({ params }: CategoryPageProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-10">
         {/* Breadcrumbs - Deye Style */}
         <div className="flex items-center gap-2 text-xs text-[#5c5c5c]">
-          <Link href="/" className="hover:text-[#015cbb] transition-colors">
+          <Link href="/" className="hover:text-[#ea580c] transition-colors">
             Home
           </Link>
           <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
-          <Link href="/products" className="hover:text-[#015cbb] transition-colors">
+          <Link href="/products" className="hover:text-[#ea580c] transition-colors">
             Products
           </Link>
           <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
-          <span className="text-[#015cbb] font-bold">{category.name}</span>
+          <span className="text-[#ea580c] font-bold">{category.name}</span>
         </div>
 
         {/* Category Header */}
         <div className="bg-white border border-gray-200 rounded-2xl p-6 sm:p-10 relative overflow-hidden shadow-sm">
           <div className="relative z-10 max-w-3xl space-y-3">
-            <span className="text-xs font-bold uppercase tracking-widest text-[#015cbb] block">
+            <span className="text-xs font-bold uppercase tracking-widest text-[#ea580c] block">
               Official Category Portfolio
             </span>
 
-            <h1 className="text-3xl sm:text-4xl font-black text-[#222222] tracking-tight">
+            <h1 className="text-3xl sm:text-4xl font-black text-[#091e3a] tracking-tight">
               {category.name}
             </h1>
 
-            <div className="w-14 h-1 bg-[#015cbb]" />
+            <div className="w-14 h-1 bg-[#ea580c]" />
 
             <p className="text-base text-[#5c5c5c] leading-relaxed pt-1">
               {category.description}
@@ -77,7 +77,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
             <div className="pt-2">
               <Link
                 href="/products"
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#015cbb] hover:text-[#004896]"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#ea580c] hover:text-[#c2410c]"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Back to All Categories</span>

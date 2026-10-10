@@ -14,25 +14,25 @@ export default function PrivacyPolicyPage() {
     <div className="py-12 lg:py-16 bg-[#f8fafd] min-h-screen">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 space-y-8 text-gray-700 text-sm leading-relaxed">
         <div>
-          <Link href="/" className="inline-flex items-center gap-1.5 text-xs text-gray-500 hover:text-[#015cbb] transition-colors mb-4">
+          <Link href="/" className="inline-flex items-center gap-1.5 text-xs text-gray-500 hover:text-[#ea580c] transition-colors mb-4">
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Back to Home</span>
           </Link>
-          <h1 className="text-3xl font-extrabold text-[#222222] tracking-tight">Privacy Policy</h1>
-          <div className="w-12 h-1 bg-[#015cbb] my-2 rounded-full" />
+          <h1 className="text-3xl font-extrabold text-[#091e3a] tracking-tight">Privacy Policy</h1>
+          <div className="w-12 h-1 bg-[#ea580c] my-2 rounded-full" />
           <p className="text-xs text-gray-500 mt-1">Last Updated: October 2026</p>
         </div>
 
         <div className="bg-white border border-gray-200 rounded-3xl p-6 sm:p-10 space-y-6 shadow-deye-card">
           <section className="space-y-2">
-            <h2 className="text-lg font-bold text-[#222222]">1. Commitment to Privacy</h2>
+            <h2 className="text-lg font-bold text-[#091e3a]">1. Commitment to Privacy</h2>
             <p className="text-gray-600">
               Electra Solar (&ldquo;we&rdquo;, &ldquo;our&rdquo;, or &ldquo;us&rdquo;), operating as the official distributor of EnerTech UPS Pvt. Ltd., respects the privacy of our website visitors, customers, and channel partners. This Privacy Policy outlines how we collect, store, and utilize information provided through our digital channels.
             </p>
           </section>
 
           <section className="space-y-2">
-            <h2 className="text-lg font-bold text-[#222222]">2. Information We Collect</h2>
+            <h2 className="text-lg font-bold text-[#091e3a]">2. Information We Collect</h2>
             <p className="text-gray-600">
               When you submit a quote request, sizing calculator query, or service inquiry on our website, we may collect:
             </p>
@@ -45,7 +45,7 @@ export default function PrivacyPolicyPage() {
           </section>
 
           <section className="space-y-2">
-            <h2 className="text-lg font-bold text-[#222222]">3. How Information is Used</h2>
+            <h2 className="text-lg font-bold text-[#091e3a]">3. How Information is Used</h2>
             <p className="text-gray-600">
               We use customer information exclusively to:
             </p>
@@ -61,11 +61,11 @@ export default function PrivacyPolicyPage() {
           </section>
 
           <section className="space-y-2">
-            <h2 className="text-lg font-bold text-[#222222]">4. Contact Information</h2>
+            <h2 className="text-lg font-bold text-[#091e3a]">4. Contact Information</h2>
             <p className="text-gray-600">
               For data privacy inquiries or requests to delete submitted quote records, contact:
             </p>
-            <p className="text-xs font-mono text-[#015cbb] font-semibold">
+            <p className="text-xs font-mono text-[#ea580c] font-semibold">
               support@electrasolar.in | +91 9373679255
             </p>
           </section>

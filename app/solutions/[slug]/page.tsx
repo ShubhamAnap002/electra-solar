@@ -44,28 +44,28 @@ export default function SolutionDetailPage({ params }: SolutionPageProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-12">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-xs text-gray-500">
-          <Link href="/" className="hover:text-[#015cbb] transition-colors">
+          <Link href="/" className="hover:text-[#ea580c] transition-colors">
             Home
           </Link>
           <ChevronRight className="w-3.5 h-3.5" />
-          <Link href="/solutions" className="hover:text-[#015cbb] transition-colors">
+          <Link href="/solutions" className="hover:text-[#ea580c] transition-colors">
             Solutions
           </Link>
           <ChevronRight className="w-3.5 h-3.5" />
-          <span className="text-[#015cbb] font-semibold">{solution.title}</span>
+          <span className="text-[#ea580c] font-semibold">{solution.title}</span>
         </div>
 
         {/* Hero Banner */}
         <div className="bg-white border border-gray-200 rounded-3xl p-6 sm:p-10 lg:p-12 relative overflow-hidden shadow-deye-card">
           <div className="relative z-10 max-w-3xl space-y-4">
-            <span className="text-xs font-semibold px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-[#015cbb]">
+            <span className="text-xs font-semibold px-3 py-1 rounded-full bg-orange-50 border border-orange-200 text-[#ea580c]">
               {solution.badge}
             </span>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#222222] tracking-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#091e3a] tracking-tight">
               {solution.title}
             </h1>
-            <div className="w-16 h-1 bg-[#015cbb] rounded-full" />
-            <p className="text-lg text-[#015cbb] font-semibold">
+            <div className="w-16 h-1 bg-[#ea580c] rounded-full" />
+            <p className="text-lg text-[#ea580c] font-semibold">
               {solution.tagline}
             </p>
             <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
@@ -80,17 +80,17 @@ export default function SolutionDetailPage({ params }: SolutionPageProps) {
             <div className="text-xs font-bold text-red-600 uppercase tracking-wider">
               Operational Vulnerability & Challenge
             </div>
-            <h3 className="text-xl font-bold text-[#222222]">The Grid Dilemma</h3>
+            <h3 className="text-xl font-bold text-[#091e3a]">The Grid Dilemma</h3>
             <p className="text-sm text-gray-600 leading-relaxed">
               {solution.problemStatement}
             </p>
           </div>
 
           <div className="bg-white border border-gray-200 rounded-2xl p-6 sm:p-8 space-y-3 shadow-sm">
-            <div className="text-xs font-bold text-[#015cbb] uppercase tracking-wider">
+            <div className="text-xs font-bold text-[#ea580c] uppercase tracking-wider">
               Electra Engineered Architecture
             </div>
-            <h3 className="text-xl font-bold text-[#222222]">The System Solution</h3>
+            <h3 className="text-xl font-bold text-[#091e3a]">The System Solution</h3>
             <p className="text-sm text-gray-600 leading-relaxed">
               {solution.solutionArchitecture}
             </p>
@@ -100,15 +100,15 @@ export default function SolutionDetailPage({ params }: SolutionPageProps) {
         {/* Key Benefits */}
         <div className="bg-white border border-gray-200 rounded-3xl p-6 sm:p-10 space-y-6 shadow-deye-card">
           <div className="space-y-2">
-            <h2 className="text-2xl font-bold text-[#222222] tracking-tight">
+            <h2 className="text-2xl font-bold text-[#091e3a] tracking-tight">
               Key Operational & Financial Benefits
             </h2>
-            <div className="w-12 h-1 bg-[#015cbb] rounded-full" />
+            <div className="w-12 h-1 bg-[#ea580c] rounded-full" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {solution.keyBenefits.map((b, idx) => (
               <div key={idx} className="flex items-start gap-3 bg-gray-50 border border-gray-200 p-4 rounded-xl text-sm text-gray-700">
-                <CheckCircle2 className="w-5 h-5 text-[#015cbb] flex-shrink-0 mt-0.5" />
+                <CheckCircle2 className="w-5 h-5 text-[#ea580c] flex-shrink-0 mt-0.5" />
                 <span>{b}</span>
               </div>
             ))}
@@ -116,17 +116,17 @@ export default function SolutionDetailPage({ params }: SolutionPageProps) {
         </div>
 
         {/* Case Study Highlight Box */}
-        <div className="bg-gradient-to-r from-blue-50/50 via-white to-blue-50/30 border border-blue-200 rounded-3xl p-6 sm:p-8 shadow-sm">
+        <div className="bg-white border border-gray-200 rounded-3xl p-6 sm:p-8 shadow-sm">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
             <div>
-              <div className="text-xs font-bold uppercase tracking-wider text-[#015cbb]">
+              <div className="text-xs font-bold uppercase tracking-wider text-[#ea580c]">
                 Verified Field Implementation
               </div>
-              <h3 className="text-xl font-bold text-[#222222]">
+              <h3 className="text-xl font-bold text-[#091e3a]">
                 {solution.caseStudyHighlight.client} — {solution.caseStudyHighlight.location}
               </h3>
             </div>
-            <span className="font-mono text-xs text-[#015cbb] bg-blue-100/70 px-3 py-1 rounded-full border border-blue-200">
+            <span className="font-mono text-xs text-[#ea580c] bg-orange-100/70 px-3 py-1 rounded-full border border-orange-200">
               {solution.caseStudyHighlight.systemCapacity}
             </span>
           </div>
@@ -139,10 +139,10 @@ export default function SolutionDetailPage({ params }: SolutionPageProps) {
         {recommendedProducts.length > 0 && (
           <div className="space-y-6">
             <div className="space-y-2">
-              <h2 className="text-2xl font-bold text-[#222222] tracking-tight">
+              <h2 className="text-2xl font-bold text-[#091e3a] tracking-tight">
                 Recommended Hardware for this Architecture
               </h2>
-              <div className="w-12 h-1 bg-[#015cbb] rounded-full" />
+              <div className="w-12 h-1 bg-[#ea580c] rounded-full" />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
               {recommendedProducts.map((p) => (
@@ -153,7 +153,7 @@ export default function SolutionDetailPage({ params }: SolutionPageProps) {
         )}
 
         <div className="pt-4">
-          <Link href="/solutions" className="inline-flex items-center gap-2 text-xs text-gray-500 hover:text-[#015cbb] transition-colors">
+          <Link href="/solutions" className="inline-flex items-center gap-2 text-xs text-gray-500 hover:text-[#ea580c] transition-colors">
             <ArrowLeft className="w-4 h-4" />
             <span>Back to all energy solutions</span>
           </Link>

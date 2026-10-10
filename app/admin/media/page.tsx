@@ -14,8 +14,6 @@ import {
   AlertCircle,
   CheckCircle2,
   X,
-  FileCode,
-  Filter,
 } from "lucide-react";
 import { MediaFile } from "@/app/api/admin/media/route";
 import { authFetch } from "@/lib/auth/client";
@@ -59,13 +57,14 @@ export default function AdminMediaPage() {
     const selectedFiles = e.target.files;
     if (!selectedFiles || selectedFiles.length === 0) return;
 
-    const file = selectedFiles[0];
-    const formData = new FormData();
-    formData.append("file", file);
-
     setUploading(true);
     setErrorMessage(null);
     setSuccessMessage(null);
+
+    const formData = new FormData();
+    for (let i = 0; i < selectedFiles.length; i++) {
+      formData.append("files", selectedFiles[i]);
+    }
 
     try {
       const res = await authFetch("/api/admin/media/upload", {
@@ -75,16 +74,16 @@ export default function AdminMediaPage() {
 
       const data = await res.json();
       if (!res.ok || !data.success) {
-        throw new Error(data.message || "Failed to upload file");
+        throw new Error(data.message || "Upload failed");
       }
 
-      setSuccessMessage(`File "${file.name}" uploaded successfully!`);
-      if (fileInputRef.current) fileInputRef.current.value = "";
+      setSuccessMessage(`Successfully uploaded ${data.uploaded?.length || 1} file(s)!`);
       fetchMedia();
     } catch (err: any) {
-      setErrorMessage(err.message || "Upload error");
+      setErrorMessage(err.message || "Upload failed");
     } finally {
       setUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
     }
   }
 
@@ -96,26 +95,20 @@ export default function AdminMediaPage() {
 
   async function handleDeleteFile() {
     if (!selectedFile) return;
-
     setDeleting(true);
-    setErrorMessage(null);
-    setSuccessMessage(null);
-
     try {
       const res = await authFetch(`/api/admin/media?url=${encodeURIComponent(selectedFile.url)}`, {
         method: "DELETE",
       });
-
       const data = await res.json();
       if (!res.ok || !data.success) {
         throw new Error(data.message || "Failed to delete file");
       }
-
-      setSuccessMessage(data.message || "File deleted successfully");
+      setSuccessMessage("File deleted successfully");
       setSelectedFile(null);
       fetchMedia();
     } catch (err: any) {
-      setErrorMessage(err.message || "Delete error");
+      setErrorMessage(err.message || "Failed to delete file");
     } finally {
       setDeleting(false);
     }
@@ -134,19 +127,22 @@ export default function AdminMediaPage() {
   });
 
   return (
-    <div className="space-y-6 pb-12">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
-            <ImageIcon className="w-5 h-5" />
+    <div className="space-y-6 max-w-7xl pb-12">
+      {/* Top Banner */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
+        <div>
+          <div className="flex items-center gap-2">
+            <span className="px-2.5 py-0.5 rounded-md bg-orange-50 text-[#ea580c] font-bold text-xs uppercase tracking-wider border border-orange-200">
+              Media Hub
+            </span>
+            <span className="text-xs text-gray-500 font-semibold">
+              {files.length} Assets Stored
+            </span>
           </div>
-          <div>
-            <h1 className="text-2xl font-bold text-white tracking-tight">Media & Asset Library</h1>
-            <p className="text-xs text-slate-400">
-              Upload product photos, brochures, technical datasheets, and website graphics
-            </p>
-          </div>
+          <h1 className="text-2xl font-black text-[#091e3a] mt-1">Media & Asset Library</h1>
+          <p className="text-xs text-gray-600 mt-1">
+            Upload equipment photos, brochures, technical datasheets, and website graphics with instant URLs.
+          </p>
         </div>
 
         <div>
@@ -156,38 +152,39 @@ export default function AdminMediaPage() {
             onChange={handleFileUpload}
             className="hidden"
             accept="image/*,application/pdf,.doc,.docx"
+            multiple
           />
           <button
             onClick={() => fileInputRef.current?.click()}
             disabled={uploading}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-medium text-sm shadow-lg shadow-cyan-950/40 transition-all hover:scale-[1.02] active:scale-[0.98]"
+            className="bg-[#ea580c] hover:bg-[#c2410c] text-white font-bold px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer w-full sm:w-auto"
           >
             {uploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
-            {uploading ? "Uploading..." : "Upload New File"}
+            <span>{uploading ? "Uploading..." : "Upload New Files"}</span>
           </button>
         </div>
       </div>
 
       {/* Notifications */}
       {successMessage && (
-        <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-sm flex items-center justify-between">
+        <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-5 h-5 flex-shrink-0" />
+            <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
             <span>{successMessage}</span>
           </div>
-          <button onClick={() => setSuccessMessage(null)} className="text-emerald-400 hover:text-white">
+          <button onClick={() => setSuccessMessage(null)} className="text-emerald-700 hover:text-emerald-900 cursor-pointer">
             <X className="w-4 h-4" />
           </button>
         </div>
       )}
 
       {errorMessage && (
-        <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-sm flex items-center justify-between">
+        <div className="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <AlertCircle className="w-5 h-5 flex-shrink-0" />
+            <AlertCircle className="w-4 h-4 text-rose-600 flex-shrink-0" />
             <span>{errorMessage}</span>
           </div>
-          <button onClick={() => setErrorMessage(null)} className="text-rose-400 hover:text-white">
+          <button onClick={() => setErrorMessage(null)} className="text-rose-700 hover:text-rose-900 cursor-pointer">
             <X className="w-4 h-4" />
           </button>
         </div>
@@ -196,40 +193,40 @@ export default function AdminMediaPage() {
       {/* Upload Dropzone area */}
       <div
         onClick={() => fileInputRef.current?.click()}
-        className="cursor-pointer border-2 border-dashed border-slate-800 hover:border-cyan-500/50 bg-slate-900/30 hover:bg-slate-900/60 transition-all rounded-2xl p-6 text-center group"
+        className="cursor-pointer border-2 border-dashed border-gray-300 hover:border-[#ea580c] bg-white hover:bg-orange-50/20 transition-all rounded-2xl p-6 text-center shadow-sm group"
       >
-        <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
+        <div className="w-12 h-12 rounded-2xl bg-orange-50 border border-orange-200 text-[#ea580c] flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
           <Upload className="w-6 h-6" />
         </div>
-        <h3 className="text-sm font-semibold text-white mb-1">Click to browse or drop assets here</h3>
-        <p className="text-xs text-slate-400 max-w-sm mx-auto">
-          Supports JPG, PNG, WEBP, SVG, and PDF datasheets (Up to 15MB each). Files are instantly hosted at{" "}
-          <span className="font-mono text-cyan-400">/uploads/...</span>
+        <h3 className="text-sm font-bold text-gray-900 mb-1">Click to browse or drop media assets here</h3>
+        <p className="text-xs text-gray-500 max-w-sm mx-auto">
+          Supports JPG, PNG, WEBP, SVG, and PDF datasheets. Files are instantly saved to{" "}
+          <span className="font-mono text-[#ea580c] font-bold">/uploads/...</span>
         </p>
       </div>
 
       {/* Filters & Search */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-3">
         <div className="relative w-full sm:w-80">
-          <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+          <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
           <input
             type="text"
             placeholder="Search by filename..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 rounded-xl bg-slate-900/80 border border-slate-800 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+            className="w-full pl-10 pr-4 py-2 rounded-xl bg-slate-50 border border-gray-200 text-xs text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#ea580c] focus:bg-white transition-colors"
           />
         </div>
 
-        <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-900/80 border border-slate-800 self-stretch sm:self-auto">
+        <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-100 border border-gray-200 self-stretch sm:self-auto">
           {(["all", "image", "document"] as const).map((t) => (
             <button
               key={t}
               onClick={() => setTypeFilter(t)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold capitalize transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold capitalize transition-all cursor-pointer ${
                 typeFilter === t
-                  ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30"
-                  : "text-slate-400 hover:text-white"
+                  ? "bg-[#091e3a] text-white shadow-sm"
+                  : "text-gray-600 hover:text-gray-900"
               }`}
             >
               {t === "all" ? "All Files" : t === "image" ? "Images" : "Datasheets / Docs"}
@@ -240,15 +237,15 @@ export default function AdminMediaPage() {
 
       {/* Media Grid */}
       {loading ? (
-        <div className="flex flex-col items-center justify-center py-20 text-slate-500">
-          <Loader2 className="w-8 h-8 animate-spin text-cyan-400 mb-3" />
-          <p className="text-sm font-medium">Scanning media directories...</p>
+        <div className="flex flex-col items-center justify-center py-20 text-gray-500">
+          <Loader2 className="w-8 h-8 animate-spin text-[#ea580c] mb-3" />
+          <p className="text-xs font-semibold">Scanning media directories...</p>
         </div>
       ) : filteredFiles.length === 0 ? (
-        <div className="text-center py-16 bg-slate-900/40 border border-slate-800/80 rounded-2xl">
-          <ImageIcon className="w-12 h-12 text-slate-600 mx-auto mb-3" />
-          <h3 className="text-base font-medium text-white mb-1">No Assets Found</h3>
-          <p className="text-xs text-slate-400 max-w-sm mx-auto mb-4">
+        <div className="text-center py-16 bg-white border border-gray-200 rounded-2xl shadow-sm space-y-3">
+          <ImageIcon className="w-10 h-10 text-gray-300 mx-auto" />
+          <h3 className="text-sm font-bold text-gray-700">No Assets Found</h3>
+          <p className="text-xs text-gray-500 max-w-sm mx-auto">
             {search ? "No assets match your search term." : "Upload photos and PDFs to populate your media library."}
           </p>
         </div>
@@ -258,9 +255,9 @@ export default function AdminMediaPage() {
             <div
               key={idx}
               onClick={() => setSelectedFile(file)}
-              className="group cursor-pointer bg-slate-900/60 border border-slate-800/80 hover:border-cyan-500/40 rounded-2xl overflow-hidden transition-all duration-200 hover:shadow-xl hover:shadow-cyan-950/20 flex flex-col justify-between"
+              className="group cursor-pointer bg-white border border-gray-200 hover:border-[#ea580c]/50 rounded-2xl overflow-hidden transition-all shadow-sm hover:shadow-md flex flex-col justify-between"
             >
-              <div className="aspect-square bg-slate-950/60 flex items-center justify-center overflow-hidden relative border-b border-slate-800/60">
+              <div className="aspect-square bg-slate-50 flex items-center justify-center overflow-hidden relative border-b border-gray-100">
                 {file.type === "image" ? (
                   <img
                     src={file.url}
@@ -269,9 +266,9 @@ export default function AdminMediaPage() {
                     loading="lazy"
                   />
                 ) : (
-                  <div className="flex flex-col items-center text-slate-400 p-4 text-center">
-                    <FileText className="w-10 h-10 text-rose-400 mb-2" />
-                    <span className="text-[10px] font-mono uppercase bg-slate-800 px-2 py-0.5 rounded text-slate-300">
+                  <div className="flex flex-col items-center text-gray-400 p-4 text-center">
+                    <FileText className="w-10 h-10 text-rose-500 mb-2" />
+                    <span className="text-[10px] font-mono uppercase bg-slate-100 px-2 py-0.5 rounded text-gray-700 border border-gray-200">
                       {file.extension}
                     </span>
                   </div>
@@ -284,20 +281,20 @@ export default function AdminMediaPage() {
                     e.stopPropagation();
                     copyToClipboard(file.url);
                   }}
-                  className="absolute top-2 right-2 p-1.5 rounded-lg bg-slate-900/90 text-slate-300 hover:text-white hover:bg-cyan-600 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity"
+                  className="absolute top-2 right-2 p-1.5 rounded-lg bg-white/90 text-gray-700 hover:text-white hover:bg-[#ea580c] shadow-sm opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
                   title="Copy URL"
                 >
-                  {copiedUrl === file.url ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copiedUrl === file.url ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
                 </button>
               </div>
 
               <div className="p-3">
-                <p className="text-xs font-medium text-white truncate group-hover:text-cyan-300" title={file.name}>
+                <p className="text-xs font-bold text-gray-900 truncate group-hover:text-[#ea580c]" title={file.name}>
                   {file.name}
                 </p>
-                <div className="flex items-center justify-between text-[11px] text-slate-500 mt-1">
+                <div className="flex items-center justify-between text-[11px] text-gray-500 mt-1">
                   <span>{formatFileSize(file.size)}</span>
-                  <span className="uppercase text-[10px] font-mono text-cyan-400/80">{file.extension}</span>
+                  <span className="uppercase text-[10px] font-mono text-[#ea580c] font-bold">{file.extension}</span>
                 </div>
               </div>
             </div>
@@ -307,19 +304,19 @@ export default function AdminMediaPage() {
 
       {/* Asset Preview Modal */}
       {selectedFile && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-xl shadow-2xl p-6 relative">
-            <div className="flex items-center justify-between pb-4 border-b border-slate-800 mb-4">
-              <h3 className="text-base font-bold text-white truncate max-w-md">{selectedFile.name}</h3>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs animate-in fade-in duration-200">
+          <div className="bg-white border border-gray-200 rounded-2xl w-full max-w-xl shadow-xl p-6 relative">
+            <div className="flex items-center justify-between pb-3 border-b border-gray-100 mb-4">
+              <h3 className="text-base font-bold text-[#091e3a] truncate max-w-md">{selectedFile.name}</h3>
               <button
                 onClick={() => setSelectedFile(null)}
-                className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800"
+                className="p-1 rounded-lg text-gray-400 hover:text-gray-900 cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="max-h-[50vh] overflow-hidden rounded-xl bg-slate-950 flex items-center justify-center mb-4 border border-slate-800/80">
+            <div className="max-h-[50vh] overflow-hidden rounded-xl bg-slate-50 flex items-center justify-center mb-4 border border-gray-200">
               {selectedFile.type === "image" ? (
                 <img
                   src={selectedFile.url}
@@ -328,35 +325,37 @@ export default function AdminMediaPage() {
                 />
               ) : (
                 <div className="py-12 flex flex-col items-center">
-                  <FileText className="w-16 h-16 text-rose-400 mb-3" />
-                  <p className="text-sm font-semibold text-white">Document / Datasheet</p>
-                  <p className="text-xs text-slate-400 mt-1 font-mono uppercase">{selectedFile.extension}</p>
+                  <FileText className="w-16 h-16 text-rose-500 mb-3" />
+                  <p className="text-sm font-bold text-gray-900">Document / Datasheet</p>
+                  <p className="text-xs text-gray-500 mt-1 font-mono uppercase">{selectedFile.extension}</p>
                 </div>
               )}
             </div>
 
             <div className="space-y-3">
               <div>
-                <label className="block text-[11px] font-semibold text-slate-400 mb-1">Public Resource URL</label>
+                <label className="block text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1">
+                  Public Resource URL
+                </label>
                 <div className="flex items-center gap-2">
                   <input
                     type="text"
                     readOnly
                     value={selectedFile.url}
-                    className="flex-1 px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs font-mono text-cyan-300"
+                    className="flex-1 px-3 py-2 rounded-xl bg-slate-50 border border-gray-200 text-xs font-mono text-[#ea580c] font-bold"
                   />
                   <button
                     onClick={() => copyToClipboard(selectedFile.url)}
-                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold"
+                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#091e3a] hover:bg-[#07172c] text-white text-xs font-bold cursor-pointer"
                   >
-                    {copiedUrl === selectedFile.url ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                    {copiedUrl === selectedFile.url ? "Copied" : "Copy"}
+                    {copiedUrl === selectedFile.url ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                    <span>{copiedUrl === selectedFile.url ? "Copied" : "Copy"}</span>
                   </button>
                   <a
                     href={selectedFile.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300"
+                    className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-gray-700"
                     title="Open in new tab"
                   >
                     <ExternalLink className="w-4 h-4" />
@@ -364,42 +363,42 @@ export default function AdminMediaPage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-2 text-xs pt-2 border-t border-slate-800/80">
+              <div className="grid grid-cols-3 gap-2 text-xs pt-2 border-t border-gray-100">
                 <div>
-                  <span className="text-[10px] text-slate-500 block">File Size</span>
-                  <span className="font-semibold text-slate-200">{formatFileSize(selectedFile.size)}</span>
+                  <span className="text-[10px] text-gray-500 block">File Size</span>
+                  <span className="font-bold text-gray-900">{formatFileSize(selectedFile.size)}</span>
                 </div>
                 <div>
-                  <span className="text-[10px] text-slate-500 block">Type</span>
-                  <span className="font-semibold text-slate-200 uppercase">{selectedFile.extension}</span>
+                  <span className="text-[10px] text-gray-500 block">Type</span>
+                  <span className="font-bold text-gray-900 uppercase">{selectedFile.extension}</span>
                 </div>
                 <div>
-                  <span className="text-[10px] text-slate-500 block">Source</span>
-                  <span className="font-semibold text-slate-200">
+                  <span className="text-[10px] text-gray-500 block">Source</span>
+                  <span className="font-bold text-gray-900">
                     {selectedFile.isCustomUpload ? "Uploads" : "System Asset"}
                   </span>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between pt-4 border-t border-slate-800">
+              <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                 {selectedFile.isCustomUpload ? (
                   <button
                     type="button"
                     onClick={handleDeleteFile}
                     disabled={deleting}
-                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-rose-600/10 hover:bg-rose-600 text-rose-400 hover:text-white border border-rose-500/20 text-xs font-semibold transition-all"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-rose-50 hover:bg-rose-600 text-rose-600 hover:text-white border border-rose-200 text-xs font-bold transition-all cursor-pointer"
                   >
                     {deleting ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Trash2 className="w-3.5 h-3.5" />}
-                    Delete File
+                    <span>Delete File</span>
                   </button>
                 ) : (
-                  <span className="text-[11px] text-slate-500 italic">System assets cannot be deleted</span>
+                  <span className="text-[11px] text-gray-500 italic">System assets cannot be deleted</span>
                 )}
 
                 <button
                   type="button"
                   onClick={() => setSelectedFile(null)}
-                  className="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-800"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold text-gray-600 hover:text-gray-900 cursor-pointer"
                 >
                   Close
                 </button>

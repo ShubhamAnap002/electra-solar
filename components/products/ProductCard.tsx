@@ -3,9 +3,8 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Scale, Check, Sparkles } from "lucide-react";
+import { ArrowRight, Check, Sparkles } from "lucide-react";
 import { Product } from "@/lib/data/products";
-import { useCompare } from "@/components/compare/CompareContext";
 import { useEnquiryModal } from "@/components/forms/EnquiryModalContext";
 
 interface ProductCardProps {
@@ -13,19 +12,7 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const { addToCompare, removeFromCompare, isInCompare } = useCompare();
   const { openEnquiryModal } = useEnquiryModal();
-  const isCompared = isInCompare(product.id);
-
-  const toggleCompare = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (isCompared) {
-      removeFromCompare(product.id);
-    } else {
-      addToCompare(product);
-    }
-  };
 
   const shortCategory =
     product.shortType ||
@@ -49,22 +36,7 @@ export function ProductCard({ product }: ProductCardProps) {
         ];
 
   return (
-    <div className="group relative flex flex-col justify-between bg-white rounded-3xl p-5 border border-gray-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:shadow-2xl hover:border-[#015cbb]/40 transition-all duration-300 hover:-translate-y-1.5 h-full">
-      {/* Floating Compare Button in Top Right */}
-      <button
-        type="button"
-        onClick={toggleCompare}
-        className={`absolute top-4 right-4 z-20 w-8 h-8 rounded-full flex items-center justify-center transition-all ${
-          isCompared
-            ? "bg-[#015cbb] text-white shadow-md ring-2 ring-[#015cbb]/30"
-            : "bg-gray-100/80 hover:bg-[#015cbb] text-gray-400 hover:text-white"
-        }`}
-        title={isCompared ? "Remove from comparison" : "Add to side-by-side comparison"}
-        aria-label="Toggle comparison"
-      >
-        <Scale className="w-3.5 h-3.5" />
-      </button>
-
+    <div className="group relative flex flex-col justify-between bg-white rounded-3xl p-5 border border-gray-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:shadow-xl hover:border-orange-300 transition-all duration-300 hover:-translate-y-1.5 h-full">
       {/* Main Content Area */}
       <div>
         {/* Top Product Showcase (Image + Right Side Badging) */}
@@ -78,16 +50,16 @@ export function ProductCard({ product }: ProductCardProps) {
               src={product.image}
               alt={product.name}
               fill
-              className="object-contain filter drop-shadow-[0_12px_18px_rgba(0,0,0,0.14)]"
+              className="object-contain filter drop-shadow-[0_12px_18px_rgba(0,0,0,0.12)]"
               sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 250px"
             />
           </Link>
 
-          {/* Right: Red NEW Badge + Title + Deye Blue Capacity Pill + Spec Box */}
+          {/* Right: Red NEW Badge + Title + Solar Orange Capacity Pill + Spec Box */}
           <div className="w-1/2 flex flex-col items-start justify-center pr-1 space-y-1.5">
-            {/* Red NEW Pill Badge (matches Deye screenshot) */}
+            {/* Red NEW Pill Badge */}
             <div>
-              <span className="bg-[#e53e3e] text-white text-[9px] font-black px-1.5 py-0.5 rounded-[2px] uppercase tracking-wider inline-block">
+              <span className="bg-[#ea580c] text-white text-[9px] font-black px-1.5 py-0.5 rounded-[2px] uppercase tracking-wider inline-block">
                 NEW
               </span>
             </div>
@@ -95,21 +67,21 @@ export function ProductCard({ product }: ProductCardProps) {
             {/* Category / Type Header */}
             <Link
               href={`/products/${product.category}/${product.slug}`}
-              className="text-xs sm:text-[13px] font-bold text-[#222222] tracking-tight leading-tight hover:text-[#015cbb] transition-colors line-clamp-1"
+              className="text-xs sm:text-[13px] font-bold text-[#091e3a] tracking-tight leading-tight hover:text-[#ea580c] transition-colors line-clamp-1"
               title={shortCategory}
             >
               {shortCategory}
             </Link>
 
-            {/* Deye Signature Bold Blue Capacity Pill */}
-            <div className="w-full bg-[#015cbb] text-white py-1 px-2.5 rounded-full font-black text-[11px] sm:text-xs text-center tracking-tight shadow-sm whitespace-nowrap overflow-hidden text-ellipsis">
+            {/* Capacity Pill (Deep Navy + Solar Orange) */}
+            <div className="w-full bg-[#091e3a] text-[#f97316] py-1 px-2.5 rounded-full font-black text-[11px] sm:text-xs text-center tracking-tight shadow-xs whitespace-nowrap overflow-hidden text-ellipsis border border-[#091e3a]">
               {capacityBadge}
             </div>
 
-            {/* Deye Style Spec Box with Clean Borders */}
-            <div className="w-full bg-[#fbfcfd] border border-gray-200/90 rounded-lg p-2 text-[10px] sm:text-[11px] text-[#444444] space-y-0.5 font-medium text-center shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]">
+            {/* Spec Box with Clean Borders */}
+            <div className="w-full bg-[#f8fafc] border border-gray-200/90 rounded-lg p-2 text-[10px] sm:text-[11px] text-gray-600 space-y-0.5 font-medium text-center shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]">
               {specsList.slice(0, 3).map((spec, i) => (
-                <div key={i} className={`truncate ${i === 2 ? "text-[#015cbb] font-semibold" : ""}`}>
+                <div key={i} className={`truncate ${i === 2 ? "text-[#ea580c] font-semibold" : ""}`}>
                   {spec}
                 </div>
               ))}
@@ -118,12 +90,12 @@ export function ProductCard({ product }: ProductCardProps) {
         </div>
       </div>
 
-      {/* Bottom Area: Deye Dark Capsule Model Code + Clean Action Footer */}
+      {/* Bottom Area: Deep Navy Model Code Capsule + Clean Action Footer */}
       <div className="mt-2 pt-2 border-t border-gray-100 space-y-2">
-        {/* Deye Dark Grey Pill Button with Model Code (matches screenshot) */}
+        {/* Dark Navy Pill Button with Model Code */}
         <Link
           href={`/products/${product.category}/${product.slug}`}
-          className="w-full bg-[#2b2f38] group-hover:bg-[#015cbb] text-white text-[10px] sm:text-[11px] font-mono font-medium py-2 px-3 rounded-xl text-center block transition-all tracking-tight truncate shadow-sm group-hover:shadow-md"
+          className="w-full bg-[#091e3a] group-hover:bg-[#ea580c] text-white text-[10px] sm:text-[11px] font-mono font-medium py-2 px-3 rounded-xl text-center block transition-all tracking-tight truncate shadow-xs group-hover:shadow-md"
           title={`View specifications for ${product.modelCode}`}
         >
           {product.modelCode}
@@ -133,7 +105,7 @@ export function ProductCard({ product }: ProductCardProps) {
         <div className="flex items-center justify-between text-xs pt-1 px-1">
           <Link
             href={`/products/${product.category}/${product.slug}`}
-            className="text-gray-500 hover:text-[#015cbb] font-semibold text-[11px] flex items-center gap-1 transition-colors"
+            className="text-gray-500 hover:text-[#ea580c] font-semibold text-[11px] flex items-center gap-1 transition-colors"
           >
             <span>Details</span>
             <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
@@ -148,7 +120,7 @@ export function ProductCard({ product }: ProductCardProps) {
                 source: `ProductCard Quick Quote: ${product.name}`,
               });
             }}
-            className="text-[#015cbb] hover:text-[#004896] bg-blue-50 hover:bg-blue-100/80 px-3 py-1 rounded-full font-bold text-[11px] transition-colors border border-blue-200"
+            className="text-[#ea580c] hover:text-white bg-orange-50 hover:bg-[#ea580c] px-3 py-1 rounded-full font-bold text-[11px] transition-colors border border-orange-200"
           >
             Quote ↗
           </button>

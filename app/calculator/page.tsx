@@ -10,17 +10,17 @@ export const metadata: Metadata = {
 
 export default function CalculatorPage() {
   return (
-    <div className="py-12 lg:py-16 bg-[#f8fafd] min-h-screen">
+    <div className="py-12 lg:py-16 bg-[#f8fafc] min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-10">
         <div className="space-y-3 max-w-3xl">
-          <span className="text-xs font-bold uppercase tracking-widest text-[#015cbb] block">
-            System Design & Sizing
+          <span className="text-xs font-bold uppercase tracking-widest text-[#ea580c] block">
+            System Design &amp; Sizing
           </span>
-          <h1 className="text-3xl sm:text-5xl font-black text-[#222222] tracking-tight">
-            Solar, Inverter & Battery Sizing Assistant
+          <h1 className="text-3xl sm:text-5xl font-black text-[#091e3a] tracking-tight">
+            Solar, Inverter &amp; Battery Sizing Assistant
           </h1>
-          <div className="w-16 h-1 bg-[#015cbb]" />
-          <p className="text-[#5c5c5c] text-base leading-relaxed">
+          <div className="w-16 h-1 bg-[#ea580c] rounded-full" />
+          <p className="text-gray-600 text-base leading-relaxed">
             Use our engineering calculation engine to determine the optimal hybrid solar inverter rating,
             rooftop solar array size, and lithium battery storage capacity for your specific facility.
           </p>
@@ -28,10 +28,10 @@ export default function CalculatorPage() {
 
         <SolarCalculator />
 
-        {/* Engineering Methodology Note - Deye Style Clean Box */}
-        <div className="bg-white border border-gray-200 rounded-xl p-6 sm:p-8 space-y-3 text-xs text-[#5c5c5c] shadow-sm">
-          <h3 className="text-sm font-bold text-[#222222] uppercase tracking-wider">
-            Calculation Methodology & Assumptions
+        {/* Engineering Methodology Note */}
+        <div className="bg-white border border-gray-200 rounded-xl p-6 sm:p-8 space-y-3 text-xs text-gray-600 shadow-xs">
+          <h3 className="text-sm font-bold text-[#091e3a] uppercase tracking-wider">
+            Calculation Methodology &amp; Assumptions
           </h3>
           <p>
             1. <strong>Solar Insolation:</strong> Assumes an average of 4.2 to 4.8 peak sun hours per day across Indian geographic zones, yielding approximately 120 kWh generated per kWp of installed solar PV per month.

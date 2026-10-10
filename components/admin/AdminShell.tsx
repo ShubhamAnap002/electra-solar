@@ -64,10 +64,10 @@ export function AdminShell({ children, user, gmailConnected, connectedEmail }: A
 
   if (checkingAuth || !currentUser) {
     return (
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center text-white">
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center text-[#091e3a]">
         <div className="text-center space-y-3">
-          <div className="w-8 h-8 border-4 border-[#00d2ff] border-t-transparent rounded-full animate-spin mx-auto" />
-          <p className="text-xs text-gray-400">Verifying administrator session...</p>
+          <div className="w-8 h-8 border-4 border-[#ea580c] border-t-transparent rounded-full animate-spin mx-auto" />
+          <p className="text-xs text-gray-500 font-semibold">Verifying administrator session...</p>
         </div>
       </div>
     );
@@ -89,7 +89,11 @@ export function AdminShell({ children, user, gmailConnected, connectedEmail }: A
     if (pathname.startsWith("/admin/products/new")) return "Add New Product";
     if (pathname.startsWith("/admin/products")) return "Product Catalogue";
     if (pathname.startsWith("/admin/categories")) return "Product Categories";
-    if (pathname.startsWith("/admin/content")) return "Website Content Management";
+    if (pathname.startsWith("/admin/blogs/new")) return "New Technical Article";
+    if (pathname.startsWith("/admin/blogs")) return "Knowledge Hub Articles";
+    if (pathname.startsWith("/admin/projects/new")) return "Add Commissioned Site";
+    if (pathname.startsWith("/admin/projects")) return "Turnkey Installations & Projects";
+    if (pathname.startsWith("/admin/content")) return "Website Content & FAQs";
     if (pathname.startsWith("/admin/media")) return "Media Library";
     if (pathname.startsWith("/admin/seo")) return "SEO Management";
     if (pathname.startsWith("/admin/email")) return "Gmail & Email Integration";

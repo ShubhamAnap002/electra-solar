@@ -1,0 +1,94 @@
+[
+  {
+    "id": "chakan-automotive-plant",
+    "slug": "chakan-automotive-manufacturing-plant",
+    "title": "Precision Automotive Component Facility",
+    "category": "Industrial Manufacturing",
+    "location": "Chakan MIDC, Pune, Maharashtra",
+    "capacity": "100 kVA Solar Hybrid PCU + 120 kWh BESS",
+    "productsInstalled": [
+      "SunMagic REeFI 3-Phase Solar Hybrid Inverter (100 kVA)",
+      "EnerCube Modular Industrial BESS"
+    ],
+    "challenge": "High-precision robotic welding lines and CNC machining centers experienced frequent resetting due to momentary utility grid sags and steep Time-of-Day peak tariff penalties.",
+    "solution": "Electra Solar engineered and commissioned a turnkey 100 kVA 3-phase hybrid PCU system with 100% unbalanced load tolerance, synchronised with the plant’s existing 250 kVA diesel generator.",
+    "impactMetrics": [
+      { "label": "Monthly Peak Penalty Savings", "value": "₹1.85 Lakhs" },
+      { "label": "Diesel Generator Runtime Reduction", "value": "64%" },
+      { "label": "Grid Voltage Sag Immunity", "value": "100% Uptime" },
+      { "label": "Estimated Payback Period", "value": "3.4 Years" }
+    ],
+    "completionYear": "2025",
+    "image": "/images/showcase/industrial-solar.jpg",
+    "quoteSnippet": "The contactor-less zero-break changeover eliminated CNC resets entirely, saving dozens of hours of lost production every single month."
+  },
+  {
+    "id": "hinjawadi-multispeciality-hospital",
+    "slug": "hinjawadi-multispeciality-hospital",
+    "title": "Multi-Speciality Hospital & Trauma Center",
+    "category": "Healthcare & Diagnostics",
+    "location": "Hinjawadi, Pune, Maharashtra",
+    "capacity": "40 kVA Solar Online UPS with Galvanic Isolation",
+    "productsInstalled": [
+      "Solar Online UPS 3-Phase (40 kVA)",
+      "Electra LFP 51.2V Lithium Battery Storage"
+    ],
+    "challenge": "Life-support ventilators, neonatal ICU incubators, and 1.5 Tesla MRI imaging scanners required guaranteed 0ms power continuity free from neutral drift and harmonics.",
+    "solution": "Designed and installed a high-reliability double-conversion Solar Online UPS with custom heavy-copper isolation transformers, operating with solar priority to power day operations cleanly.",
+    "impactMetrics": [
+      { "label": "Transfer Interruption Time", "value": "0 ms (Absolute zero)" },
+      { "label": "Harmonic Distortion (THDv)", "value": "< 2.1%" },
+      { "label": "Daytime Solar Power Utilization", "value": "72%" },
+      { "label": "Life-Support Critical Uptime", "value": "99.999%" }
+    ],
+    "completionYear": "2025",
+    "image": "/images/showcase/commercial-solar.jpg",
+    "quoteSnippet": "Clean, isolated power is non-negotiable for medical imaging. Electra Solar delivered a robust solar UPS architecture that has performed flawlessly."
+  },
+  {
+    "id": "lonavala-luxury-villa",
+    "slug": "lonavala-luxury-eco-villa",
+    "title": "Independent Luxury Residential Estate",
+    "category": "Residential Luxury",
+    "location": "Lonavala Hills, Maharashtra",
+    "capacity": "10 kVA SunMagic Hybrid + 15 kWh LFP Storage",
+    "productsInstalled": [
+      "SunMagic REeFI 1-Phase Hybrid Inverter (10 kVA)",
+      "Electra LFP 51.2V 314Ah Lithium Battery"
+    ],
+    "challenge": "Severe 8-to-12 hour monsoon power cuts in hill station terrain frequently left the property without water heating, refrigeration, or lighting, while noisy DG sets disturbed guests.",
+    "solution": "Replaced a noisy 15 kVA diesel generator with a silent, maintenance-free 10 kVA SunMagic hybrid solar inverter and automotive-grade LiFePO4 battery pack.",
+    "impactMetrics": [
+      { "label": "Power Cut Blackout Coverage", "value": "24/7 Continuity" },
+      { "label": "Diesel Fuel Noise & Fumes", "value": "100% Eliminated" },
+      { "label": "Monthly Electricity Cost Reduction", "value": "82%" },
+      { "label": "Battery Lifespan Expectancy", "value": "10+ Years" }
+    ],
+    "completionYear": "2024",
+    "image": "/images/showcase/solar-home-villa.jpg",
+    "quoteSnippet": "Completely silent, instantaneous switchover. We can run our central air conditioning and water heaters even during torrential monsoon outages."
+  },
+  {
+    "id": "baramati-agro-cold-chain",
+    "slug": "baramati-agro-cold-chain-facility",
+    "title": "Agro Cold Storage & Export Fruit Packhouse",
+    "category": "Agro-Cold Chain",
+    "location": "Baramati Agricultural Belt, Maharashtra",
+    "capacity": "50 kVA Solar Hybrid PCU + 80 kWh LiFePO4 Bank",
+    "productsInstalled": [
+      "SunMagic REeFI 3-Phase Solar Hybrid Inverter (50 kVA)",
+      "EnerCube Modular Industrial BESS"
+    ],
+    "challenge": "Unscheduled rural feeder load-shedding jeopardized high-value export table grapes and pomegranates in temperature-sensitive cold rooms.",
+    "solution": "Commissioned a 50 kVA 3-phase hybrid solar power conditioning unit capable of starting high-surge refrigeration compressor motors without tripping.",
+    "impactMetrics": [
+      { "label": "Perishable Produce Spoilage Loss", "value": "Zero Spoilage" },
+      { "label": "Monthly Diesel Expense Cut", "value": "72%" },
+      { "label": "High-Inertia Motor Starting Capacity", "value": "300% Surge OK" },
+      { "label": "Annual Carbon Emissions Avoided", "value": "54 MT CO₂e" }
+    ],
+    "completionYear": "2024",
+    "image": "/images/showcase/utility-solar.jpg",
+    "quoteSnippet": "In agricultural cold storage, a 4-hour power cut can destroy millions of rupees worth of produce. Electra Solar gave us peace of mind."
+  }
+]

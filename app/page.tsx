@@ -1,6 +1,5 @@
 import React from "react";
 import { HeroSection } from "@/components/home/HeroSection";
-import { DeyeSubNavbar } from "@/components/layout/DeyeSubNavbar";
 import { ProductRangeSection } from "@/components/home/ProductRangeSection";
 import { WhyElectraSolarSection } from "@/components/home/WhyElectraSolarSection";
 import { ApplicationsSection } from "@/components/home/ApplicationsSection";
@@ -11,13 +10,10 @@ import { FaqSection } from "@/components/home/FaqSection";
 export default function HomePage() {
   return (
     <div className="space-y-0 bg-white">
-      {/* 1. Exact Mockup Hero Stage with 3D System Render & 4 Highlights */}
+      {/* 1. Multi-sector Hero Carousel with transparent hardware and pill switcher */}
       <HeroSection />
 
-      {/* Signature Deye Edge-to-Edge Sub-Navigation Strip */}
-      <DeyeSubNavbar />
-
-      {/* 2. Exact Mockup Product Range Section (4 Clean Category Cards) */}
+      {/* 2. De-cluttered Hardware Category Range (4 Clean Cards) */}
       <ProductRangeSection />
 
       {/* 3. Exact Mockup "Why Electra Solar?" Split Section (Villa Photo + Deep Navy Stats Box) */}

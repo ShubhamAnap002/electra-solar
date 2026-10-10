@@ -2,6 +2,8 @@ import fs from "fs";
 import path from "path";
 import { PRODUCTS, CATEGORIES, Product, CategoryInfo } from "@/lib/data/products";
 import { COMPANY, CompanyInfo } from "@/lib/data/company";
+import { BlogPost, BLOG_POSTS } from "@/lib/data/blog";
+import { Project, PROJECTS } from "@/lib/data/projects";
 
 const DATA_DIR = path.join(process.cwd(), "data");
 const TMP_DIR = path.join(process.env.TMPDIR || process.env.TEMP || "/tmp", "electra-data");
@@ -31,7 +33,7 @@ function ensureDataDir() {
 export interface ActivityLog {
   id: string;
   action: string;
-  module: "Products" | "Categories" | "Content" | "SEO" | "Media" | "Gmail" | "Email" | "Auth";
+  module: "Products" | "Categories" | "Content" | "SEO" | "Media" | "Gmail" | "Email" | "Auth" | "Blogs" | "Projects";
   details: string;
   timestamp: string;
   user: string;
@@ -140,15 +142,6 @@ const DEFAULT_SEO: SeoConfig = {
       noIndex: false,
     },
     {
-      path: "/compare",
-      name: "Specification Comparison",
-      title: "Compare Solar Inverters & Storage Specifications | Electra Solar",
-      description: "Side-by-side technical specification comparison for SunMagic hybrid PCUs, EnerCube BESS, and industrial UPS.",
-      keywords: "compare inverters, inverter specifications matrix",
-      canonical: "https://electrasolar.in/compare",
-      noIndex: false,
-    },
-    {
       path: "/solutions",
       name: "Turnkey Solutions",
       title: "Solar Solutions for Residential, Commercial & Industrial | Electra Solar",
@@ -167,6 +160,15 @@ const DEFAULT_SEO: SeoConfig = {
       noIndex: false,
     },
     {
+      path: "/installations",
+      name: "Turnkey Installations",
+      title: "Turnkey Solar Hybrid Installations & Commissioned Sites | Electra Solar",
+      description: "Verified commissioning sites across automotive plants, hospitals, agro-cold storage, and luxury estates in India.",
+      keywords: "solar installations, turnkey solar pune, commissioned hybrid sites",
+      canonical: "https://electrasolar.in/installations",
+      noIndex: false,
+    },
+    {
       path: "/projects",
       name: "Case Studies",
       title: "Commissioned Solar Projects & Case Studies | Electra Solar",
@@ -176,12 +178,30 @@ const DEFAULT_SEO: SeoConfig = {
       noIndex: false,
     },
     {
+      path: "/blog",
+      name: "Knowledge Hub & Blog",
+      title: "Solar Knowledge Hub & Engineering Insights | Electra Solar",
+      description: "Expert technical guides, C&I sizing analyses, PM Surya Ghar subsidy rules, and commercial BESS battery storage insights.",
+      keywords: "solar blog, hybrid inverter guide, pm surya ghar yojana, bess storage",
+      canonical: "https://electrasolar.in/blog",
+      noIndex: false,
+    },
+    {
       path: "/about",
       name: "About Us",
       title: "About Electra Solar & EnerTech Engineering Heritage",
       description: "35+ years of parent engineering excellence. Over 35,000 systems commissioned across India and worldwide.",
       keywords: "about electra solar, enertech ups pvt ltd heritage, pune solar company",
       canonical: "https://electrasolar.in/about",
+      noIndex: false,
+    },
+    {
+      path: "/careers",
+      name: "Careers",
+      title: "Careers & Engineering Openings | Electra Solar",
+      description: "Join our power electronics engineering and solar EPC commissioning team in Pune.",
+      keywords: "solar careers, solar jobs pune, power electronics engineer",
+      canonical: "https://electrasolar.in/careers",
       noIndex: false,
     },
     {
@@ -408,6 +428,34 @@ export function getStoredSeo(): SeoConfig {
 
 export function saveStoredSeo(seo: SeoConfig): void {
   writeJsonFile("seo.json", seo);
+}
+
+// Blogs API
+export function getStoredBlogPosts(): BlogPost[] {
+  return readJsonFile<BlogPost[]>("blogs.json", BLOG_POSTS);
+}
+
+export function saveStoredBlogPosts(posts: BlogPost[]): void {
+  writeJsonFile("blogs.json", posts);
+}
+
+export function getStoredBlogPostBySlug(slug: string): BlogPost | undefined {
+  const posts = getStoredBlogPosts();
+  return posts.find((p) => p.slug === slug);
+}
+
+// Projects & Turnkey Installations API
+export function getStoredProjects(): Project[] {
+  return readJsonFile<Project[]>("projects.json", PROJECTS);
+}
+
+export function saveStoredProjects(projects: Project[]): void {
+  writeJsonFile("projects.json", projects);
+}
+
+export function getStoredProjectBySlug(slug: string): Project | undefined {
+  const projects = getStoredProjects();
+  return projects.find((p) => p.slug === slug);
 }
 
 // Gmail Configuration

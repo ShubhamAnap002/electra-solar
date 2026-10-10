@@ -95,7 +95,7 @@ export async function DELETE(req: NextRequest) {
 
   try {
     const { searchParams } = new URL(req.url);
-    const fileUrl = searchParams.get("url");
+    const fileUrl = searchParams.get("url") || searchParams.get("path");
 
     if (!fileUrl) {
       return NextResponse.json({ success: false, message: "File URL is required" }, { status: 400 });

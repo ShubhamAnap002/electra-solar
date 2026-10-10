@@ -16,17 +16,17 @@ export function FloatingCompareTray() {
       <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
         {/* Left: Indicator */}
         <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-xl bg-[#e6f0fa] text-[#015cbb] flex items-center justify-center border border-[#015cbb]/30">
+          <div className="w-9 h-9 rounded-xl bg-orange-50 text-[#ea580c] flex items-center justify-center border border-orange-200">
             <Scale className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-sm font-bold text-[#222222] flex items-center gap-2">
+            <div className="text-sm font-bold text-[#091e3a] flex items-center gap-2">
               <span>Compare Models</span>
-              <span className="text-xs bg-[#e6f0fa] border border-[#015cbb]/30 text-[#015cbb] px-2 py-0.5 rounded-full font-mono font-bold">
+              <span className="text-xs bg-orange-100 border border-orange-200 text-[#ea580c] px-2 py-0.5 rounded-full font-mono font-bold">
                 {compareList.length} / 4
               </span>
             </div>
-            <p className="text-[11px] text-[#5c5c5c] hidden sm:block">Side-by-side technical specs evaluation</p>
+            <p className="text-[11px] text-gray-500 hidden sm:block">Side-by-side technical specs evaluation</p>
           </div>
         </div>
 
@@ -35,7 +35,7 @@ export function FloatingCompareTray() {
           {compareList.map((item) => (
             <div
               key={item.id}
-              className="flex items-center gap-2 bg-[#f8fafd] border border-gray-200 rounded-xl px-2.5 py-1.5 text-xs flex-shrink-0"
+              className="flex items-center gap-2 bg-[#f8fafc] border border-gray-200 rounded-xl px-2.5 py-1.5 text-xs flex-shrink-0"
             >
               <div className="w-7 h-7 relative rounded bg-white p-0.5 border border-gray-200">
                 <Image
@@ -46,7 +46,7 @@ export function FloatingCompareTray() {
                   sizes="28px"
                 />
               </div>
-              <span className="font-semibold text-[#222222] max-w-[110px] truncate">{item.name}</span>
+              <span className="font-semibold text-gray-800 max-w-[110px] truncate">{item.name}</span>
               <button
                 type="button"
                 onClick={() => removeFromCompare(item.id)}
@@ -64,13 +64,13 @@ export function FloatingCompareTray() {
           <button
             type="button"
             onClick={clearCompare}
-            className="text-xs font-bold text-[#5c5c5c] hover:text-gray-800 transition-colors px-2 py-1"
+            className="text-xs font-bold text-gray-500 hover:text-gray-800 transition-colors px-2 py-1"
           >
             Clear all
           </button>
           <Link
             href="/compare"
-            className="bg-[#015cbb] hover:bg-[#004896] text-white px-5 py-2 rounded-full text-xs font-bold shadow-sm transition-all flex items-center gap-1.5"
+            className="bg-[#091e3a] hover:bg-[#ea580c] text-white px-5 py-2 rounded-full text-xs font-bold shadow-sm transition-all flex items-center gap-1.5"
           >
             <span>Compare Now</span>
             <ArrowRight className="w-3.5 h-3.5" />

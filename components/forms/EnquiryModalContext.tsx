@@ -43,11 +43,11 @@ export function EnquiryModalProvider({ children }: { children: React.ReactNode }
       <Modal
         isOpen={isOpen}
         onClose={closeEnquiryModal}
-        title="Request Official Quote & System Sizing"
+        title="Request System Sizing & Official Quote"
         maxWidth="xl"
       >
         <p className="text-xs text-gray-500 mb-4 -mt-2">
-          Official Distributor of EnerTech UPS Pvt. Ltd. Get verified factory pricing and sizing support.
+          Direct factory pricing and engineering consultation for EnerTech systems.
         </p>
         <QuoteForm
           initialProductSlug={selectedProduct}

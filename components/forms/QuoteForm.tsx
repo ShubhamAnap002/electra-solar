@@ -100,16 +100,16 @@ export function QuoteForm({
 
   if (status === "success") {
     return (
-      <div className="bg-[#f0f9ff] border border-[#015cbb]/30 rounded-2xl p-8 text-center space-y-4 animate-in fade-in duration-300">
-        <div className="w-16 h-16 bg-[#e6f0fa] text-[#015cbb] rounded-full flex items-center justify-center mx-auto ring-8 ring-[#015cbb]/10">
+      <div className="bg-orange-50/60 border border-orange-200 rounded-2xl p-8 text-center space-y-4 animate-in fade-in duration-300">
+        <div className="w-16 h-16 bg-orange-100 text-[#ea580c] rounded-full flex items-center justify-center mx-auto ring-8 ring-orange-100/50">
           <CheckCircle2 className="w-8 h-8" />
         </div>
-        <h4 className="text-2xl font-black text-[#222222]">Proposal Request Delivered</h4>
-        <p className="text-[#5c5c5c] text-sm max-w-md mx-auto">
-          Thank you, <strong className="text-[#222222]">{formData.name}</strong>. Your requirement has been delivered directly to our Pune sales engineering desk. We will reach you on <strong className="text-[#015cbb]">{formData.phone}</strong> to review sizing.
+        <h4 className="text-2xl font-black text-[#091e3a]">Proposal Request Delivered</h4>
+        <p className="text-gray-600 text-sm max-w-md mx-auto">
+          Thank you, <strong className="text-gray-900">{formData.name}</strong>. Your requirement has been delivered directly to our Pune sales engineering desk. We will reach you on <strong className="text-[#ea580c]">{formData.phone}</strong> to review sizing.
         </p>
         <div className="pt-2 text-xs text-gray-500">
-          Immediate engineering requirement? Pune Sales Desk: <strong className="text-[#222222]">+91 98224 12345</strong>
+          Immediate engineering requirement? Pune Sales Desk: <strong className="text-gray-900">+91 98224 12345</strong>
         </div>
       </div>
     );
@@ -137,8 +137,8 @@ export function QuoteForm({
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-xs font-bold text-[#222222] uppercase tracking-wider mb-1.5">
-            Full Name <span className="text-[#015cbb]">*</span>
+          <label className="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-1.5">
+            Full Name <span className="text-[#ea580c]">*</span>
           </label>
           <input
             type="text"
@@ -146,14 +146,14 @@ export function QuoteForm({
             required
             value={formData.name}
             onChange={handleChange}
-            placeholder="e.g. Rajesh Patil"
-            className="w-full bg-[#f8fafd] border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-[#222222] placeholder-gray-400 focus:outline-none focus:border-[#015cbb] focus:ring-1 focus:ring-[#015cbb] transition-colors"
+            placeholder="Full Name"
+            className="w-full bg-[#f8fafc] border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#ea580c] focus:ring-1 focus:ring-[#ea580c] transition-colors"
           />
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-[#222222] uppercase tracking-wider mb-1.5">
-            Telephone / Mobile <span className="text-[#015cbb]">*</span>
+          <label className="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-1.5">
+            Telephone / Mobile <span className="text-[#ea580c]">*</span>
           </label>
           <input
             type="tel"
@@ -161,15 +161,15 @@ export function QuoteForm({
             required
             value={formData.phone}
             onChange={handleChange}
-            placeholder="+91 98765 43210"
-            className="w-full bg-[#f8fafd] border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-[#222222] placeholder-gray-400 focus:outline-none focus:border-[#015cbb] focus:ring-1 focus:ring-[#015cbb] transition-colors"
+            placeholder="Contact Number"
+            className="w-full bg-[#f8fafc] border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#ea580c] focus:ring-1 focus:ring-[#ea580c] transition-colors"
           />
         </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-xs font-bold text-[#222222] uppercase tracking-wider mb-1.5">
+          <label className="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-1.5">
             Email Address
           </label>
           <input
@@ -177,13 +177,13 @@ export function QuoteForm({
             name="email"
             value={formData.email}
             onChange={handleChange}
-            placeholder="name@company.com"
-            className="w-full bg-[#f8fafd] border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-[#222222] placeholder-gray-400 focus:outline-none focus:border-[#015cbb] focus:ring-1 focus:ring-[#015cbb] transition-colors"
+            placeholder="Email Address"
+            className="w-full bg-[#f8fafc] border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#ea580c] focus:ring-1 focus:ring-[#ea580c] transition-colors"
           />
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-[#222222] uppercase tracking-wider mb-1.5">
+          <label className="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-1.5">
             City / Project Location
           </label>
           <input
@@ -191,22 +191,22 @@ export function QuoteForm({
             name="city"
             value={formData.city}
             onChange={handleChange}
-            placeholder="e.g. Pune, Chakan, Mumbai"
-            className="w-full bg-[#f8fafd] border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-[#222222] placeholder-gray-400 focus:outline-none focus:border-[#015cbb] focus:ring-1 focus:ring-[#015cbb] transition-colors"
+            placeholder="City or Location"
+            className="w-full bg-[#f8fafc] border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#ea580c] focus:ring-1 focus:ring-[#ea580c] transition-colors"
           />
         </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-xs font-bold text-[#222222] uppercase tracking-wider mb-1.5">
+          <label className="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-1.5">
             Product of Interest
           </label>
           <select
             name="productModel"
             value={formData.productModel}
             onChange={handleChange}
-            className="w-full bg-[#f8fafd] border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-[#222222] focus:outline-none focus:border-[#015cbb] focus:ring-1 focus:ring-[#015cbb] transition-colors"
+            className="w-full bg-[#f8fafc] border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-800 focus:outline-none focus:border-[#ea580c] focus:ring-1 focus:ring-[#ea580c] transition-colors"
           >
             {productList.map((p) => (
               <option key={p.slug} value={p.slug}>
@@ -217,14 +217,14 @@ export function QuoteForm({
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-[#222222] uppercase tracking-wider mb-1.5">
+          <label className="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-1.5">
             Application Scenario
           </label>
           <select
             name="application"
             value={formData.application}
             onChange={handleChange}
-            className="w-full bg-[#f8fafd] border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-[#222222] focus:outline-none focus:border-[#015cbb] focus:ring-1 focus:ring-[#015cbb] transition-colors"
+            className="w-full bg-[#f8fafc] border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-800 focus:outline-none focus:border-[#ea580c] focus:ring-1 focus:ring-[#ea580c] transition-colors"
           >
             <option value="Residential Bungalow / Villa">Residential Bungalow / Villa</option>
             <option value="Commercial / Industrial Facility">Commercial / Industrial Facility</option>
@@ -238,7 +238,7 @@ export function QuoteForm({
 
       {!isCompact && (
         <div>
-          <label className="block text-xs font-bold text-[#222222] uppercase tracking-wider mb-1.5">
+          <label className="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-1.5">
             Project Scope or Specific Requirements (Optional)
           </label>
           <textarea
@@ -246,8 +246,8 @@ export function QuoteForm({
             rows={3}
             value={formData.message}
             onChange={handleChange}
-            placeholder="Tell us about your connected load, backup hours requirement, existing generator rating..."
-            className="w-full bg-[#f8fafd] border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-[#222222] placeholder-gray-400 focus:outline-none focus:border-[#015cbb] focus:ring-1 focus:ring-[#015cbb] transition-colors resize-none"
+            placeholder="Power requirements or project details (optional)"
+            className="w-full bg-[#f8fafc] border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#ea580c] focus:ring-1 focus:ring-[#ea580c] transition-colors resize-none"
           />
         </div>
       )}
@@ -256,7 +256,7 @@ export function QuoteForm({
         <button
           type="submit"
           disabled={status === "submitting"}
-          className="w-full bg-[#015cbb] hover:bg-[#004896] text-white py-3.5 rounded-full font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2"
+          className="w-full bg-[#091e3a] hover:bg-[#ea580c] text-white py-3.5 rounded-full font-bold text-sm shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-2"
         >
           {status === "submitting" ? (
             <>
@@ -265,7 +265,7 @@ export function QuoteForm({
             </>
           ) : (
             <>
-              <Send className="w-4 h-4" />
+              <Send className="w-4 h-4 text-[#ea580c]" />
               <span>SEND PROPOSAL REQUEST</span>
             </>
           )}
@@ -273,7 +273,7 @@ export function QuoteForm({
       </div>
 
       <p className="text-[11px] text-center text-gray-500">
-        🔒 Confidential. Enquiries delivered directly to our authorized engineering desk. Not persisted in public databases.
+        Direct engineering review. We respect your privacy.
       </p>
     </form>
   );

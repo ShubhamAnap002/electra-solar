@@ -31,15 +31,15 @@ export function CompareMatrixView() {
 
   if (compareList.length === 0) {
     return (
-      <div className="bg-white border border-gray-200 rounded-2xl p-12 text-center space-y-6 max-w-2xl mx-auto shadow-sm">
-        <div className="w-16 h-16 rounded-full bg-[#e6f0fa] text-[#015cbb] flex items-center justify-center mx-auto border border-[#015cbb]/30">
+      <div className="bg-white border border-gray-200 rounded-2xl p-12 text-center space-y-6 max-w-2xl mx-auto shadow-xs">
+        <div className="w-16 h-16 rounded-full bg-orange-50 text-[#ea580c] flex items-center justify-center mx-auto border border-orange-200">
           <Scale className="w-8 h-8" />
         </div>
         <div className="space-y-2">
-          <h2 className="text-2xl font-black text-[#222222] tracking-tight">
+          <h2 className="text-2xl font-black text-[#091e3a] tracking-tight">
             No Products Selected for Comparison
           </h2>
-          <p className="text-[#5c5c5c] text-sm">
+          <p className="text-gray-600 text-sm">
             Select 2 or more products from the catalogue to compare capacities, topologies, efficiency, and features side by side.
           </p>
         </div>
@@ -54,9 +54,9 @@ export function CompareMatrixView() {
                 key={p.id}
                 type="button"
                 onClick={() => addToCompare(p)}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#f8fafd] border border-gray-200 text-xs font-bold text-[#5c5c5c] hover:text-[#015cbb] hover:border-[#015cbb] transition-colors"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#f8fafc] border border-gray-200 text-xs font-bold text-gray-700 hover:text-[#ea580c] hover:border-orange-300 hover:bg-orange-50/50 transition-colors"
               >
-                <Plus className="w-3.5 h-3.5 text-[#015cbb]" />
+                <Plus className="w-3.5 h-3.5 text-[#ea580c]" />
                 <span>{p.name}</span>
               </button>
             ))}
@@ -66,7 +66,7 @@ export function CompareMatrixView() {
         <div className="pt-4 border-t border-gray-100">
           <Link
             href="/products"
-            className="inline-flex items-center gap-2 bg-[#015cbb] hover:bg-[#004896] text-white px-7 py-3 rounded-full font-bold text-sm shadow-md transition-all"
+            className="inline-flex items-center gap-2 bg-[#091e3a] hover:bg-[#ea580c] text-white px-7 py-3 rounded-full font-bold text-sm shadow-sm hover:shadow-md transition-all"
           >
             <span>Browse All Products</span>
             <ArrowRight className="w-4 h-4" />
@@ -79,9 +79,9 @@ export function CompareMatrixView() {
   return (
     <div className="space-y-8">
       {/* Top Controls */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white border border-gray-200 p-4 rounded-xl shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white border border-gray-200 p-4 rounded-xl shadow-xs">
         <div className="flex items-center gap-3">
-          <span className="text-sm font-bold text-[#222222]">Comparing {compareList.length} of 4 Systems</span>
+          <span className="text-sm font-bold text-[#091e3a]">Comparing {compareList.length} of 4 Systems</span>
           {compareList.length < 4 && availableToAdd.length > 0 && (
             <select
               onChange={(e) => {
@@ -90,7 +90,7 @@ export function CompareMatrixView() {
                 e.target.value = "";
               }}
               defaultValue=""
-              className="bg-[#f8fafd] border border-gray-200 rounded-full px-3.5 py-1.5 text-xs text-[#222222] focus:outline-none focus:border-[#015cbb]"
+              className="bg-[#f8fafc] border border-gray-200 rounded-full px-3.5 py-1.5 text-xs text-gray-800 focus:outline-none focus:border-[#ea580c]"
             >
               <option value="" disabled>+ Add Another Product...</option>
               {availableToAdd.map((p) => (
@@ -111,19 +111,19 @@ export function CompareMatrixView() {
         </button>
       </div>
 
-      {/* Comparison Table / Matrix - Deye Clean Striped Table */}
-      <div className="bg-white border border-gray-200 rounded-2xl overflow-x-auto shadow-sm">
+      {/* Comparison Table / Matrix - Clean Light Table */}
+      <div className="bg-white border border-gray-200 rounded-2xl overflow-x-auto shadow-xs">
         <table className="w-full text-left border-collapse min-w-[700px]">
           <thead>
-            <tr className="border-b border-gray-200 bg-[#f8fafd]">
-              <th className="p-5 text-xs font-bold text-[#5c5c5c] uppercase tracking-wider w-48 sticky left-0 bg-[#f8fafd] z-10 border-r border-gray-200">
+            <tr className="border-b border-gray-200 bg-[#f8fafc]">
+              <th className="p-5 text-xs font-bold text-gray-500 uppercase tracking-wider w-48 sticky left-0 bg-[#f8fafc] z-10 border-r border-gray-200">
                 System Specification
               </th>
               {compareList.map((p) => (
                 <th key={p.id} className="p-5 w-64 align-top">
                   <div className="space-y-3">
                     <div className="flex items-start justify-between gap-2">
-                      <span className="text-[11px] font-mono font-bold text-[#015cbb] bg-[#e6f0fa] px-2 py-0.5 rounded border border-[#015cbb]/20">
+                      <span className="text-[11px] font-mono font-bold text-[#ea580c] bg-orange-50 px-2 py-0.5 rounded border border-orange-200">
                         {p.modelCode}
                       </span>
                       <button
@@ -140,14 +140,14 @@ export function CompareMatrixView() {
                       <Image src={p.image} alt={p.name} fill className="object-contain" sizes="200px" />
                     </div>
 
-                    <h4 className="text-sm font-bold text-[#222222] line-clamp-2">{p.name}</h4>
+                    <h4 className="text-sm font-bold text-[#091e3a] line-clamp-2">{p.name}</h4>
 
                     <button
                       onClick={() => openEnquiryModal({
                         productName: p.name,
                         source: `Compare Matrix: ${p.name}`,
                       })}
-                      className="w-full bg-[#015cbb] hover:bg-[#004896] text-white py-2 rounded-full text-xs font-bold transition-colors shadow-sm"
+                      className="w-full bg-[#091e3a] hover:bg-[#ea580c] text-white py-2 rounded-full text-xs font-bold transition-colors shadow-xs"
                     >
                       Get Quote
                     </button>
@@ -160,13 +160,13 @@ export function CompareMatrixView() {
             {comparisonRows.map((row, idx) => (
               <tr
                 key={idx}
-                className={`transition-colors ${idx % 2 === 0 ? "bg-[#f8fafd]/60" : "bg-white"}`}
+                className={`transition-colors ${idx % 2 === 0 ? "bg-[#f8fafc]/60" : "bg-white"}`}
               >
-                <td className="p-4 sm:p-5 font-bold text-[#222222] sticky left-0 bg-inherit z-10 border-r border-gray-200">
+                <td className="p-4 sm:p-5 font-bold text-[#091e3a] sticky left-0 bg-inherit z-10 border-r border-gray-200">
                   {row.label}
                 </td>
                 {compareList.map((p) => (
-                  <td key={p.id} className="p-4 sm:p-5 text-[#444444] font-medium font-mono text-xs">
+                  <td key={p.id} className="p-4 sm:p-5 text-gray-700 font-medium font-mono text-xs">
                     {row.render(p)}
                   </td>
                 ))}

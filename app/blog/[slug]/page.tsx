@@ -16,7 +16,9 @@ import {
   Zap,
   Bookmark,
 } from "lucide-react";
-import { BLOG_POSTS } from "@/lib/data/blog";
+import { getStoredBlogPosts, getStoredBlogPostBySlug } from "@/lib/store";
+
+export const dynamic = "force-dynamic";
 
 interface BlogPostPageProps {
   params: {
@@ -25,13 +27,14 @@ interface BlogPostPageProps {
 }
 
 export function generateStaticParams() {
-  return BLOG_POSTS.map((post) => ({
+  const posts = getStoredBlogPosts();
+  return posts.map((post) => ({
     slug: post.slug,
   }));
 }
 
 export function generateMetadata({ params }: BlogPostPageProps): Metadata {
-  const post = BLOG_POSTS.find((p) => p.slug === params.slug);
+  const post = getStoredBlogPostBySlug(params.slug);
   if (!post) {
     return { title: "Article Not Found | Electra Solar" };
   }
@@ -49,7 +52,7 @@ export function generateMetadata({ params }: BlogPostPageProps): Metadata {
 }
 
 export default function BlogPostPage({ params }: BlogPostPageProps) {
-  const post = BLOG_POSTS.find((p) => p.slug === params.slug);
+  const post = getStoredBlogPostBySlug(params.slug);
   if (!post) {
     notFound();
   }
@@ -85,22 +88,22 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
       />
 
       {/* 1. ARTICLE HERO HEADER */}
-      <section className="bg-gradient-to-b from-[#091e3a] via-[#0b2144] to-[#07172c] text-white py-16 lg:py-20 relative">
+      <section className="bg-[#091e3a] text-white py-16 lg:py-20 relative border-b border-gray-800">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10 space-y-5">
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 text-xs text-gray-300 font-medium">
-            <Link href="/" className="hover:text-[#00d2ff] transition-colors">
+            <Link href="/" className="hover:text-[#ea580c] transition-colors">
               Home
             </Link>
             <ChevronRight className="w-3.5 h-3.5 text-gray-500" />
-            <Link href="/blog" className="hover:text-[#00d2ff] transition-colors">
+            <Link href="/blog" className="hover:text-[#ea580c] transition-colors">
               Knowledge Hub
             </Link>
             <ChevronRight className="w-3.5 h-3.5 text-gray-500" />
             <span className="text-gray-400 truncate max-w-[200px]">{post.category}</span>
           </div>
 
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-[#00d2ff] text-xs font-bold border border-white/15">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-orange-400 text-xs font-bold border border-white/15">
             <span>{post.category}</span>
             <span>•</span>
             <span className="text-gray-300 font-medium">{post.readTime}</span>
@@ -112,7 +115,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
           <div className="flex flex-wrap items-center gap-4 text-xs text-gray-300 pt-2 border-t border-white/10">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-[#00d2ff]/20 text-[#00d2ff] font-bold flex items-center justify-center text-xs">
+              <div className="w-8 h-8 rounded-full bg-orange-500/20 text-[#ea580c] font-bold flex items-center justify-center text-xs">
                 {post.author.charAt(0)}
               </div>
               <div>
@@ -146,7 +149,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
         </div>
 
         {/* Lead Introduction Box */}
-        <div className="p-6 sm:p-8 bg-white rounded-2xl border-l-4 border-[#015cbb] border-t border-r border-b border-gray-200 shadow-sm mb-10 text-sm sm:text-base text-gray-700 leading-relaxed font-medium">
+        <div className="p-6 sm:p-8 bg-white rounded-2xl border-l-4 border-[#ea580c] border-t border-r border-b border-gray-200 shadow-sm mb-10 text-sm sm:text-base text-gray-700 leading-relaxed font-medium">
           {post.content.intro}
         </div>
 
@@ -154,7 +157,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
         <div className="space-y-10 text-gray-700 leading-relaxed text-sm sm:text-base">
           {post.content.sections.map((section, idx) => (
             <div key={idx} className="space-y-4">
-              <h2 className="text-xl sm:text-2xl font-black text-[#222222] tracking-tight">
+              <h2 className="text-xl sm:text-2xl font-black text-[#091e3a] tracking-tight">
                 {section.heading}
               </h2>
 
@@ -167,8 +170,8 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
               </div>
 
               {section.highlightBox && (
-                <div className="my-6 p-5 rounded-2xl bg-[#f0f7ff] border border-[#015cbb]/30 flex items-start gap-3 text-xs sm:text-sm text-[#015cbb] font-semibold">
-                  <Zap className="w-5 h-5 flex-shrink-0 mt-0.5 text-[#015cbb]" />
+                <div className="my-6 p-5 rounded-2xl bg-orange-50/70 border border-orange-200 flex items-start gap-3 text-xs sm:text-sm text-[#ea580c] font-semibold">
+                  <Zap className="w-5 h-5 flex-shrink-0 mt-0.5 text-[#ea580c]" />
                   <span>{section.highlightBox}</span>
                 </div>
               )}
@@ -177,7 +180,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
           {/* Conclusion */}
           <div className="pt-8 border-t border-gray-200 space-y-3">
-            <h3 className="text-lg sm:text-xl font-black text-[#222222]">
+            <h3 className="text-lg sm:text-xl font-black text-[#091e3a]">
               Summary & Engineering Verdict
             </h3>
             <p className="text-gray-700 font-medium leading-relaxed">
@@ -188,9 +191,9 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
         {/* Related Product Promotion Card */}
         {post.relatedProductSlug && (
-          <div className="mt-14 bg-gradient-to-r from-[#091e3a] to-[#0b2144] text-white rounded-3xl p-6 sm:p-8 border border-white/10 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="mt-14 bg-[#091e3a] text-white rounded-3xl p-6 sm:p-8 border border-gray-800 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6">
             <div className="space-y-1.5 text-center sm:text-left">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#00d2ff]">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#ea580c]">
                 Featured Hardware Mentioned in Article
               </span>
               <h4 className="text-lg sm:text-xl font-black">{post.relatedProductName}</h4>
@@ -201,7 +204,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
             <Link
               href={`/products`}
-              className="bg-[#00d2ff] hover:bg-[#00b4d8] text-[#091e3a] px-6 py-3 rounded-xl font-black text-xs uppercase tracking-wider shadow-md hover:shadow-lg transition-all flex items-center gap-1.5 flex-shrink-0"
+              className="bg-[#ea580c] hover:bg-[#c2410c] text-white px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider shadow-md hover:shadow-lg transition-all flex items-center gap-1.5 flex-shrink-0"
             >
               <span>Explore Portfolio</span>
               <ArrowRight className="w-4 h-4" />
@@ -213,7 +216,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
         <div className="mt-12 pt-6 border-t border-gray-200 flex flex-wrap items-center justify-between gap-4">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#015cbb] hover:underline"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#ea580c] hover:underline"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Back to All Publications</span>
@@ -234,7 +237,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
               href={`https://www.linkedin.com/sharing/share-offsite/?url=https://electrasolar.in/blog/${post.slug}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-lg bg-blue-50 text-[#015cbb] hover:bg-blue-100 transition-colors"
+              className="p-2 rounded-lg bg-orange-50 text-[#ea580c] hover:bg-orange-100 transition-colors"
               title="Share on LinkedIn"
             >
               LinkedIn

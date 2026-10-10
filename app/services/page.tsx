@@ -15,13 +15,13 @@ export default function ServicesPage() {
     <div className="py-12 lg:py-16 bg-[#f8fafd] min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-12">
         <div className="space-y-3 max-w-2xl">
-          <span className="text-xs font-bold uppercase tracking-widest text-[#015cbb] block">
+          <span className="text-xs font-bold uppercase tracking-widest text-[#ea580c] block">
             Turnkey Engineering
           </span>
-          <h1 className="text-3xl sm:text-5xl font-black text-[#1a202c] tracking-tight">
+          <h1 className="text-3xl sm:text-5xl font-black text-[#091e3a] tracking-tight">
             Lifecycle Engineering Services
           </h1>
-          <div className="w-16 h-1 bg-[#015cbb]" />
+          <div className="w-16 h-1 bg-[#ea580c]" />
           <p className="text-gray-500 text-sm sm:text-base leading-relaxed">
             From electrical load profiling and single-line diagrams (SLD) to synchronized commissioning and round-the-clock industrial maintenance.
           </p>
@@ -31,14 +31,14 @@ export default function ServicesPage() {
           {SERVICES.map((srv) => (
             <div
               key={srv.id}
-              className="bg-white border border-gray-200/80 rounded-2xl p-6 sm:p-8 transition-all hover:shadow-xl hover:border-[#015cbb]/30 flex flex-col justify-between group"
+              className="bg-white border border-gray-200/80 rounded-2xl p-6 sm:p-8 transition-all hover:shadow-xl hover:border-[#ea580c]/40 flex flex-col justify-between group"
             >
               <div className="space-y-4">
-                <span className="text-[11px] font-bold px-3 py-1 rounded-full bg-blue-50 text-[#015cbb] inline-block">
+                <span className="text-[11px] font-bold px-3 py-1 rounded-full bg-orange-50 text-[#ea580c] inline-block">
                   {srv.badge}
                 </span>
 
-                <h2 className="text-xl font-bold text-[#1a202c] group-hover:text-[#015cbb] transition-colors">
+                <h2 className="text-xl font-bold text-[#091e3a] group-hover:text-[#ea580c] transition-colors">
                   {srv.title}
                 </h2>
 
@@ -52,7 +52,7 @@ export default function ServicesPage() {
                   </div>
                   {srv.deliverables.slice(0, 3).map((d, idx) => (
                     <div key={idx} className="flex items-start gap-2 text-xs text-gray-700">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#015cbb] flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#ea580c] flex-shrink-0 mt-0.5" />
                       <span className="font-medium leading-snug">{d}</span>
                     </div>
                   ))}
@@ -62,7 +62,7 @@ export default function ServicesPage() {
               <div className="pt-6 mt-6 border-t border-gray-100">
                 <Link
                   href={`/services/${srv.slug}`}
-                  className="w-full bg-[#015cbb] hover:bg-[#004896] text-white py-2.5 px-4 rounded-full text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-sm"
+                  className="w-full bg-[#ea580c] hover:bg-[#c2410c] text-white py-2.5 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-sm"
                 >
                   <span>Explore Service Scope</span>
                   <ArrowRight className="w-3.5 h-3.5" />

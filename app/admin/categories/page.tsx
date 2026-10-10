@@ -58,19 +58,37 @@ export default function AdminCategoriesPage() {
       setLoading(true);
       const res = await authFetch("/api/admin/categories");
       const data = await res.json();
-      if (data.success) {
-        setCategories(data.categories || []);
+      if (data.success && data.categories) {
+        setCategories(data.categories);
       } else {
-        setErrorMessage(data.message || "Failed to fetch categories");
+        setErrorMessage(data.message || "Failed to load categories");
       }
     } catch (err: any) {
-      setErrorMessage(err.message || "Failed to fetch categories");
+      setErrorMessage(err.message || "Failed to load categories");
     } finally {
       setLoading(false);
     }
   }
 
-  function openCreateModal() {
+  const renderIcon = (iconName: string) => {
+    const props = { className: "w-5 h-5" };
+    switch (iconName) {
+      case "Sun":
+        return <Sun {...props} className="w-5 h-5 text-[#ea580c]" />;
+      case "Battery":
+        return <Battery {...props} className="w-5 h-5 text-emerald-600" />;
+      case "Zap":
+        return <Zap {...props} className="w-5 h-5 text-amber-500" />;
+      case "Cpu":
+        return <Cpu {...props} className="w-5 h-5 text-blue-600" />;
+      case "Shield":
+        return <Shield {...props} className="w-5 h-5 text-purple-600" />;
+      default:
+        return <HelpCircle {...props} className="w-5 h-5 text-gray-500" />;
+    }
+  };
+
+  const openCreateModal = () => {
     setEditingCategory(null);
     setFormData({
       name: "",
@@ -80,9 +98,9 @@ export default function AdminCategoriesPage() {
       iconName: "Sun",
     });
     setIsModalOpen(true);
-  }
+  };
 
-  function openEditModal(cat: CategoryInfo) {
+  const openEditModal = (cat: CategoryInfo) => {
     setEditingCategory(cat);
     setFormData({
       name: cat.name,
@@ -92,14 +110,13 @@ export default function AdminCategoriesPage() {
       iconName: cat.iconName || "Sun",
     });
     setIsModalOpen(true);
-  }
+  };
 
-  const handleNameChange = (val: string) => {
+  const handleNameChange = (name: string) => {
     setFormData((prev) => ({
       ...prev,
-      name: val,
-      // Auto-slug if creating
-      slug: !editingCategory ? val.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") : prev.slug,
+      name,
+      slug: editingCategory ? prev.slug : name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""),
     }));
   };
 
@@ -109,10 +126,13 @@ export default function AdminCategoriesPage() {
     setErrorMessage(null);
     setSuccessMessage(null);
 
+    const isEdit = !!editingCategory;
+    const url = isEdit ? `/api/admin/categories?id=${editingCategory.id}` : "/api/admin/categories";
+    const method = isEdit ? "PUT" : "POST";
+
     try {
-      const isEdit = !!editingCategory;
-      const res = await authFetch("/api/admin/categories", {
-        method: isEdit ? "PUT" : "POST",
+      const res = await authFetch(url, {
+        method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
@@ -166,152 +186,135 @@ export default function AdminCategoriesPage() {
   );
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-7xl pb-12">
+      {/* Top Banner */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
+        <div>
+          <div className="flex items-center gap-2">
+            <span className="px-2.5 py-0.5 rounded-md bg-orange-50 text-[#ea580c] font-bold text-xs uppercase tracking-wider border border-orange-200">
+              Taxonomy & Grouping
+            </span>
+            <span className="text-xs text-gray-500 font-semibold">
+              {categories.length} Active Categories
+            </span>
+          </div>
+          <h1 className="text-2xl font-black text-[#091e3a] mt-1">Product Categories</h1>
+          <p className="text-xs text-gray-600 mt-1">
+            Organize catalog categories, technical classifications, and navigation filters.
+          </p>
+        </div>
+
+        <button
+          onClick={openCreateModal}
+          className="bg-[#ea580c] hover:bg-[#c2410c] text-white font-bold px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer w-full sm:w-auto"
+        >
+          <Plus className="w-4 h-4" />
+          <span>Add Category</span>
+        </button>
+      </div>
+
       {/* Notifications */}
       {successMessage && (
-        <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-sm flex items-center justify-between">
+        <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-5 h-5 flex-shrink-0" />
+            <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
             <span>{successMessage}</span>
           </div>
-          <button onClick={() => setSuccessMessage(null)} className="text-emerald-400 hover:text-white">
+          <button onClick={() => setSuccessMessage(null)} className="text-emerald-700 hover:text-emerald-900 cursor-pointer">
             <X className="w-4 h-4" />
           </button>
         </div>
       )}
 
       {errorMessage && (
-        <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-sm flex items-center justify-between">
+        <div className="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <AlertCircle className="w-5 h-5 flex-shrink-0" />
+            <AlertCircle className="w-4 h-4 text-rose-600 flex-shrink-0" />
             <span>{errorMessage}</span>
           </div>
-          <button onClick={() => setErrorMessage(null)} className="text-rose-400 hover:text-white">
+          <button onClick={() => setErrorMessage(null)} className="text-rose-700 hover:text-rose-900 cursor-pointer">
             <X className="w-4 h-4" />
           </button>
         </div>
       )}
 
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
-        <div>
-          <div className="flex items-center gap-2.5">
-            <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
-              <Layers className="w-5 h-5" />
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold text-white tracking-tight">Product Categories</h1>
-              <p className="text-xs text-slate-400">Organize and manage catalog categories & technical classifications</p>
-            </div>
-          </div>
-        </div>
-
-        <button
-          onClick={openCreateModal}
-          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-medium text-sm shadow-lg shadow-cyan-950/40 transition-all hover:scale-[1.02] active:scale-[0.98]"
-        >
-          <Plus className="w-4 h-4" />
-          Add Category
-        </button>
-      </div>
-
       {/* Search Bar */}
-      <div className="relative max-w-md">
-        <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
-        <input
-          type="text"
-          placeholder="Filter categories by name or slug..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
-        />
+      <div className="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm flex items-center">
+        <div className="relative flex-1">
+          <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
+          <input
+            type="text"
+            placeholder="Filter categories by name, slug, or description..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-gray-200 rounded-xl text-xs text-gray-900 focus:outline-none focus:border-[#ea580c] focus:bg-white transition-colors"
+          />
+        </div>
       </div>
 
-      {/* Grid of Categories */}
+      {/* Categories Grid */}
       {loading ? (
-        <div className="flex flex-col items-center justify-center py-20 text-slate-500">
-          <Loader2 className="w-8 h-8 animate-spin text-cyan-400 mb-3" />
-          <p className="text-sm font-medium">Loading catalog categories...</p>
+        <div className="flex flex-col items-center justify-center py-20 text-gray-500">
+          <Loader2 className="w-8 h-8 animate-spin text-[#ea580c] mb-3" />
+          <p className="text-xs font-semibold">Loading catalog categories...</p>
         </div>
       ) : filteredCategories.length === 0 ? (
-        <div className="text-center py-16 bg-slate-900/40 border border-slate-800/80 rounded-2xl">
-          <Layers className="w-12 h-12 text-slate-600 mx-auto mb-3" />
-          <h3 className="text-base font-medium text-white mb-1">No Categories Found</h3>
-          <p className="text-xs text-slate-400 max-w-sm mx-auto mb-4">
-            {search ? "No categories matched your search criteria." : "Create your first product category to organize your catalog."}
+        <div className="text-center py-16 bg-white border border-gray-200 rounded-2xl shadow-sm space-y-3">
+          <Layers className="w-10 h-10 text-gray-300 mx-auto" />
+          <h3 className="text-sm font-bold text-gray-700">No Categories Found</h3>
+          <p className="text-xs text-gray-500 max-w-sm mx-auto">
+            {search ? "No categories matched your search criteria." : "Create your first product category."}
           </p>
-          {!search && (
-            <button
-              onClick={openCreateModal}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold"
-            >
-              <Plus className="w-4 h-4" /> Add Category
-            </button>
-          )}
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {filteredCategories.map((cat) => (
             <div
               key={cat.id}
-              className="group bg-slate-900/60 border border-slate-800/80 hover:border-cyan-500/40 rounded-2xl p-5 transition-all duration-200 hover:shadow-xl hover:shadow-cyan-950/20 flex flex-col justify-between"
+              className="bg-white border border-gray-200 hover:border-[#ea580c]/40 rounded-2xl p-5 transition-all shadow-sm flex flex-col justify-between group"
             >
               <div>
                 <div className="flex items-start justify-between gap-3 mb-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 flex-shrink-0">
-                      {cat.iconName === "Battery" ? (
-                        <Battery className="w-5 h-5" />
-                      ) : cat.iconName === "Zap" ? (
-                        <Zap className="w-5 h-5" />
-                      ) : cat.iconName === "Cpu" ? (
-                        <Cpu className="w-5 h-5" />
-                      ) : cat.iconName === "Shield" ? (
-                        <Shield className="w-5 h-5" />
-                      ) : (
-                        <Sun className="w-5 h-5" />
-                      )}
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-white group-hover:text-cyan-300 transition-colors text-base">
-                        {cat.name}
-                      </h3>
-                      <span className="text-xs font-mono text-cyan-400/80">/{cat.slug}</span>
-                    </div>
+                  <div className="w-10 h-10 rounded-xl bg-orange-50 border border-orange-100 flex items-center justify-center flex-shrink-0">
+                    {renderIcon(cat.iconName || "Sun")}
                   </div>
-
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-slate-800 text-slate-300 border border-slate-700/60">
-                    <Package className="w-3.5 h-3.5 text-cyan-400" />
-                    {cat.productCount || 0}
+                  <span className="px-2 py-0.5 rounded-full bg-slate-100 text-[#091e3a] font-bold text-[10px] border border-gray-200 flex items-center gap-1">
+                    <Package className="w-3 h-3 text-[#ea580c]" />
+                    <span>{cat.productCount} Products</span>
                   </span>
                 </div>
 
-                <p className="text-xs text-slate-300 leading-relaxed line-clamp-3 mb-4">
+                <h3 className="font-bold text-sm text-[#091e3a] group-hover:text-[#ea580c] transition-colors">
+                  {cat.name}
+                </h3>
+                <span className="text-[11px] font-mono text-gray-400 block mb-2">/{cat.slug}</span>
+
+                <p className="text-xs text-gray-600 line-clamp-2 leading-relaxed">
                   {cat.shortDesc || cat.description || "No description provided."}
                 </p>
               </div>
 
-              <div className="pt-4 border-t border-slate-800/60 flex items-center justify-between text-xs">
+              <div className="pt-4 mt-4 border-t border-gray-100 flex items-center justify-between">
                 <Link
-                  href={`/products?category=${cat.slug}`}
+                  href={`/products/${cat.slug}`}
                   target="_blank"
-                  className="inline-flex items-center gap-1 text-slate-400 hover:text-cyan-400 font-medium transition-colors"
+                  className="inline-flex items-center gap-1 text-xs font-bold text-gray-500 hover:text-[#ea580c] transition-colors"
                 >
                   <ExternalLink className="w-3.5 h-3.5" />
-                  View Live
+                  <span>View Live</span>
                 </Link>
 
                 <div className="flex items-center gap-1">
                   <button
                     onClick={() => openEditModal(cat)}
-                    className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+                    className="p-1.5 rounded-lg text-gray-400 hover:text-[#091e3a] hover:bg-slate-100 transition-colors cursor-pointer"
                     title="Edit Category"
                   >
                     <Edit2 className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => setDeleteTarget(cat)}
-                    className="p-2 rounded-lg text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 transition-colors"
+                    className="p-1.5 rounded-lg text-gray-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
                     title="Delete Category"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -325,15 +328,15 @@ export default function AdminCategoriesPage() {
 
       {/* Create / Edit Category Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-lg shadow-2xl p-6 relative">
-            <div className="flex items-center justify-between pb-4 border-b border-slate-800 mb-5">
-              <h3 className="text-lg font-bold text-white">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs animate-in fade-in duration-200">
+          <div className="bg-white border border-gray-200 rounded-2xl w-full max-w-lg shadow-xl p-6 relative">
+            <div className="flex items-center justify-between pb-3 border-b border-gray-100 mb-4">
+              <h3 className="text-base font-bold text-[#091e3a]">
                 {editingCategory ? "Edit Product Category" : "Add New Category"}
               </h3>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800"
+                className="p-1 rounded-lg text-gray-400 hover:text-gray-900 cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -341,19 +344,23 @@ export default function AdminCategoriesPage() {
 
             <form onSubmit={handleSaveCategory} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1.5">Category Name *</label>
+                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                  Category Name *
+                </label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. Solar Hybrid Inverters"
                   value={formData.name}
                   onChange={(e) => handleNameChange(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-gray-200 text-xs text-gray-900 focus:outline-none focus:border-[#ea580c] focus:bg-white transition-colors"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1.5">URL Slug *</label>
+                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                  URL Slug *
+                </label>
                 <input
                   type="text"
                   required
@@ -361,19 +368,21 @@ export default function AdminCategoriesPage() {
                   placeholder="e.g. solar-hybrid-inverters"
                   value={formData.slug}
                   onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-slate-100 placeholder-slate-500 font-mono disabled:opacity-60"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-gray-200 text-xs text-gray-900 font-mono disabled:opacity-60 focus:outline-none focus:border-[#ea580c] focus:bg-white transition-colors"
                 />
                 {editingCategory && (
-                  <p className="text-[11px] text-slate-500 mt-1">Slug is locked to preserve existing product links.</p>
+                  <p className="text-[11px] text-gray-500 mt-1">Slug is locked to preserve existing product links.</p>
                 )}
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1.5">Icon Representation</label>
+                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                  Icon Representation
+                </label>
                 <select
                   value={formData.iconName}
                   onChange={(e) => setFormData({ ...formData, iconName: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-slate-100 focus:outline-none focus:border-cyan-500"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-gray-200 text-xs text-gray-900 focus:outline-none focus:border-[#ea580c] focus:bg-white transition-colors"
                 >
                   <option value="Sun">Sun (Solar / Inverter)</option>
                   <option value="Battery">Battery (BESS / Energy Storage)</option>
@@ -384,42 +393,46 @@ export default function AdminCategoriesPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1.5">Short Summary / Tagline</label>
+                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                  Short Summary / Tagline
+                </label>
                 <input
                   type="text"
-                  placeholder="Brief 1-line summary for cards and search..."
+                  placeholder="Brief 1-line summary for cards..."
                   value={formData.shortDesc}
                   onChange={(e) => setFormData({ ...formData, shortDesc: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-gray-200 text-xs text-gray-900 focus:outline-none focus:border-[#ea580c] focus:bg-white transition-colors"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1.5">Detailed Description</label>
+                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                  Detailed Description
+                </label>
                 <textarea
                   rows={3}
-                  placeholder="Engineering background and overview of products in this category..."
+                  placeholder="Engineering background and overview..."
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-gray-200 text-xs text-gray-900 leading-relaxed focus:outline-none focus:border-[#ea580c] focus:bg-white transition-colors"
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-800">
+              <div className="flex items-center justify-end gap-3 pt-3 border-t border-gray-100">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 rounded-xl text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold text-gray-600 hover:text-gray-900 cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSaving}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-medium text-sm transition-all shadow-md shadow-blue-900/30"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#ea580c] hover:bg-[#c2410c] text-white font-bold text-xs uppercase tracking-wider shadow-sm transition-all cursor-pointer"
                 >
                   {isSaving && <Loader2 className="w-4 h-4 animate-spin" />}
-                  {editingCategory ? "Update Category" : "Create Category"}
+                  <span>{editingCategory ? "Update Category" : "Create Category"}</span>
                 </button>
               </div>
             </form>
@@ -429,26 +442,26 @@ export default function AdminCategoriesPage() {
 
       {/* Delete Confirmation Modal */}
       {deleteTarget && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md shadow-2xl p-6">
-            <div className="w-12 h-12 rounded-xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400 mb-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs animate-in fade-in duration-200">
+          <div className="bg-white border border-gray-200 rounded-2xl w-full max-w-md shadow-xl p-6">
+            <div className="w-12 h-12 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-500 mb-4">
               <AlertCircle className="w-6 h-6" />
             </div>
-            <h3 className="text-lg font-bold text-white mb-2">Delete Category?</h3>
-            <p className="text-xs text-slate-300 leading-relaxed mb-4">
-              Are you sure you want to remove <strong className="text-white">"{deleteTarget.name}"</strong>?
+            <h3 className="text-base font-bold text-[#091e3a] mb-2">Delete Category?</h3>
+            <p className="text-xs text-gray-600 leading-relaxed mb-4">
+              Are you sure you want to remove <strong className="text-gray-900">&quot;{deleteTarget.name}&quot;</strong>?
               {deleteTarget.productCount > 0 && (
-                <span className="block mt-2 text-rose-400 font-semibold">
+                <span className="block mt-2 text-rose-600 font-bold">
                   Warning: There are {deleteTarget.productCount} products currently assigned to this category. You must reassign or remove them first.
                 </span>
               )}
             </p>
 
-            <div className="flex items-center justify-end gap-3 pt-3">
+            <div className="flex items-center justify-end gap-3 pt-3 border-t border-gray-100">
               <button
                 type="button"
                 onClick={() => setDeleteTarget(null)}
-                className="px-4 py-2 rounded-xl text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800"
+                className="px-4 py-2 rounded-xl text-xs font-semibold text-gray-600 hover:text-gray-900 cursor-pointer"
               >
                 Cancel
               </button>
@@ -456,10 +469,10 @@ export default function AdminCategoriesPage() {
                 type="button"
                 onClick={handleDeleteCategory}
                 disabled={isDeleting || deleteTarget.productCount > 0}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 disabled:opacity-50 text-white font-medium text-sm transition-all"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 disabled:opacity-50 text-white font-bold text-xs uppercase tracking-wider transition-all cursor-pointer"
               >
                 {isDeleting && <Loader2 className="w-4 h-4 animate-spin" />}
-                Confirm Delete
+                <span>Confirm Delete</span>
               </button>
             </div>
           </div>

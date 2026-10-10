@@ -8,10 +8,10 @@ interface BadgeProps {
   className?: string;
 }
 
-export function Badge({ children, variant = "blue", size = "sm", className }: BadgeProps) {
+export function Badge({ children, variant = "solar", size = "sm", className }: BadgeProps) {
   const variantStyles = {
-    blue: "bg-[#e6f0fa] text-[#015cbb] border border-[#015cbb]/30",
-    solar: "bg-[#e6f0fa] text-[#015cbb] border border-[#015cbb]/30 font-bold",
+    blue: "bg-slate-100 text-[#091e3a] border border-slate-200 font-semibold",
+    solar: "bg-orange-50 text-[#ea580c] border border-orange-200 font-bold",
     green: "bg-emerald-50 text-emerald-700 border border-emerald-200",
     purple: "bg-purple-50 text-purple-700 border border-purple-200",
     slate: "bg-gray-100 text-gray-700 border border-gray-200",

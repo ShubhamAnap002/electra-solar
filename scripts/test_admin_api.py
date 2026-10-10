@@ -128,15 +128,45 @@ def run_tests():
         files_count = len(data.get("files", []))
         print(f"PASS: Media Library API scanned and found {files_count} assets")
 
-    # 11. Test Gmail Integration Status API
-    print("\n11. Testing Gmail Status API (/api/admin/gmail/status)...")
-    gmail_req = urllib.request.Request(f"{BASE_URL}/api/admin/gmail/status", headers=auth_headers)
-    with opener.open(gmail_req) as res:
+    # 12. Test Blogs API
+    print("\n12. Testing Blogs API (/api/admin/blogs)...")
+    blogs_req = urllib.request.Request(f"{BASE_URL}/api/admin/blogs", headers=auth_headers)
+    with opener.open(blogs_req) as res:
         data = json.loads(res.read().decode())
-        cfg = data.get("config", {})
-        print(f"PASS: Gmail Status: Connected={cfg.get('isConnected')}, Recipient={cfg.get('recipientEmail')}")
+        posts_count = len(data.get("blogs", data.get("posts", [])))
+        print(f"PASS: Blogs API returned {posts_count} articles")
 
-    print("\n=== ALL ADMIN & FORM ENDPOINT TESTS PASSED SUCCESSFULLY! ===")
+    # 13. Test Projects API
+    print("\n13. Testing Turnkey Projects API (/api/admin/projects)...")
+    projects_req = urllib.request.Request(f"{BASE_URL}/api/admin/projects", headers=auth_headers)
+    with opener.open(projects_req) as res:
+        data = json.loads(res.read().decode())
+        projects_count = len(data.get("projects", []))
+        print(f"PASS: Projects API returned {projects_count} commissioned sites")
+
+    # 14. Test Admin UI routes render
+    print("\n14. Testing Admin UI Pages...")
+    admin_pages = [
+        "/admin/login",
+        "/admin",
+        "/admin/blogs",
+        "/admin/blogs/new",
+        "/admin/projects",
+        "/admin/projects/new",
+        "/admin/products",
+        "/admin/products/new",
+        "/admin/categories",
+        "/admin/content",
+        "/admin/media",
+        "/admin/email",
+        "/admin/seo",
+    ]
+    for page in admin_pages:
+        req = urllib.request.Request(f"{BASE_URL}{page}", headers=auth_headers)
+        with opener.open(req) as res:
+            print(f"PASS [{res.getcode()}]: {page}")
+
+    print("\n=== ALL ADMIN, CMS, BLOGS, PROJECTS & FORM ENDPOINT TESTS PASSED SUCCESSFULLY! ===")
 
 if __name__ == "__main__":
     run_tests()

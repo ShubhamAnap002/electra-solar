@@ -20,13 +20,13 @@ export default function ProductsPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-10">
         {/* Page Hero Header - Deye Style */}
         <div className="space-y-3 max-w-3xl">
-          <span className="text-xs font-bold uppercase tracking-widest text-[#015cbb] block">
+          <span className="text-xs font-bold uppercase tracking-widest text-[#ea580c] block">
             Product Portfolio
           </span>
-          <h1 className="text-3xl sm:text-5xl font-black text-[#222222] tracking-tight">
+          <h1 className="text-3xl sm:text-5xl font-black text-[#091e3a] tracking-tight">
             Solar Hybrid Inverters & Energy Systems
           </h1>
-          <div className="w-16 h-1 bg-[#015cbb]" />
+          <div className="w-16 h-1 bg-[#ea580c]" />
           <p className="text-[#5c5c5c] text-base leading-relaxed">
             Discover verified solar hybrid inverters from 1 kVA to 300 kVA, modular BESS battery storage,
             and precision power conditioning equipment with manufacturer-backed warranties.

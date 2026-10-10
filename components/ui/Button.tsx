@@ -14,19 +14,19 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variantStyles = {
       primary:
-        "bg-[#015cbb] hover:bg-[#004896] text-white shadow-md hover:shadow-lg focus:ring-[#015cbb]",
+        "bg-[#091e3a] hover:bg-[#0c2447] text-white shadow-sm hover:shadow-md focus:ring-[#091e3a]",
       "deye-primary":
-        "bg-[#015cbb] hover:bg-[#004896] text-white shadow-md hover:shadow-lg focus:ring-[#015cbb]",
+        "bg-[#091e3a] hover:bg-[#ea580c] text-white shadow-sm hover:shadow-md focus:ring-[#091e3a]",
       solar:
-        "bg-gradient-to-r from-[#1e8ec6] to-[#51b2e3] hover:opacity-95 text-white shadow-md focus:ring-[#1e8ec6]",
+        "bg-[#ea580c] hover:bg-[#c2410c] text-white shadow-sm hover:shadow-md focus:ring-[#ea580c]",
       "deye-gradient":
-        "bg-gradient-to-r from-[#1e8ec6] to-[#51b2e3] hover:opacity-95 text-white shadow-md focus:ring-[#1e8ec6]",
+        "bg-[#ea580c] hover:bg-[#c2410c] text-white shadow-sm hover:shadow-md focus:ring-[#ea580c]",
       outline:
-        "border border-[#015cbb] hover:bg-[#e6f0fa] text-[#015cbb] bg-white focus:ring-[#015cbb]",
+        "border border-gray-300 hover:border-[#ea580c] hover:bg-orange-50/50 text-[#091e3a] hover:text-[#ea580c] bg-white focus:ring-[#ea580c]",
       secondary:
-        "bg-[#f5f7fa] hover:bg-gray-200 text-[#222222] focus:ring-gray-400 border border-gray-200",
+        "bg-gray-100 hover:bg-gray-200 text-[#091e3a] focus:ring-gray-400 border border-gray-200",
       ghost:
-        "text-[#5c5c5c] hover:text-[#015cbb] hover:bg-gray-100 focus:ring-gray-300",
+        "text-gray-600 hover:text-[#ea580c] hover:bg-gray-100 focus:ring-gray-300",
     };
 
     const sizeStyles = {

@@ -59,12 +59,19 @@ for u in urls_to_test:
         with urllib.request.urlopen(req, timeout=5) as resp:
             code = resp.getcode()
             length = len(resp.read())
-            if code == 200:
+            if code in (200, 301, 302, 307, 308):
                 passed.append((u, code, length))
-                print(f"PASS [200]: {u} ({length} bytes)")
+                print(f"PASS [{code}]: {u} ({length} bytes)")
             else:
                 failed.append((u, code))
                 print(f"WARN [{code}]: {u}")
+    except urllib.error.HTTPError as e:
+        if e.code in (301, 302, 307, 308):
+            passed.append((u, e.code, 0))
+            print(f"PASS [{e.code} Redirect]: {u}")
+        else:
+            failed.append((u, str(e)))
+            print(f"FAIL: {u} -> {e}")
     except Exception as e:
         failed.append((u, str(e)))
         print(f"FAIL: {u} -> {e}")

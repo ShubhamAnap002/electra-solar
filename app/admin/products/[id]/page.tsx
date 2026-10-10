@@ -42,24 +42,24 @@ export default function EditProductPage() {
 
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] text-slate-400">
-        <Loader2 className="w-10 h-10 animate-spin text-cyan-400 mb-4" />
-        <p className="text-sm font-medium">Loading product specifications...</p>
+      <div className="flex flex-col items-center justify-center min-h-[60vh] text-gray-500">
+        <Loader2 className="w-9 h-9 animate-spin text-[#ea580c] mb-3" />
+        <p className="text-xs font-semibold">Loading product specifications...</p>
       </div>
     );
   }
 
   if (error || !product) {
     return (
-      <div className="max-w-2xl mx-auto my-12 p-8 bg-rose-500/10 border border-rose-500/30 rounded-2xl text-center">
-        <AlertCircle className="w-12 h-12 text-rose-400 mx-auto mb-3" />
-        <h2 className="text-xl font-bold text-white mb-2">Unable to Load Product</h2>
-        <p className="text-sm text-slate-300 mb-6">{error || "Product not found"}</p>
+      <div className="max-w-xl mx-auto my-12 p-8 bg-rose-50 border border-rose-200 rounded-2xl text-center space-y-4">
+        <AlertCircle className="w-10 h-10 text-rose-500 mx-auto" />
+        <h2 className="text-lg font-bold text-[#091e3a]">Unable to Load Product</h2>
+        <p className="text-xs text-gray-600">{error || "Product not found"}</p>
         <Link
           href="/admin/products"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-medium text-sm transition-all"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#091e3a] hover:bg-[#07172c] text-white font-bold text-xs transition-all shadow-sm"
         >
-          <ArrowLeft className="w-4 h-4" /> Back to Products
+          <ArrowLeft className="w-3.5 h-3.5" /> Back to Products
         </Link>
       </div>
     );

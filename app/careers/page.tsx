@@ -207,30 +207,28 @@ ${applicantNote}`,
   };
 
   return (
-    <div className="bg-[#f8fafd] min-h-screen">
+    <div className="bg-[#f8fafc] min-h-screen">
       {/* 1. HERO STAGE */}
-      <section className="bg-gradient-to-b from-[#091e3a] via-[#0b2144] to-[#07172c] text-white py-16 lg:py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(0,210,255,0.15),transparent)] pointer-events-none" />
-
+      <section className="bg-[#091e3a] text-white py-16 lg:py-24 relative overflow-hidden border-b border-[#061528]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-3xl space-y-4">
             {/* Breadcrumb */}
             <div className="flex items-center gap-2 text-xs text-gray-300 font-medium">
-              <Link href="/" className="hover:text-[#00d2ff] transition-colors">
+              <Link href="/" className="hover:text-[#ea580c] transition-colors">
                 Home
               </Link>
               <ChevronRight className="w-3.5 h-3.5 text-gray-500" />
-              <span className="text-[#00d2ff] font-bold">Careers</span>
+              <span className="text-[#ea580c] font-bold">Careers</span>
             </div>
 
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-[#00d2ff] text-xs font-bold border border-white/15">
-              <Users className="w-3.5 h-3.5" />
-              <span>Engineering Careers • Electra Solar & EnerTech</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-orange-200 text-xs font-bold border border-white/15">
+              <Users className="w-3.5 h-3.5 text-[#f97316]" />
+              <span>Engineering Careers • Electra Solar &amp; EnerTech</span>
             </div>
 
             <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
               Build the Future of Clean Energy with{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00d2ff] to-[#80d8ff]">
+              <span className="text-[#f97316]">
                 Electra Solar
               </span>
             </h1>
@@ -244,7 +242,7 @@ ${applicantNote}`,
           {/* 3 Value Pillars */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-12 mt-12 border-t border-white/15">
             <div className="flex items-start gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-[#00d2ff]/10 text-[#00d2ff] flex items-center justify-center border border-[#00d2ff]/20 flex-shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-[#f97316] flex items-center justify-center border border-orange-500/20 flex-shrink-0">
                 <Zap className="w-5 h-5" />
               </div>
               <div>
@@ -256,7 +254,7 @@ ${applicantNote}`,
             </div>
 
             <div className="flex items-start gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-[#00d2ff]/10 text-[#00d2ff] flex items-center justify-center border border-[#00d2ff]/20 flex-shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-[#f97316] flex items-center justify-center border border-orange-500/20 flex-shrink-0">
                 <Award className="w-5 h-5" />
               </div>
               <div>
@@ -268,7 +266,7 @@ ${applicantNote}`,
             </div>
 
             <div className="flex items-start gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-[#00d2ff]/10 text-[#00d2ff] flex items-center justify-center border border-[#00d2ff]/20 flex-shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-[#f97316] flex items-center justify-center border border-orange-500/20 flex-shrink-0">
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <div>
@@ -286,15 +284,15 @@ ${applicantNote}`,
       <section className="py-16 lg:py-24 max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 pb-4 border-b border-gray-200">
           <div>
-            <span className="text-xs font-bold uppercase tracking-widest text-[#015cbb] block mb-1">
+            <span className="text-xs font-bold uppercase tracking-widest text-[#ea580c] block mb-1">
               Join Our Engineering Desk
             </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-[#222222] tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-black text-[#091e3a] tracking-tight">
               Open Positions ({OPEN_ROLES.length})
             </h2>
           </div>
-          <div className="text-xs text-[#5c5c5c]">
-            Based at Pune Headquarters & Maharashtra Industrial Hubs
+          <div className="text-xs text-gray-500">
+            Based at Pune Headquarters &amp; Maharashtra Industrial Hubs
           </div>
         </div>
 
@@ -302,12 +300,12 @@ ${applicantNote}`,
           {OPEN_ROLES.map((role) => (
             <div
               key={role.id}
-              className="bg-white border border-gray-200 hover:border-[#015cbb]/40 rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-all group"
+              className="bg-white border border-gray-200 hover:border-orange-300 rounded-2xl p-6 sm:p-8 shadow-xs hover:shadow-md transition-all group"
             >
               <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-gray-100">
                 <div className="space-y-2">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="px-2.5 py-0.5 rounded-full bg-[#e0f2fe] text-[#015cbb] text-[11px] font-bold">
+                    <span className="px-2.5 py-0.5 rounded-full bg-orange-50 text-[#ea580c] text-[11px] font-bold border border-orange-200">
                       {role.department}
                     </span>
                     <span className="px-2.5 py-0.5 rounded-full bg-gray-100 text-gray-700 text-[11px] font-semibold">
@@ -315,11 +313,11 @@ ${applicantNote}`,
                     </span>
                   </div>
 
-                  <h3 className="text-xl sm:text-2xl font-black text-[#222222] group-hover:text-[#015cbb] transition-colors">
+                  <h3 className="text-xl sm:text-2xl font-black text-[#091e3a] group-hover:text-[#ea580c] transition-colors">
                     {role.title}
                   </h3>
 
-                  <div className="flex flex-wrap items-center gap-4 text-xs text-[#5c5c5c] font-medium pt-1">
+                  <div className="flex flex-wrap items-center gap-4 text-xs text-gray-500 font-medium pt-1">
                     <span className="flex items-center gap-1.5">
                       <MapPin className="w-3.5 h-3.5 text-gray-400" />
                       {role.location}
@@ -335,7 +333,7 @@ ${applicantNote}`,
                 <div className="flex items-center gap-3 flex-shrink-0">
                   <button
                     onClick={() => handleOpenApply(role)}
-                    className="w-full sm:w-auto bg-[#015cbb] hover:bg-[#004896] text-white px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2"
+                    className="w-full sm:w-auto bg-[#091e3a] hover:bg-[#ea580c] text-white px-6 py-3 rounded-full font-bold text-xs uppercase tracking-wider shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-2"
                   >
                     <span>Apply for Role</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -346,11 +344,11 @@ ${applicantNote}`,
               {/* Role Details Grid */}
               <div className="pt-6 grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-gray-600">
                 <div>
-                  <h4 className="font-bold text-[#222222] text-xs uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#015cbb]" />
+                  <h4 className="font-bold text-[#091e3a] text-xs uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#ea580c]" />
                     Key Responsibilities
                   </h4>
-                  <ul className="space-y-1.5 list-disc list-inside text-[#5c5c5c] leading-relaxed">
+                  <ul className="space-y-1.5 list-disc list-inside text-gray-600 leading-relaxed">
                     {role.responsibilities.map((resp, i) => (
                       <li key={i}>{resp}</li>
                     ))}
@@ -358,11 +356,11 @@ ${applicantNote}`,
                 </div>
 
                 <div>
-                  <h4 className="font-bold text-[#222222] text-xs uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#015cbb]" />
-                    Candidate Profile & Skills
+                  <h4 className="font-bold text-[#091e3a] text-xs uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#ea580c]" />
+                    Candidate Profile &amp; Skills
                   </h4>
-                  <ul className="space-y-1.5 list-disc list-inside text-[#5c5c5c] leading-relaxed">
+                  <ul className="space-y-1.5 list-disc list-inside text-gray-600 leading-relaxed">
                     {role.requirements.map((req, i) => (
                       <li key={i}>{req}</li>
                     ))}
@@ -374,17 +372,17 @@ ${applicantNote}`,
         </div>
 
         {/* General Application Callout */}
-        <div className="mt-12 bg-gradient-to-r from-[#091e3a] to-[#015cbb] text-white rounded-3xl p-8 sm:p-10 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="mt-12 bg-[#091e3a] text-white rounded-3xl p-8 sm:p-10 shadow-lg flex flex-col md:flex-row items-center justify-between gap-6 border border-[#061528]">
           <div className="space-y-2 max-w-xl text-center md:text-left">
             <h3 className="text-xl sm:text-2xl font-black">Don&apos;t see an exact match?</h3>
-            <p className="text-xs sm:text-sm text-blue-100 leading-relaxed font-normal">
+            <p className="text-xs sm:text-sm text-gray-300 leading-relaxed font-normal">
               We are constantly scouting for skilled electrical engineers, solar system designers, and site technicians across India. Send us your resume directly.
             </p>
           </div>
 
           <a
             href={`mailto:${COMPANY.contact.salesEmail}?subject=General%20Engineering%20Career%20Application%20-%20Electra%20Solar`}
-            className="bg-[#00d2ff] hover:bg-[#00b4d8] text-[#091e3a] px-6 py-3.5 rounded-xl font-black text-xs uppercase tracking-wider shadow-lg hover:shadow-xl transition-all flex items-center gap-2 flex-shrink-0"
+            className="bg-[#ea580c] hover:bg-[#c2410c] text-white px-6 py-3.5 rounded-full font-bold text-xs uppercase tracking-wider shadow-sm hover:shadow-md transition-all flex items-center gap-2 flex-shrink-0"
           >
             <Mail className="w-4 h-4" />
             <span>Email Resume Directly</span>
@@ -406,7 +404,7 @@ ${applicantNote}`,
                 <X className="w-5 h-5" />
               </button>
 
-              <div className="text-[11px] font-bold text-[#00d2ff] uppercase tracking-wider mb-1">
+              <div className="text-[11px] font-bold text-[#f97316] uppercase tracking-wider mb-1">
                 Engineering Application
               </div>
               <h3 className="text-lg font-black">{selectedRole.title}</h3>
@@ -426,7 +424,7 @@ ${applicantNote}`,
                   </p>
                   <button
                     onClick={handleCloseApply}
-                    className="mt-4 bg-[#015cbb] text-white text-xs font-bold px-6 py-2.5 rounded-xl"
+                    className="mt-4 bg-[#091e3a] hover:bg-[#ea580c] text-white text-xs font-bold px-6 py-2.5 rounded-full transition-colors"
                   >
                     Close
                   </button>
@@ -448,8 +446,8 @@ ${applicantNote}`,
                       required
                       value={applicantName}
                       onChange={(e) => setApplicantName(e.target.value)}
-                      placeholder="e.g. Rahul Sharma"
-                      className="w-full bg-[#f8fafc] border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#015cbb]"
+                      placeholder="Your Full Name"
+                      className="w-full bg-[#f8fafc] border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#ea580c] focus:ring-1 focus:ring-[#ea580c]"
                     />
                   </div>
 
@@ -463,8 +461,8 @@ ${applicantNote}`,
                         required
                         value={applicantPhone}
                         onChange={(e) => setApplicantPhone(e.target.value)}
-                        placeholder="e.g. +91 98224 07189"
-                        className="w-full bg-[#f8fafc] border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#015cbb]"
+                        placeholder="Primary Contact Number"
+                        className="w-full bg-[#f8fafc] border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#ea580c] focus:ring-1 focus:ring-[#ea580c]"
                       />
                     </div>
 
@@ -476,8 +474,8 @@ ${applicantNote}`,
                         type="email"
                         value={applicantEmail}
                         onChange={(e) => setApplicantEmail(e.target.value)}
-                        placeholder="e.g. rahul@example.com"
-                        className="w-full bg-[#f8fafc] border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#015cbb]"
+                        placeholder="Email Address"
+                        className="w-full bg-[#f8fafc] border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#ea580c] focus:ring-1 focus:ring-[#ea580c]"
                       />
                     </div>
                   </div>
@@ -491,8 +489,8 @@ ${applicantNote}`,
                         type="text"
                         value={applicantExp}
                         onChange={(e) => setApplicantExp(e.target.value)}
-                        placeholder="e.g. 3.5 Years"
-                        className="w-full bg-[#f8fafc] border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#015cbb]"
+                        placeholder="Relevant Experience"
+                        className="w-full bg-[#f8fafc] border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#ea580c] focus:ring-1 focus:ring-[#ea580c]"
                       />
                     </div>
 
@@ -504,8 +502,8 @@ ${applicantNote}`,
                         type="text"
                         value={applicantCurrentOrg}
                         onChange={(e) => setApplicantCurrentOrg(e.target.value)}
-                        placeholder="e.g. Solar EPC Ltd."
-                        className="w-full bg-[#f8fafc] border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#015cbb]"
+                        placeholder="Current Organization"
+                        className="w-full bg-[#f8fafc] border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#ea580c] focus:ring-1 focus:ring-[#ea580c]"
                       />
                     </div>
                   </div>
@@ -518,8 +516,8 @@ ${applicantNote}`,
                       type="url"
                       value={applicantPortfolio}
                       onChange={(e) => setApplicantPortfolio(e.target.value)}
-                      placeholder="https://linkedin.com/in/... or Google Drive Link"
-                      className="w-full bg-[#f8fafc] border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#015cbb]"
+                      placeholder="LinkedIn Profile or Google Drive Resume URL"
+                      className="w-full bg-[#f8fafc] border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#ea580c] focus:ring-1 focus:ring-[#ea580c]"
                     />
                   </div>
 
@@ -532,14 +530,14 @@ ${applicantNote}`,
                       value={applicantNote}
                       onChange={(e) => setApplicantNote(e.target.value)}
                       placeholder="Briefly highlight your expertise in hybrid solar, inverters, or electrical engineering..."
-                      className="w-full bg-[#f8fafc] border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#015cbb] resize-none"
+                      className="w-full bg-[#f8fafc] border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#ea580c] focus:ring-1 focus:ring-[#ea580c] resize-none"
                     />
                   </div>
 
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-[#015cbb] hover:bg-[#004896] text-white py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 disabled:opacity-50 mt-2"
+                    className="w-full bg-[#091e3a] hover:bg-[#ea580c] text-white py-3.5 rounded-full font-bold text-xs uppercase tracking-wider shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-2 disabled:opacity-50 mt-2"
                   >
                     {isSubmitting ? (
                       <>

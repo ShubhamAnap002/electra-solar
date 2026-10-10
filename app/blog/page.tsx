@@ -12,7 +12,7 @@ import {
   Calendar,
   Share2,
 } from "lucide-react";
-import { BLOG_POSTS } from "@/lib/data/blog";
+import { getStoredBlogPosts } from "@/lib/store";
 
 export const metadata: Metadata = {
   title: "Solar Knowledge Hub & Engineering Insights | Electra Solar",
@@ -29,33 +29,32 @@ export const metadata: Metadata = {
 };
 
 export default function BlogIndexPage() {
-  const featuredPost = BLOG_POSTS.find((p) => p.featured) || BLOG_POSTS[0];
-  const regularPosts = BLOG_POSTS.filter((p) => p.id !== featuredPost.id);
+  const blogs = getStoredBlogPosts();
+  const featuredPost = blogs.find((p) => p.featured) || blogs[0];
+  const regularPosts = blogs.filter((p) => p.id !== featuredPost?.id);
 
   return (
     <div className="bg-[#f8fafd] min-h-screen">
       {/* 1. HERO HEADER */}
-      <section className="bg-gradient-to-b from-[#091e3a] via-[#0b2144] to-[#07172c] text-white py-16 lg:py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(0,210,255,0.15),transparent)] pointer-events-none" />
-
+      <section className="bg-[#091e3a] text-white py-16 lg:py-20 relative overflow-hidden border-b border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-3xl space-y-3">
             <div className="flex items-center gap-2 text-xs text-gray-300 font-medium">
-              <Link href="/" className="hover:text-[#00d2ff] transition-colors">
+              <Link href="/" className="hover:text-[#ea580c] transition-colors">
                 Home
               </Link>
               <ChevronRight className="w-3.5 h-3.5 text-gray-500" />
-              <span className="text-[#00d2ff] font-bold">Knowledge Hub</span>
+              <span className="text-[#ea580c] font-bold">Knowledge Hub</span>
             </div>
 
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-[#00d2ff] text-xs font-bold border border-white/15">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-orange-400 text-xs font-bold border border-white/15">
               <BookOpen className="w-3.5 h-3.5" />
               <span>Solar Engineering Hub • Technical Guides & Policies</span>
             </div>
 
             <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
               Solar Knowledge &{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00d2ff] to-[#80d8ff]">
+              <span className="text-[#ea580c]">
                 Engineering Insights
               </span>
             </h1>
@@ -83,16 +82,16 @@ export default function BlogIndexPage() {
                   sizes="(max-width: 1024px) 100vw, 60vw"
                 />
                 <div className="absolute top-4 left-4">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#091e3a]/90 backdrop-blur-md text-[#00d2ff] text-xs font-bold border border-[#00d2ff]/40 shadow-md">
-                    <Sparkles className="w-3 h-3" />
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#091e3a]/90 backdrop-blur-md text-white text-xs font-bold border border-white/20 shadow-md">
+                    <Sparkles className="w-3 h-3 text-[#ea580c]" />
                     <span>Featured Deep Dive</span>
                   </span>
                 </div>
               </div>
 
               <div className="lg:col-span-5 p-6 sm:p-10 space-y-4">
-                <div className="flex items-center gap-3 text-xs text-[#015cbb] font-bold">
-                  <span className="bg-[#e0f2fe] px-2.5 py-0.5 rounded-full">
+                <div className="flex items-center gap-3 text-xs text-[#ea580c] font-bold">
+                  <span className="bg-orange-50 text-[#ea580c] border border-orange-200 px-2.5 py-0.5 rounded-full">
                     {featuredPost.category}
                   </span>
                   <span>•</span>
@@ -102,7 +101,7 @@ export default function BlogIndexPage() {
                   </span>
                 </div>
 
-                <h2 className="text-2xl sm:text-3xl font-black text-[#222222] tracking-tight group-hover:text-[#015cbb] transition-colors leading-snug">
+                <h2 className="text-2xl sm:text-3xl font-black text-[#091e3a] tracking-tight group-hover:text-[#ea580c] transition-colors leading-snug">
                   <Link href={`/blog/${featuredPost.slug}`}>
                     {featuredPost.title}
                   </Link>
@@ -120,7 +119,7 @@ export default function BlogIndexPage() {
 
                   <Link
                     href={`/blog/${featuredPost.slug}`}
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#015cbb] text-white font-bold text-xs hover:bg-[#004896] transition-colors"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#ea580c] text-white font-bold text-xs hover:bg-[#c2410c] transition-colors"
                   >
                     <span>Read Article</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -134,11 +133,11 @@ export default function BlogIndexPage() {
         {/* Regular Posts Grid */}
         <div>
           <div className="flex items-center justify-between mb-8 pb-3 border-b border-gray-200">
-            <h3 className="text-xl sm:text-2xl font-black text-[#222222]">
+            <h3 className="text-xl sm:text-2xl font-black text-[#091e3a]">
               Latest Engineering Guides
             </h3>
             <span className="text-xs text-[#5c5c5c] font-semibold">
-              {BLOG_POSTS.length} Technical Publications
+              {blogs.length} Technical Publications
             </span>
           </div>
 
@@ -146,7 +145,7 @@ export default function BlogIndexPage() {
             {regularPosts.map((post) => (
               <article
                 key={post.id}
-                className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md hover:border-[#015cbb]/40 transition-all flex flex-col justify-between group"
+                className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md hover:border-[#ea580c]/40 transition-all flex flex-col justify-between group"
               >
                 <div>
                   <div className="relative h-48 w-full overflow-hidden">
@@ -158,7 +157,7 @@ export default function BlogIndexPage() {
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                     <div className="absolute top-3 left-3">
-                      <span className="bg-[#091e3a]/90 backdrop-blur-md text-[#00d2ff] text-[10px] font-bold px-2.5 py-1 rounded-full border border-white/20">
+                      <span className="bg-[#091e3a]/90 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-full border border-white/20">
                         {post.category}
                       </span>
                     </div>
@@ -177,7 +176,7 @@ export default function BlogIndexPage() {
                       </span>
                     </div>
 
-                    <h4 className="text-lg font-black text-[#222222] group-hover:text-[#015cbb] transition-colors leading-snug line-clamp-2">
+                    <h4 className="text-lg font-black text-[#091e3a] group-hover:text-[#ea580c] transition-colors leading-snug line-clamp-2">
                       <Link href={`/blog/${post.slug}`}>{post.title}</Link>
                     </h4>
 
@@ -194,7 +193,7 @@ export default function BlogIndexPage() {
 
                   <Link
                     href={`/blog/${post.slug}`}
-                    className="inline-flex items-center gap-1 text-xs font-bold text-[#015cbb] group-hover:underline"
+                    className="inline-flex items-center gap-1 text-xs font-bold text-[#ea580c] group-hover:underline"
                   >
                     <span>Read Guide</span>
                     <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
@@ -206,10 +205,9 @@ export default function BlogIndexPage() {
         </div>
 
         {/* Engineering Consultation Callout */}
-        <div className="bg-[#091e3a] text-white rounded-3xl p-8 sm:p-12 text-center max-w-4xl mx-auto shadow-xl relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,210,255,0.15),transparent)] pointer-events-none" />
+        <div className="bg-[#091e3a] border border-gray-800 text-white rounded-3xl p-8 sm:p-12 text-center max-w-4xl mx-auto shadow-xl relative overflow-hidden">
           <div className="relative z-10 space-y-4">
-            <span className="text-xs font-bold uppercase tracking-widest text-[#00d2ff]">
+            <span className="text-xs font-bold uppercase tracking-widest text-[#ea580c]">
               Direct Engineering Consultation
             </span>
             <h3 className="text-2xl sm:text-3xl font-black">
@@ -221,7 +219,7 @@ export default function BlogIndexPage() {
             <div className="pt-2">
               <Link
                 href="/calculator"
-                className="inline-flex items-center gap-2 bg-[#00d2ff] hover:bg-[#00b4d8] text-[#091e3a] px-7 py-3 rounded-xl font-black text-xs uppercase tracking-wider shadow-md hover:shadow-lg transition-all"
+                className="inline-flex items-center gap-2 bg-[#ea580c] hover:bg-[#c2410c] text-white px-7 py-3 rounded-xl font-bold text-xs uppercase tracking-wider shadow-md hover:shadow-lg transition-all"
               >
                 <span>Launch Sizing Calculator</span>
                 <ArrowRight className="w-4 h-4" />

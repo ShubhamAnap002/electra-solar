@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { Product, ProductSpec, CATEGORIES } from "@/lib/data/products";
 import { authFetch } from "@/lib/auth/client";
+import { ImageUploadField } from "@/components/admin/ImageUploadField";
 
 interface ProductEditorFormProps {
   initialProduct?: Product;
@@ -197,7 +198,7 @@ export function ProductEditorForm({ initialProduct, isNew = false }: ProductEdit
             <Link
               href={`/products/${formData.category}/${formData.slug}`}
               target="_blank"
-              className="px-4 py-2 rounded-xl bg-white border border-gray-200 text-xs font-bold text-gray-700 hover:text-[#015cbb] transition-colors flex items-center gap-1.5 shadow-xs"
+              className="px-4 py-2.5 rounded-xl bg-white border border-gray-200 text-xs font-bold text-[#091e3a] hover:text-[#ea580c] hover:border-[#ea580c]/40 transition-colors flex items-center gap-1.5 shadow-sm"
             >
               <span>View Live</span>
               <ExternalLink className="w-3.5 h-3.5" />
@@ -207,7 +208,7 @@ export function ProductEditorForm({ initialProduct, isNew = false }: ProductEdit
           <button
             onClick={handleSubmit}
             disabled={loading}
-            className="bg-[#00d2ff] hover:bg-[#00b4d8] text-[#091e3a] font-black px-6 py-2.5 rounded-xl text-xs uppercase tracking-wider shadow-md hover:shadow-lg transition-all flex items-center gap-2 disabled:opacity-50"
+            className="bg-[#ea580c] hover:bg-[#c2410c] text-white font-bold px-6 py-2.5 rounded-xl text-xs uppercase tracking-wider shadow-sm transition-all flex items-center gap-2 disabled:opacity-50 cursor-pointer"
           >
             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
             <span>Save & Publish</span>
@@ -296,7 +297,7 @@ export function ProductEditorForm({ initialProduct, isNew = false }: ProductEdit
                 value={formData.name || ""}
                 onChange={handleChange}
                 placeholder="e.g. SunMagic REeFI 3-Phase"
-                className="w-full bg-slate-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#015cbb]"
+                className="w-full bg-slate-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#ea580c]"
               />
             </div>
 
@@ -311,7 +312,7 @@ export function ProductEditorForm({ initialProduct, isNew = false }: ProductEdit
                 value={formData.slug || ""}
                 onChange={handleChange}
                 placeholder="e.g. sunmagic-three-phase-solar-hybrid-inverter"
-                className="w-full bg-slate-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 font-mono focus:outline-none focus:border-[#015cbb]"
+                className="w-full bg-slate-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 font-mono focus:outline-none focus:border-[#ea580c]"
               />
             </div>
 
@@ -326,7 +327,7 @@ export function ProductEditorForm({ initialProduct, isNew = false }: ProductEdit
                 value={formData.modelCode || ""}
                 onChange={handleChange}
                 placeholder="e.g. SUN-10/20/30/50K-SG06LP3"
-                className="w-full bg-slate-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 font-mono focus:outline-none focus:border-[#015cbb]"
+                className="w-full bg-slate-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 font-mono focus:outline-none focus:border-[#ea580c]"
               />
             </div>
 
@@ -345,7 +346,7 @@ export function ProductEditorForm({ initialProduct, isNew = false }: ProductEdit
                     categoryName: cat?.name || e.target.value,
                   }));
                 }}
-                className="w-full bg-slate-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#015cbb]"
+                className="w-full bg-slate-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#ea580c]"
               >
                 {CATEGORIES.map((cat) => (
                   <option key={cat.slug} value={cat.slug}>
@@ -365,7 +366,7 @@ export function ProductEditorForm({ initialProduct, isNew = false }: ProductEdit
                 value={formData.capacityRange || ""}
                 onChange={handleChange}
                 placeholder="e.g. 10 kVA – 300 kVA"
-                className="w-full bg-slate-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#015cbb]"
+                className="w-full bg-slate-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#ea580c]"
               />
             </div>
 
@@ -377,7 +378,7 @@ export function ProductEditorForm({ initialProduct, isNew = false }: ProductEdit
                 name="phase"
                 value={formData.phase || "3-Phase"}
                 onChange={handleChange}
-                className="w-full bg-slate-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#015cbb]"
+                className="w-full bg-slate-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#ea580c]"
               >
                 <option value="1-Phase">1-Phase</option>
                 <option value="3-Phase">3-Phase</option>
@@ -395,7 +396,7 @@ export function ProductEditorForm({ initialProduct, isNew = false }: ProductEdit
                 value={formData.efficiency || ""}
                 onChange={handleChange}
                 placeholder="e.g. 98.4%"
-                className="w-full bg-slate-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#015cbb]"
+                className="w-full bg-slate-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#ea580c]"
               />
             </div>
 
@@ -409,7 +410,7 @@ export function ProductEditorForm({ initialProduct, isNew = false }: ProductEdit
                 value={formData.highlightBadge || ""}
                 onChange={handleChange}
                 placeholder="e.g. Flagship 3-Phase PCU"
-                className="w-full bg-slate-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#015cbb]"
+                className="w-full bg-slate-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#ea580c]"
               />
             </div>
 
@@ -423,7 +424,7 @@ export function ProductEditorForm({ initialProduct, isNew = false }: ProductEdit
                 value={formData.series || ""}
                 onChange={handleChange}
                 placeholder="e.g. SunMagic Industrial"
-                className="w-full bg-slate-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#015cbb]"
+                className="w-full bg-slate-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#ea580c]"
               />
             </div>
           </div>
@@ -446,7 +447,7 @@ export function ProductEditorForm({ initialProduct, isNew = false }: ProductEdit
                 value={formData.tagline || ""}
                 onChange={handleChange}
                 placeholder="e.g. Industrial 3-phase hybrid inverter with 100% phase unbalance tolerance"
-                className="w-full bg-slate-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#015cbb]"
+                className="w-full bg-slate-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#ea580c]"
               />
             </div>
 
@@ -460,24 +461,20 @@ export function ProductEditorForm({ initialProduct, isNew = false }: ProductEdit
                 value={formData.description || ""}
                 onChange={handleChange}
                 placeholder="Comprehensive technical description of the equipment..."
-                className="w-full bg-slate-50 border border-gray-200 rounded-xl p-3 text-xs text-gray-900 leading-relaxed focus:outline-none focus:border-[#015cbb]"
+                className="w-full bg-slate-50 border border-gray-200 rounded-xl p-3 text-xs text-gray-900 leading-relaxed focus:outline-none focus:border-[#ea580c]"
+              />
+            </div>
+
+            <div>
+              <ImageUploadField
+                label="Primary Product Equipment Photo"
+                value={formData.image || ""}
+                onChange={(url) => setFormData((prev) => ({ ...prev, image: url }))}
+                description="Upload high-resolution transparent PNG or WebP of the inverter or battery cabinet."
               />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
-                  Primary Product Image URL
-                </label>
-                <input
-                  type="text"
-                  name="image"
-                  value={formData.image || ""}
-                  onChange={handleChange}
-                  placeholder="/images/products/sunmagic-3ph.webp"
-                  className="w-full bg-slate-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 font-mono focus:outline-none focus:border-[#015cbb]"
-                />
-              </div>
 
               <div>
                 <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
@@ -489,7 +486,7 @@ export function ProductEditorForm({ initialProduct, isNew = false }: ProductEdit
                   value={formData.datasheetUrl || ""}
                   onChange={handleChange}
                   placeholder="/downloads/datasheets/sunmagic-3ph.pdf"
-                  className="w-full bg-slate-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 font-mono focus:outline-none focus:border-[#015cbb]"
+                  className="w-full bg-slate-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 font-mono focus:outline-none focus:border-[#ea580c]"
                 />
               </div>
 
@@ -503,7 +500,7 @@ export function ProductEditorForm({ initialProduct, isNew = false }: ProductEdit
                   value={formData.warranty || ""}
                   onChange={handleChange}
                   placeholder="5 Years Factory Warranty"
-                  className="w-full bg-slate-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#015cbb]"
+                  className="w-full bg-slate-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#ea580c]"
                 />
               </div>
 
@@ -517,7 +514,7 @@ export function ProductEditorForm({ initialProduct, isNew = false }: ProductEdit
                   value={formData.idealFor || ""}
                   onChange={handleChange}
                   placeholder="Industrial & Commercial Facilities"
-                  className="w-full bg-slate-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#015cbb]"
+                  className="w-full bg-slate-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs text-gray-900 focus:outline-none focus:border-[#ea580c]"
                 />
               </div>
             </div>
@@ -552,7 +549,7 @@ export function ProductEditorForm({ initialProduct, isNew = false }: ProductEdit
                     type="text"
                     value={feat}
                     onChange={(e) => handleFeatureChange(idx, e.target.value)}
-                    className="flex-1 bg-slate-50 border border-gray-200 rounded-xl px-3.5 py-2 text-xs text-gray-900 focus:outline-none focus:border-[#015cbb]"
+                    className="flex-1 bg-slate-50 border border-gray-200 rounded-xl px-3.5 py-2 text-xs text-gray-900 focus:outline-none focus:border-[#ea580c]"
                   />
                   <button
                     type="button"
@@ -579,7 +576,7 @@ export function ProductEditorForm({ initialProduct, isNew = false }: ProductEdit
             <button
               type="button"
               onClick={addSpecRow}
-              className="bg-[#00d2ff] hover:bg-[#00b4d8] text-[#091e3a] px-3.5 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider flex items-center gap-1 transition-colors shadow-xs"
+              className="bg-[#ea580c] hover:bg-[#c2410c] text-white px-3.5 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider flex items-center gap-1 transition-colors shadow-sm cursor-pointer"
             >
               <Plus className="w-3.5 h-3.5" />
               <span>Add Spec Row</span>

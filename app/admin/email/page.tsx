@@ -185,8 +185,8 @@ export default function AdminEmailIntegrationPage() {
 
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] text-slate-400">
-        <Loader2 className="w-10 h-10 animate-spin text-cyan-400 mb-4" />
+      <div className="flex flex-col items-center justify-center min-h-[60vh] text-gray-500">
+        <Loader2 className="w-10 h-10 animate-spin text-[#ea580c] mb-4" />
         <p className="text-sm font-medium">Checking Gmail OAuth connection status...</p>
       </div>
     );
@@ -195,14 +195,14 @@ export default function AdminEmailIntegrationPage() {
   return (
     <div className="space-y-6 pb-12">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-gray-200">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
+          <div className="w-10 h-10 rounded-xl bg-orange-50 border border-orange-200 flex items-center justify-center text-[#ea580c]">
             <Mail className="w-5 h-5" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-white tracking-tight">Gmail Integration — Google OAuth 2.0</h1>
-            <p className="text-xs text-slate-400">
+            <h1 className="text-2xl font-bold text-[#091e3a] tracking-tight">Gmail Integration — Google OAuth 2.0</h1>
+            <p className="text-xs text-gray-500">
               Direct form-to-inbox dispatch with official Google OAuth 2.0 authorization
             </p>
           </div>
@@ -211,13 +211,13 @@ export default function AdminEmailIntegrationPage() {
         {/* Status Pill */}
         <div className="flex items-center gap-2">
           {data?.isConnected ? (
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-emerald-500/15 border border-emerald-500/30 text-emerald-300">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-emerald-50 border border-emerald-200 text-emerald-800">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               Connected ({data.connectedEmail})
             </span>
           ) : (
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-slate-800 border border-slate-700 text-slate-400">
-              <span className="w-2 h-2 rounded-full bg-slate-500" />
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-gray-100 border border-gray-200 text-gray-600">
+              <span className="w-2 h-2 rounded-full bg-gray-400" />
               Disconnected
             </span>
           )}
@@ -226,42 +226,42 @@ export default function AdminEmailIntegrationPage() {
 
       {/* Notifications */}
       {successMessage && (
-        <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-sm flex items-center justify-between">
+        <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-5 h-5 flex-shrink-0" />
+            <CheckCircle2 className="w-5 h-5 flex-shrink-0 text-emerald-600" />
             <span>{successMessage}</span>
           </div>
-          <button onClick={() => setSuccessMessage(null)} className="text-emerald-400 hover:text-white">
+          <button onClick={() => setSuccessMessage(null)} className="text-emerald-700 hover:text-emerald-900 font-bold">
             ✕
           </button>
         </div>
       )}
 
       {errorMessage && (
-        <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-sm flex items-center justify-between">
+        <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-red-800 text-sm flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <AlertCircle className="w-5 h-5 flex-shrink-0" />
+            <AlertCircle className="w-5 h-5 flex-shrink-0 text-red-600" />
             <span>{errorMessage}</span>
           </div>
-          <button onClick={() => setErrorMessage(null)} className="text-rose-400 hover:text-white">
+          <button onClick={() => setErrorMessage(null)} className="text-red-700 hover:text-red-900 font-bold">
             ✕
           </button>
         </div>
       )}
 
       {/* Connection Card */}
-      <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-slate-800/80">
+      <div className="bg-white border border-gray-200 rounded-2xl p-6 sm:p-8 space-y-6 shadow-sm">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-gray-100">
           <div className="space-y-2 max-w-xl">
             <div className="flex items-center gap-2">
-              <h2 className="text-lg font-bold text-white">Google OAuth 2.0 Connection</h2>
+              <h2 className="text-lg font-bold text-[#091e3a]">Google OAuth 2.0 Connection</h2>
               {data?.isConnected && (
-                <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-100 text-emerald-800 border border-emerald-200">
                   gmail.send Active
                 </span>
               )}
             </div>
-            <p className="text-xs text-slate-300 leading-relaxed">
+            <p className="text-xs text-gray-600 leading-relaxed">
               Connect the official Electra Solar Gmail account via Google's official consent screen. Customer enquiries
               submitted through website forms are immediately dispatched through this authorized account straight to
               your sales team with visitor Reply-To.
@@ -275,7 +275,7 @@ export default function AdminEmailIntegrationPage() {
                   type="button"
                   onClick={handleSendTestEmail}
                   disabled={isTesting}
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/30 text-cyan-300 border border-cyan-500/40 text-xs font-semibold transition-all"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-orange-50 hover:bg-orange-100 text-[#ea580c] border border-orange-200 text-xs font-semibold transition-all"
                 >
                   {isTesting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
                   {isTesting ? "Sending Test..." : "Send Test Email"}
@@ -283,7 +283,7 @@ export default function AdminEmailIntegrationPage() {
                 <button
                   type="button"
                   onClick={handleConnectGmail}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium transition-all"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-medium transition-all"
                   title="Re-authorize Google account"
                 >
                   <RefreshCw className="w-3.5 h-3.5" /> Reconnect
@@ -292,7 +292,7 @@ export default function AdminEmailIntegrationPage() {
                   type="button"
                   onClick={handleDisconnect}
                   disabled={isDisconnecting}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-rose-500/10 hover:bg-rose-600 text-rose-400 hover:text-white border border-rose-500/20 text-xs font-medium transition-all"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs font-medium transition-all"
                 >
                   {isDisconnecting ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Unlink className="w-3.5 h-3.5" />}
                   Disconnect
@@ -302,7 +302,7 @@ export default function AdminEmailIntegrationPage() {
               <button
                 type="button"
                 onClick={handleConnectGmail}
-                className="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-semibold text-sm shadow-xl shadow-cyan-950/50 transition-all hover:scale-[1.02] active:scale-[0.98]"
+                className="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl bg-[#ea580c] hover:bg-orange-700 text-white font-bold text-sm shadow-md hover:shadow-lg transition-all"
               >
                 <svg className="w-4 h-4" viewBox="0 0 24 24">
                   <path
@@ -330,48 +330,48 @@ export default function AdminEmailIntegrationPage() {
 
         {/* Delivery Details Overview */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800">
-            <span className="text-[11px] text-slate-500 uppercase font-semibold tracking-wider block mb-1">
+          <div className="p-4 rounded-xl bg-slate-50 border border-gray-200">
+            <span className="text-[11px] text-gray-500 uppercase font-semibold tracking-wider block mb-1">
               Sender Identity
             </span>
-            <span className="text-sm font-semibold text-white truncate block">
+            <span className="text-sm font-semibold text-[#091e3a] truncate block">
               {data?.connectedEmail || "Not Connected"}
             </span>
-            <span className="text-[11px] text-slate-400 mt-1 block">
+            <span className="text-[11px] text-gray-500 mt-1 block">
               Authorized via Google OAuth consent screen
             </span>
           </div>
 
-          <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800">
-            <span className="text-[11px] text-slate-500 uppercase font-semibold tracking-wider block mb-1">
+          <div className="p-4 rounded-xl bg-slate-50 border border-gray-200">
+            <span className="text-[11px] text-gray-500 uppercase font-semibold tracking-wider block mb-1">
               Destination Recipient
             </span>
-            <span className="text-sm font-semibold text-cyan-400 truncate block">
+            <span className="text-sm font-semibold text-[#ea580c] truncate block">
               {data?.recipientEmail || "sales@electrasolar.in"}
             </span>
-            <span className="text-[11px] text-slate-400 mt-1 block">
+            <span className="text-[11px] text-gray-500 mt-1 block">
               Receives all website quote & contact requests
             </span>
           </div>
 
-          <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800">
-            <span className="text-[11px] text-slate-500 uppercase font-semibold tracking-wider block mb-1">
+          <div className="p-4 rounded-xl bg-slate-50 border border-gray-200">
+            <span className="text-[11px] text-gray-500 uppercase font-semibold tracking-wider block mb-1">
               Last Diagnostic Test
             </span>
             <div className="flex items-center gap-1.5 mt-0.5">
               {data?.lastTestStatus === "success" ? (
-                <span className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-400">
+                <span className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-600">
                   <Check className="w-3.5 h-3.5" /> Passed
                 </span>
               ) : data?.lastTestStatus === "error" ? (
-                <span className="inline-flex items-center gap-1 text-xs font-semibold text-rose-400">
+                <span className="inline-flex items-center gap-1 text-xs font-semibold text-red-600">
                   <AlertCircle className="w-3.5 h-3.5" /> Failed
                 </span>
               ) : (
-                <span className="text-xs text-slate-400">Never tested</span>
+                <span className="text-xs text-gray-500">Never tested</span>
               )}
             </div>
-            <span className="text-[11px] text-slate-400 truncate block mt-1" title={data?.lastTestMessage || ""}>
+            <span className="text-[11px] text-gray-500 truncate block mt-1" title={data?.lastTestMessage || ""}>
               {data?.lastTestedAt
                 ? new Date(data.lastTestedAt).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })
                 : "Run a test email to verify delivery"}
@@ -381,16 +381,16 @@ export default function AdminEmailIntegrationPage() {
       </div>
 
       {/* Recipient & Configuration Settings */}
-      <form onSubmit={handleSaveSettings} className="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6">
-        <div className="flex items-center justify-between pb-4 border-b border-slate-800/80">
+      <form onSubmit={handleSaveSettings} className="bg-white border border-gray-200 rounded-2xl p-6 sm:p-8 space-y-6 shadow-sm">
+        <div className="flex items-center justify-between pb-4 border-b border-gray-100">
           <div>
-            <h3 className="text-base font-bold text-white">Email Delivery Configuration</h3>
-            <p className="text-xs text-slate-400">Configure recipient inbox and custom sender display</p>
+            <h3 className="text-base font-bold text-[#091e3a]">Email Delivery Configuration</h3>
+            <p className="text-xs text-gray-500">Configure recipient inbox and custom sender display</p>
           </div>
           <button
             type="button"
             onClick={() => setShowCredentialsForm(!showCredentialsForm)}
-            className="inline-flex items-center gap-1.5 text-xs text-cyan-400 hover:text-cyan-300 font-medium"
+            className="inline-flex items-center gap-1.5 text-xs text-[#ea580c] hover:text-orange-700 font-semibold"
           >
             <Settings className="w-3.5 h-3.5" />
             {showCredentialsForm ? "Hide OAuth Credentials" : "Edit OAuth Credentials"}
@@ -399,7 +399,7 @@ export default function AdminEmailIntegrationPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+            <label className="block text-xs font-semibold text-gray-700 mb-1.5">
               Destination Electra Solar Email *
             </label>
             <input
@@ -408,15 +408,15 @@ export default function AdminEmailIntegrationPage() {
               value={recipientEmail}
               onChange={(e) => setRecipientEmail(e.target.value)}
               placeholder="sales@electrasolar.in"
-              className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-gray-300 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#ea580c] focus:ring-1 focus:ring-[#ea580c]"
             />
-            <p className="text-[11px] text-slate-500 mt-1">
+            <p className="text-[11px] text-gray-500 mt-1">
               Public visitors cannot modify this. All quotes and contact form submissions arrive here.
             </p>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+            <label className="block text-xs font-semibold text-gray-700 mb-1.5">
               Sender Name Display
             </label>
             <input
@@ -424,9 +424,9 @@ export default function AdminEmailIntegrationPage() {
               value={senderName}
               onChange={(e) => setSenderName(e.target.value)}
               placeholder="Electra Solar Notifications"
-              className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-gray-300 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#ea580c] focus:ring-1 focus:ring-[#ea580c]"
             />
-            <p className="text-[11px] text-slate-500 mt-1">
+            <p className="text-[11px] text-gray-500 mt-1">
               Friendly sender name displayed in email client header.
             </p>
           </div>
@@ -434,29 +434,29 @@ export default function AdminEmailIntegrationPage() {
 
         {/* Google Cloud OAuth 2.0 Credentials (Expandable) */}
         {showCredentialsForm && (
-          <div className="p-5 rounded-2xl bg-slate-950/80 border border-slate-800/80 space-y-4 animate-in fade-in duration-200">
-            <div className="flex items-center gap-2 text-cyan-400 text-xs font-bold">
+          <div className="p-5 rounded-2xl bg-slate-50 border border-gray-200 space-y-4 animate-in fade-in duration-200">
+            <div className="flex items-center gap-2 text-[#ea580c] text-xs font-bold">
               <Key className="w-4 h-4" />
               <span>Google Cloud OAuth 2.0 Credentials (Server-Stored)</span>
             </div>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-gray-600">
               Obtained from Google Cloud Console → APIs & Services → Credentials → OAuth 2.0 Client IDs.
             </p>
 
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">OAuth Client ID</label>
+                <label className="block text-xs font-semibold text-gray-700 mb-1">OAuth Client ID</label>
                 <input
                   type="text"
                   value={clientId}
                   onChange={(e) => setClientId(e.target.value)}
                   placeholder="xxxx.apps.googleusercontent.com"
-                  className="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-100 font-mono focus:outline-none focus:border-cyan-500"
+                  className="w-full px-3.5 py-2 rounded-xl bg-white border border-gray-300 text-xs text-gray-900 font-mono focus:outline-none focus:border-[#ea580c] focus:ring-1 focus:ring-[#ea580c]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">
+                <label className="block text-xs font-semibold text-gray-700 mb-1">
                   OAuth Client Secret {data?.hasClientSecret && "(Hidden for security)"}
                 </label>
                 <input
@@ -464,20 +464,20 @@ export default function AdminEmailIntegrationPage() {
                   value={clientSecret}
                   onChange={(e) => setClientSecret(e.target.value)}
                   placeholder={data?.hasClientSecret ? "•••••••••••••••••••• (Leave blank to keep existing)" : "GOCSPX-xxxx"}
-                  className="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-100 font-mono focus:outline-none focus:border-cyan-500"
+                  className="w-full px-3.5 py-2 rounded-xl bg-white border border-gray-300 text-xs text-gray-900 font-mono focus:outline-none focus:border-[#ea580c] focus:ring-1 focus:ring-[#ea580c]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">Authorized Redirect URI</label>
+                <label className="block text-xs font-semibold text-gray-700 mb-1">Authorized Redirect URI</label>
                 <input
                   type="text"
                   value={redirectUri}
                   onChange={(e) => setRedirectUri(e.target.value)}
                   placeholder="http://localhost:3000/api/admin/gmail/callback"
-                  className="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-100 font-mono focus:outline-none focus:border-cyan-500"
+                  className="w-full px-3.5 py-2 rounded-xl bg-white border border-gray-300 text-xs text-gray-900 font-mono focus:outline-none focus:border-[#ea580c] focus:ring-1 focus:ring-[#ea580c]"
                 />
-                <span className="text-[11px] text-slate-500 mt-1 block">
+                <span className="text-[11px] text-gray-500 mt-1 block">
                   Must match the Authorized Redirect URI listed in your Google Cloud Console.
                 </span>
               </div>
@@ -485,11 +485,11 @@ export default function AdminEmailIntegrationPage() {
           </div>
         )}
 
-        <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-800">
+        <div className="flex items-center justify-end gap-3 pt-4 border-t border-gray-100">
           <button
             type="submit"
             disabled={isSavingConfig}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs shadow-md shadow-blue-900/30 transition-all"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#ea580c] hover:bg-orange-700 text-white font-bold text-xs shadow-md transition-all"
           >
             {isSavingConfig ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
             Save Configuration
@@ -498,39 +498,39 @@ export default function AdminEmailIntegrationPage() {
       </form>
 
       {/* Step-by-Step Google Cloud Setup Guide */}
-      <div className="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 space-y-4">
-        <div className="flex items-center gap-2 text-white font-bold text-sm">
-          <HelpCircle className="w-4 h-4 text-cyan-400" />
+      <div className="bg-white border border-gray-200 rounded-2xl p-6 space-y-4 shadow-sm">
+        <div className="flex items-center gap-2 text-[#091e3a] font-bold text-sm">
+          <HelpCircle className="w-4 h-4 text-[#ea580c]" />
           <span>Google Cloud OAuth 2.0 Setup Guide</span>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-slate-300 leading-relaxed">
-          <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800/60 space-y-1.5">
-            <span className="w-6 h-6 rounded-full bg-cyan-500/20 text-cyan-400 font-bold flex items-center justify-center text-[11px]">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-gray-700 leading-relaxed">
+          <div className="p-4 rounded-xl bg-slate-50 border border-gray-200 space-y-1.5">
+            <span className="w-6 h-6 rounded-full bg-[#091e3a] text-white font-bold flex items-center justify-center text-[11px]">
               1
             </span>
-            <h4 className="font-semibold text-white pt-1">Enable Gmail API</h4>
-            <p className="text-slate-400">
-              Open <a href="https://console.cloud.google.com" target="_blank" rel="noreferrer" className="text-cyan-400 underline">Google Cloud Console</a>, create or select your project, and enable the <strong>Gmail API</strong>.
+            <h4 className="font-bold text-[#091e3a] pt-1">Enable Gmail API</h4>
+            <p className="text-gray-600">
+              Open <a href="https://console.cloud.google.com" target="_blank" rel="noreferrer" className="text-[#ea580c] underline font-medium">Google Cloud Console</a>, create or select your project, and enable the <strong>Gmail API</strong>.
             </p>
           </div>
 
-          <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800/60 space-y-1.5">
-            <span className="w-6 h-6 rounded-full bg-cyan-500/20 text-cyan-400 font-bold flex items-center justify-center text-[11px]">
+          <div className="p-4 rounded-xl bg-slate-50 border border-gray-200 space-y-1.5">
+            <span className="w-6 h-6 rounded-full bg-[#091e3a] text-white font-bold flex items-center justify-center text-[11px]">
               2
             </span>
-            <h4 className="font-semibold text-white pt-1">Configure Consent Screen</h4>
-            <p className="text-slate-400">
-              Under <em>OAuth consent screen</em>, choose Internal (Google Workspace) or External, add your support email, and select scope <code className="text-cyan-300">https://www.googleapis.com/auth/gmail.send</code>.
+            <h4 className="font-bold text-[#091e3a] pt-1">Configure Consent Screen</h4>
+            <p className="text-gray-600">
+              Under <em>OAuth consent screen</em>, choose Internal (Google Workspace) or External, add your support email, and select scope <code className="bg-gray-200 text-gray-800 px-1 py-0.5 rounded text-[11px]">https://www.googleapis.com/auth/gmail.send</code>.
             </p>
           </div>
 
-          <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800/60 space-y-1.5">
-            <span className="w-6 h-6 rounded-full bg-cyan-500/20 text-cyan-400 font-bold flex items-center justify-center text-[11px]">
+          <div className="p-4 rounded-xl bg-slate-50 border border-gray-200 space-y-1.5">
+            <span className="w-6 h-6 rounded-full bg-[#091e3a] text-white font-bold flex items-center justify-center text-[11px]">
               3
             </span>
-            <h4 className="font-semibold text-white pt-1">Create Web Credentials</h4>
-            <p className="text-slate-400">
-              Create an OAuth Client ID (Web Application), set Authorized Redirect URI to <code className="text-cyan-300">{redirectUri || "http://localhost:3000/api/admin/gmail/callback"}</code>, paste Client ID & Secret above, and click Connect Gmail.
+            <h4 className="font-bold text-[#091e3a] pt-1">Create Web Credentials</h4>
+            <p className="text-gray-600">
+              Create an OAuth Client ID (Web Application), set Authorized Redirect URI to <code className="bg-gray-200 text-gray-800 px-1 py-0.5 rounded text-[11px]">{redirectUri || "http://localhost:3000/api/admin/gmail/callback"}</code>, paste Client ID & Secret above, and click Connect Gmail.
             </p>
           </div>
         </div>

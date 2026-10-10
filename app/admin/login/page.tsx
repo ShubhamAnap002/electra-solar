@@ -60,40 +60,38 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#061528] via-[#091e3a] to-[#07172c] text-white flex items-center justify-center p-4">
+    <div className="min-h-screen bg-slate-100 text-gray-900 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Brand Icon & Heading */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-tr from-[#015cbb] via-[#00d2ff] to-[#51b2e3] p-0.5 shadow-xl shadow-[#00d2ff]/20 mb-4">
-            <div className="w-full h-full bg-[#091e3a] rounded-[14px] flex items-center justify-center">
-              <Sun className="w-8 h-8 text-[#00d2ff]" />
-            </div>
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-[#091e3a] text-[#ea580c] shadow-lg mb-4">
+            <Sun className="w-8 h-8" />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white">
-            ELECTRA <span className="text-[#00d2ff]">SOLAR</span>
+          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#091e3a]">
+            ELECTRA <span className="text-[#ea580c]">SOLAR</span>
           </h1>
-          <p className="text-xs uppercase font-bold tracking-widest text-cyan-200/70 mt-1">
-            Enterprise Admin Console
+          <p className="text-xs uppercase font-bold tracking-widest text-gray-500 mt-1">
+            Master CMS Console
           </p>
         </div>
 
         {/* Login Card */}
-        <div className="bg-white/10 backdrop-blur-xl border border-white/15 rounded-3xl p-8 shadow-2xl">
-          <div className="flex items-center gap-2 text-xs font-bold text-[#00d2ff] mb-6 pb-4 border-b border-white/10">
-            <ShieldCheck className="w-4 h-4" />
+        <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-xl">
+          <div className="flex items-center gap-2 text-xs font-bold text-[#091e3a] mb-6 pb-4 border-b border-gray-100">
+            <ShieldCheck className="w-4 h-4 text-[#ea580c]" />
             <span>Secure Access Control</span>
           </div>
 
           {error && (
-            <div className="mb-6 p-3.5 bg-rose-500/20 border border-rose-500/40 rounded-xl text-rose-200 text-xs flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 text-rose-400 flex-shrink-0" />
+            <div className="mb-6 p-3.5 bg-red-50 border border-red-200 rounded-xl text-red-700 text-xs flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 text-red-500 flex-shrink-0" />
               <span>{error}</span>
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">
+              <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">
                 Administrator Username
               </label>
               <div className="relative">
@@ -106,13 +104,13 @@ export default function AdminLoginPage() {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="admin"
-                  className="w-full bg-black/40 border border-white/15 rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#00d2ff] focus:ring-1 focus:ring-[#00d2ff] transition-colors"
+                  className="w-full bg-white border border-gray-300 rounded-xl pl-10 pr-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#ea580c] focus:ring-1 focus:ring-[#ea580c] transition-colors"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">
+              <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">
                 Password
               </label>
               <div className="relative">
@@ -125,7 +123,7 @@ export default function AdminLoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter administrator password"
-                  className="w-full bg-black/40 border border-white/15 rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#00d2ff] focus:ring-1 focus:ring-[#00d2ff] transition-colors"
+                  className="w-full bg-white border border-gray-300 rounded-xl pl-10 pr-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#ea580c] focus:ring-1 focus:ring-[#ea580c] transition-colors"
                 />
               </div>
             </div>
@@ -133,7 +131,7 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-[#00d2ff] hover:bg-[#00b4d8] text-[#091e3a] font-black py-3.5 rounded-xl text-sm uppercase tracking-wider shadow-lg shadow-[#00d2ff]/25 hover:shadow-[#00d2ff]/40 transition-all flex items-center justify-center gap-2 disabled:opacity-50 mt-2"
+              className="w-full bg-[#ea580c] hover:bg-orange-700 text-white font-bold py-3.5 rounded-xl text-sm uppercase tracking-wider shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 disabled:opacity-50 mt-2"
             >
               {loading ? (
                 <>
@@ -142,22 +140,22 @@ export default function AdminLoginPage() {
                 </>
               ) : (
                 <>
-                  <span>Sign In to Dashboard</span>
+                  <span>Sign In to Master Panel</span>
                   <ArrowRight className="w-4 h-4" />
                 </>
               )}
             </button>
           </form>
 
-          <div className="mt-6 pt-6 border-t border-white/10 text-center">
-            <span className="text-[11px] text-gray-400">
-              Default password: <code className="bg-black/40 px-1.5 py-0.5 rounded text-cyan-200">Electra@Solar2026!</code>
+          <div className="mt-6 pt-6 border-t border-gray-100 text-center">
+            <span className="text-[11px] text-gray-500">
+              Default password: <code className="bg-gray-100 px-1.5 py-0.5 rounded text-gray-800 font-mono">Electra@Solar2026!</code>
             </span>
           </div>
         </div>
 
         <div className="text-center mt-6 text-xs text-gray-500">
-          Electra Solar Platform • Authorized EnerTech Turnkey Partner
+          Electra Solar Platform • Authorized Turnkey Partner
         </div>
       </div>
     </div>
