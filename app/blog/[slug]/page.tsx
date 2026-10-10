@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { getStoredBlogPosts, getStoredBlogPostBySlug, getStoredProducts } from "@/lib/store";
 import { PRODUCTS } from "@/lib/data/products";
+import { BlogBlockRenderer } from "@/components/blog/BlogBlockRenderer";
 
 export const dynamic = "force-dynamic";
 
@@ -76,12 +77,22 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
+  const inlineImages = (post.content.blocks || [])
+    .filter((b) => b.type === "image" && Boolean(b.url))
+    .map((b: any) =>
+      b.url.startsWith("http") ? b.url : `https://electrasolar.in${b.url.startsWith("/") ? b.url : "/" + b.url}`
+    );
+
+  const coverUrl = post.coverImage.startsWith("http")
+    ? post.coverImage
+    : `https://electrasolar.in${post.coverImage.startsWith("/") ? post.coverImage : "/" + post.coverImage}`;
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: post.title,
     description: post.summary,
-    image: `https://electrasolar.in${post.coverImage}`,
+    image: [coverUrl, ...inlineImages],
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": `https://electrasolar.in/blog/${post.slug}`,
@@ -200,46 +211,59 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
           />
         </div>
 
-        {/* Lead Introduction Box */}
-        <div className="p-6 sm:p-8 bg-white rounded-2xl border-l-4 border-[#ea580c] border-t border-r border-b border-gray-200 shadow-sm mb-10 text-sm sm:text-base text-gray-700 leading-relaxed font-medium">
-          {post.content.intro}
-        </div>
-
-        {/* Article Body Content */}
-        <div className="space-y-10 text-gray-700 leading-relaxed text-sm sm:text-base">
-          {post.content.sections.map((section, idx) => (
-            <div key={idx} className="space-y-4">
-              <h2 className="text-xl sm:text-2xl font-black text-[#091e3a] tracking-tight">
-                {section.heading}
-              </h2>
-
-              <div className="space-y-3 text-gray-700">
-                {section.body.map((p, pIdx) => (
-                  <p key={pIdx} className="leading-relaxed">
-                    {p}
-                  </p>
-                ))}
+        {/* Content Body: WordPress-Style Dynamic Blocks OR Legacy Fallback */}
+        {post.content.blocks && post.content.blocks.length > 0 ? (
+          <BlogBlockRenderer blocks={post.content.blocks} />
+        ) : (
+          <>
+            {/* Lead Introduction Box */}
+            {post.content.intro && (
+              <div className="p-6 sm:p-8 bg-white rounded-2xl border-l-4 border-[#ea580c] border-t border-r border-b border-gray-200 shadow-sm mb-10 text-sm sm:text-base text-gray-700 leading-relaxed font-medium">
+                {post.content.intro}
               </div>
+            )}
 
-              {section.highlightBox && (
-                <div className="my-6 p-5 rounded-2xl bg-orange-50/70 border border-orange-200 flex items-start gap-3 text-xs sm:text-sm text-[#ea580c] font-semibold">
-                  <Zap className="w-5 h-5 flex-shrink-0 mt-0.5 text-[#ea580c]" />
-                  <span>{section.highlightBox}</span>
-                </div>
-              )}
-            </div>
-          ))}
+            {/* Article Body Content */}
+            {post.content.sections && post.content.sections.length > 0 && (
+              <div className="space-y-10 text-gray-700 leading-relaxed text-sm sm:text-base">
+                {post.content.sections.map((section, idx) => (
+                  <div key={idx} className="space-y-4">
+                    <h2 className="text-xl sm:text-2xl font-black text-[#091e3a] tracking-tight">
+                      {section.heading}
+                    </h2>
 
-          {/* Conclusion */}
-          <div className="pt-8 border-t border-gray-200 space-y-3">
-            <h3 className="text-lg sm:text-xl font-black text-[#091e3a]">
-              Summary & Engineering Verdict
-            </h3>
-            <p className="text-gray-700 font-medium leading-relaxed">
-              {post.content.conclusion}
-            </p>
-          </div>
-        </div>
+                    <div className="space-y-3 text-gray-700">
+                      {section.body.map((p, pIdx) => (
+                        <p key={pIdx} className="leading-relaxed">
+                          {p}
+                        </p>
+                      ))}
+                    </div>
+
+                    {section.highlightBox && (
+                      <div className="my-6 p-5 rounded-2xl bg-orange-50/70 border border-orange-200 flex items-start gap-3 text-xs sm:text-sm text-[#ea580c] font-semibold">
+                        <Zap className="w-5 h-5 flex-shrink-0 mt-0.5 text-[#ea580c]" />
+                        <span>{section.highlightBox}</span>
+                      </div>
+                    )}
+                  </div>
+                ))}
+
+                {/* Conclusion */}
+                {post.content.conclusion && (
+                  <div className="pt-8 border-t border-gray-200 space-y-3">
+                    <h3 className="text-lg sm:text-xl font-black text-[#091e3a]">
+                      Summary & Engineering Verdict
+                    </h3>
+                    <p className="text-gray-700 font-medium leading-relaxed">
+                      {post.content.conclusion}
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
+          </>
+        )}
 
         {/* Related Product Promotion Card */}
         {post.relatedProductSlug && (() => {

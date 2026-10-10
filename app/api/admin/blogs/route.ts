@@ -44,6 +44,7 @@ export async function POST(req: NextRequest) {
         intro: body.content?.intro || "",
         sections: Array.isArray(body.content?.sections) ? body.content.sections : [],
         conclusion: body.content?.conclusion || "",
+        blocks: Array.isArray(body.content?.blocks) ? body.content.blocks : undefined,
       },
       relatedProductSlug: body.relatedProductSlug || "",
       relatedProductName: body.relatedProductName || "",

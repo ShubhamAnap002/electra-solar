@@ -37,6 +37,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
         intro: body.content?.intro ?? existing.content?.intro ?? "",
         sections: body.content?.sections ?? existing.content?.sections ?? [],
         conclusion: body.content?.conclusion ?? existing.content?.conclusion ?? "",
+        blocks: body.content?.blocks ?? existing.content?.blocks ?? undefined,
       },
     };
 

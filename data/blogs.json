@@ -40,7 +40,118 @@
           ]
         }
       ],
-      "conclusion": "For Indian industrial facilities with sensitive machinery, heavy surges, or frequent power interruptions, bi-directional solar hybrid PCUs offer far superior ROI, equipment protection, and energy security compared to basic on-grid string systems."
+      "conclusion": "For Indian industrial facilities with sensitive machinery, heavy surges, or frequent power interruptions, bi-directional solar hybrid PCUs offer far superior ROI, equipment protection, and energy security compared to basic on-grid string systems.",
+      "blocks": [
+        {
+          "id": "b_intro",
+          "type": "paragraph",
+          "text": "Industrial manufacturing plants in Maharashtra and across India frequently battle two simultaneous challenges: rising DISCOM grid tariffs and unreliable power quality accompanied by frequent grid trips. While conventional on-grid solar systems are widely marketed, deploying them alongside industrial diesel generator (DG) sets often creates severe operational friction."
+        },
+        {
+          "id": "b_h1",
+          "type": "heading",
+          "level": 2,
+          "text": "The Fatal Flaw of On-Grid Solar with Diesel Generators"
+        },
+        {
+          "id": "b_p1",
+          "type": "paragraph",
+          "text": "Conventional on-grid string inverters rely entirely on a stable voltage and frequency reference from the utility grid. When the grid trips and the facility switches to DG power, standard grid-tie inverters must either be shut off or throttled down via a reverse power relay.\n\nIf solar generation exceeds factory consumption even momentarily, reverse current can back-feed into the alternator of the diesel generator, causing engine overheating, speed hunting, and catastrophic alternator trip."
+        },
+        {
+          "id": "b_callout1",
+          "type": "callout",
+          "variant": "warning",
+          "title": "Diesel Generator Trip Hazard",
+          "text": "Standard on-grid inverters require DG controllers that throttle solar output down to 30%, wasting up to 70% of potential solar energy during daytime outages and putting generator alternators at risk of reverse power flow."
+        },
+        {
+          "id": "b_img1",
+          "type": "image",
+          "url": "/images/showcase/commercial-solar.jpg",
+          "caption": "Figure 1: Verified C&I hybrid solar rooftop commissioning with bi-directional synchronization panel at Chakan MIDC.",
+          "alt": "Industrial Solar Hybrid Inverter Installation",
+          "layout": "contained"
+        },
+        {
+          "id": "b_h2",
+          "type": "heading",
+          "level": 2,
+          "text": "How Bi-Directional Hybrid PCUs Solve the DG Synchronization Problem"
+        },
+        {
+          "id": "b_p2",
+          "type": "paragraph",
+          "text": "EnerTech SunMagic 3-Phase Hybrid Inverters take an entirely different engineering approach. Instead of merely exporting power to the AC bus, they operate as an active microgrid hub.\n\nWhen the grid trips, the internal static transfer switch disconnects the utility grid in under 5 milliseconds (sub-cycle transfer), maintaining continuous power to critical manufacturing loads without computer reboot or CNC machine tripping."
+        },
+        {
+          "id": "b_list1",
+          "type": "list",
+          "style": "bullet",
+          "items": [
+            "Sub-5ms static transfer switch maintains critical CNC, VFD, and robotics uptime.",
+            "Active DG governor integration throttles solar safely without reverse power trip.",
+            "100% phase-unbalanced load regulation across all three phases (R, Y, B).",
+            "Peak shaving discharges battery storage during expensive DISCOM peak tariff hours."
+          ]
+        },
+        {
+          "id": "b_table1",
+          "type": "table",
+          "headers": [
+            "Operational Parameter",
+            "Standard On-Grid Inverter",
+            "EnerTech SunMagic Hybrid PCU"
+          ],
+          "rows": [
+            [
+              "Grid Failure Reaction",
+              "Shuts down completely (Anti-Islanding)",
+              "Continues unbroken supply (<5ms transfer)"
+            ],
+            [
+              "DG Set Synchronization",
+              "Requires expensive external throttling relays",
+              "Built-in DG governor reverse-power prevention"
+            ],
+            [
+              "Phase Unbalance Tolerance",
+              "Trips when load imbalance exceeds 15%",
+              "100% independent per-phase regulation"
+            ],
+            [
+              "Battery Storage Support",
+              "Not supported (AC retrofit required)",
+              "Direct high-voltage DC lithium battery bus"
+            ]
+          ],
+          "caption": "Table 1: Architectural comparison between standard on-grid solar and bi-directional hybrid PCUs."
+        },
+        {
+          "id": "b_h3",
+          "type": "heading",
+          "level": 2,
+          "text": "Financial Analysis: 100kVA Factory Case Study"
+        },
+        {
+          "id": "b_p3",
+          "type": "paragraph",
+          "text": "Consider a precision machining workshop in Chakan MIDC with an average running load of 65kVA and 2 hours of daily grid interruption. Running a 100kVA diesel generator for 2 hours daily consumes approximately 36 liters of diesel, costing over ₹3,240 per day (over ₹95,000 per month).\n\nBy deploying a 100kVA SunMagic Hybrid PCU paired with a 100kWh EnerCube BESS, daytime outages are entirely absorbed by solar and battery storage. The diesel generator is only commanded to crank if battery state of charge (SoC) drops below 20%, reducing monthly diesel bills by more than 75%."
+        },
+        {
+          "id": "b_quote1",
+          "type": "quote",
+          "text": "In industrial manufacturing, clean power is not just about reducing DISCOM electricity bills—it is about protecting multi-crore CNC machines from dirty grid spikes and zero-break continuity during power failures.",
+          "author": "Er. Sachin Patil, Principal Systems Engineer"
+        },
+        {
+          "id": "b_embed1",
+          "type": "embed",
+          "targetType": "calculator",
+          "title": "Solar & Battery Sizing Calculator",
+          "description": "Estimate your industrial plant's optimal kW capacity, battery storage size, and annual diesel cost savings."
+        }
+      ]
     },
     "relatedProductSlug": "sunmagic-three-phase-solar-hybrid-inverter",
     "relatedProductName": "SunMagic 3-Phase Hybrid Inverter (10kVA - 300kVA)"
